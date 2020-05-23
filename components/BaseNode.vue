@@ -1,5 +1,5 @@
 <template>
-  <g class="node" :id="nodeData.id">
+  <g :id="nodeData.id" class="node">
     <g class="group-circle">
       <circle
         class="node-circle"
@@ -8,6 +8,7 @@
         :r="size"
         fill="hotpink"
       />
+
       <foreignObject
         :width="size * 3"
         :height="size * 3"

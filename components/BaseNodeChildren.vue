@@ -2,11 +2,7 @@
   <g
     :class="'is-' + direction"
     class="child-nodes"
-    :style="
-      `
-      transform-origin: ${position[0]}px ${position[1]}px;
-      `
-    "
+    :style="`transform-origin: ${position[0]}px ${position[1]}px;`"
   >
     <g
       v-for="(childData, i) in nodeChildData"
@@ -20,61 +16,59 @@
         `
       "
     >
-      <g>
-        <g
-          :style="
-            `
-              transform-origin: ${position[0]}px ${position[1]}px;
-              transform: translateX(${childNodeMargin * 1.5}px);
-              `
-          "
-        >
-          <g v-if="i === 0 && direction === 'output'">
-            <circle
-              class="child-circle"
-              :r="childSize"
-              :cx="position[0]"
-              :cy="position[1]"
-            />
-            <circle
-              class="child-circle-dot"
-              :r="2"
-              :cx="position[0]"
-              :cy="position[1]"
-            />
-          </g>
-          <rect
-            v-else
-            class="child-pill"
-            :x="position[0] - childSize"
-            :y="position[1] - (childSize + childSize / 4) / 2"
-            :width="childSize * 2"
-            :height="childSize + childSize / 4"
-            :rx="(childSize + childSize / 4) / 2"
-            stroke="#484D51"
+      <g
+        :style="
+          `
+          transform-origin: ${position[0]}px ${position[1]}px;
+          transform: translateX(${childNodeMargin * 1.5}px);
+          `
+        "
+      >
+        <g v-if="i === 0 && direction === 'output'">
+          <circle
+            class="child-circle"
+            :r="childSize"
+            :cx="position[0]"
+            :cy="position[1]"
+          />
+          <circle
+            class="child-circle-dot"
+            :r="2"
+            :cx="position[0]"
+            :cy="position[1]"
           />
         </g>
+        <rect
+          v-else
+          class="child-pill"
+          :x="position[0] - childSize"
+          :y="position[1] - (childSize + childSize / 4) / 2"
+          :width="childSize * 2"
+          :height="childSize + childSize / 4"
+          :rx="(childSize + childSize / 4) / 2"
+          stroke="#484D51"
+        />
+      </g>
 
-        <foreignObject
-          :width="childSize * 30"
-          :height="childSize * 2"
-          :x="position[0] - childSize * 4"
-          :y="position[1] - childSize"
-          overflow="visible"
-          :style="
-            `
+      <foreignObject
+        :width="childSize * 30"
+        :height="childSize * 2"
+        :x="position[0] - childSize * 4"
+        :y="position[1] - childSize"
+        overflow="visible"
+        :style="
+          `
             transform-origin: ${position[0]}px ${position[1]}px;
             transform: translateX(${childNodeMargin * 2 + childSize * 2}px);
             `
-          "
-        >
-          <div class="title-wrapper">
-            <span class="title">
-              {{ childData.title }}
-            </span>
-          </div>
-        </foreignObject>
-      </g>
+        "
+      >
+        <div class="title-wrapper">
+          <span class="title">
+            {{ childData.title }}
+          </span>
+        </div>
+      </foreignObject>
     </g>
   </g>
 </template>

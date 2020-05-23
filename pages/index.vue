@@ -7,8 +7,8 @@
       @transform="onTransform"
     >
       <svg
-        viewBox="0 0 4000 2600"
         ref="OWNER"
+        :view-box.camel="`0 0 ${NODES.panSize[0]} ${NODES.panSize[1]}`"
         class="pan-element owner"
         :style="
           `
