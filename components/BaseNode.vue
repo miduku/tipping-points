@@ -1,41 +1,45 @@
 <template>
   <g :id="nodeData.id" class="node">
-    <g class="group-circle">
-      <circle
-        class="node-circle"
-        :cx="nodeData.position[0]"
-        :cy="nodeData.position[1]"
-        :r="size"
-        fill="hotpink"
-      />
+    <circle
+      class="node-circle"
+      :cx="nodeData.position[0]"
+      :cy="nodeData.position[1]"
+      :r="size"
+      fill="hotpink"
+    />
 
-      <foreignObject
-        :width="size * 3"
-        :height="size * 3"
-        :x="nodeData.position[0] - size - size / 2"
-        :y="nodeData.position[1] - size - size / 2"
-        class="node-foreign"
-      >
-        <div class="title-wrapper">
-          <span class="title">
-            {{ nodeData.title }}
-          </span>
-        </div>
-      </foreignObject>
+    <foreignObject
+      :width="size * 3"
+      :height="size * 3"
+      :x="nodeData.position[0] - size - size / 2"
+      :y="nodeData.position[1] - size - size / 2"
+      class="node-foreign"
+    >
+      <div class="title-wrapper">
+        <span class="title">
+          {{ nodeData.title }}
+        </span>
+      </div>
+    </foreignObject>
 
-      <NodeChildren
-        :node-child-data="nodeData.children.input"
-        :child-node-margin="size"
-        :position="nodeData.position"
-        direction="input"
-      />
-      <NodeChildren
-        :node-child-data="nodeData.children.output"
-        :child-node-margin="size"
-        :position="nodeData.position"
-        direction="output"
-      />
-    </g>
+    <NodeChildren
+      :data="{
+        childrenData: nodeData.children,
+        position: nodeData.position,
+        parentId: nodeData.id,
+        size
+      }"
+      direction="input"
+    />
+    <NodeChildren
+      :data="{
+        childrenData: nodeData.children,
+        position: nodeData.position,
+        parentId: nodeData.id,
+        size
+      }"
+      direction="output"
+    />
   </g>
 </template>
 
@@ -56,6 +60,13 @@ export default {
       type: Number,
       default: 80
     }
+  },
+
+  mounted() {
+    // console.log('id: ', this.$el.querySelector('#AMOC-output-0'))
+    this.$nextTick(function() {
+      console.log('BaseNode pups')
+    })
   }
 }
 </script>

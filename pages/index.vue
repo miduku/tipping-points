@@ -8,16 +8,17 @@
     >
       <svg
         ref="OWNER"
-        :view-box.camel="`0 0 ${NODES.panSize[0]} ${NODES.panSize[1]}`"
+        :view-box.camel="`0 0 ${DATA.panSize[0]} ${DATA.panSize[1]}`"
         class="pan-element owner"
         :style="
           `
-          width: ${NODES.panSize[0]}px;
-          height: ${NODES.panSize[1]}px;
+          width: ${DATA.panSize[0]}px;
+          height: ${DATA.panSize[1]}px;
           `
         "
       >
-        <Node v-for="(node, i) in NODES.data" :key="i" :node-data="node" />
+        <TheNodes :data="DATA.nodes" @hook:mounted="isNodesMounted = true" />
+        <TheLinks v-if="isNodesMounted" :data="DATA.links" />
       </svg>
     </panZoom>
 
@@ -33,19 +34,23 @@
 </template>
 
 <script>
-import Node from '~/components/BaseNode.vue'
+import TheNodes from '~/components/TheNodes.vue'
+import TheLinks from '~/components/TheLinks.vue'
 
 export default {
   components: {
-    Node
+    TheNodes,
+    TheLinks
   },
 
   data() {
     return {
+      isRootMounted: false,
+      isNodesMounted: false,
       isPanning: false,
       isZooming: false,
       options: {
-        // transformOrigin: { x: 0.5, y: 0.5 }
+        // transformOrigin: { x: 0.5, y: 0.5 },
         minZoom: 0.1,
         maxZoom: 15
         // autocenter: true
@@ -53,9 +58,9 @@ export default {
       panInstance: {
         transform: 'init'
       },
-      NODES: {
+      DATA: {
         panSize: [4000, 2600],
-        data: [
+        nodes: [
           {
             id: 'AMZN',
             title: 'Amazon rainforest dieback',
@@ -89,13 +94,20 @@ export default {
               ]
             }
           }
+        ],
+        links: [
+          { source: 'AMOC-input-0', target: 'AMZN-input-0' },
+          { source: 'AMOC-input-0', target: 'AMZN-input-0' }
+          // { source: 'AMOC-output-0', target: 'AMZN-output-0' }
         ]
       }
     }
   },
 
   mounted() {
-    // console.log(this.$refs)
+    this.$nextTick(function() {
+      this.isRootMounted = true
+    })
   },
 
   methods: {
@@ -114,30 +126,16 @@ export default {
     panTo(nodeId, newZoomLevel = 1) {
       const OWNER = this.$refs.OWNER
       const OWNER_PARENT_BOUNDS = OWNER.parentElement.getBoundingClientRect()
-      // console.log(OWNER, OWNER_PARENT_BOUNDS)
-      // const OWNER_CHILDREN = OWNER.childNodes
       const PANZOOM = this.$refs.panZoom.$panZoomInstance
 
-      console.log(OWNER.querySelector('#' + nodeId))
       const nodeElement = OWNER.querySelector('#' + nodeId)
-      const nodeElementChildren = nodeElement.children
+      const nodeElementCircle = nodeElement.querySelector('.node-circle')
 
-      let nodeElementCircle = ''
-
-      for (const child of nodeElementChildren) {
-        if (child.classList.contains('group-circle')) {
-          for (const ch of child.children) {
-            if (ch.classList.contains('node-circle')) {
-              nodeElementCircle = ch
-            }
-          }
-        }
-      }
-      console.log(
-        'nodeElement',
-        nodeElementCircle,
-        nodeElementCircle.getBoundingClientRect()
-      )
+      // console.log(
+      //   'nodeElement',
+      //   nodeElementCircle,
+      //   nodeElementCircle.getBoundingClientRect()
+      // )
 
       OWNER.classList.add('has-transition')
       PANZOOM.moveToCenterOfElement(nodeElementCircle, 0, 0)
@@ -164,8 +162,6 @@ export default {
 <style lang="scss" scoped>
 .cont {
   position: relative;
-  /* width: 100vw;
-  height: 100vh; */
   display: block;
   background: pink;
 }
