@@ -45,7 +45,6 @@ export default {
 
   data() {
     return {
-      isRootMounted: false,
       isNodesMounted: false,
       isPanning: false,
       isZooming: false,
@@ -97,8 +96,8 @@ export default {
         ],
         links: [
           { source: 'AMOC-input-0', target: 'AMZN-input-0' },
-          { source: 'AMOC-input-0', target: 'AMZN-input-0' }
-          // { source: 'AMOC-output-0', target: 'AMZN-output-0' }
+          { source: 'AMZN-output-2', target: 'AMZN-input-0' },
+          { source: 'AMOC-output-0', target: 'AMZN-output-0' }
         ]
       }
     }

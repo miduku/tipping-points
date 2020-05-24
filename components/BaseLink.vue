@@ -1,17 +1,6 @@
 <template>
   <g class="link">
-    <path
-      stroke="white"
-      stroke-width="2"
-      fill="none"
-      :d="`${createPathD(linkData.source, linkData.target)}`"
-    />
-    <!-- <path
-      stroke="white"
-      stroke-width="2"
-      fill="none"
-      d="M 1402.0166015625,627.0166625976562 C 1395,620 970,1130 977.0166625976562,1137.0166015625"
-    /> -->
+    <path stroke="white" stroke-width="2" fill="none" :d="d" />
   </g>
 </template>
 
@@ -24,18 +13,15 @@ export default {
     }
   },
 
+  data() {
+    return {
+      d: ''
+    }
+  },
+
   mounted() {
-    // console.log(this.changeHandleCoordinatesByDeg([0, 0], -90))
-    // this.createPathD(this.linkData.source, this.linkData.target)
-    // console.log(this.getElement(this.linkData.target))
     this.$nextTick(function() {
-      console.log(
-        this.linkData.source,
-        this.linkData.target,
-        this.createPathD(this.linkData.source, this.linkData.target) ===
-          'M 1402.0166015625,627.0166625976562 C 1395,620 970,1130 977.0166625976562,1137.0166015625'
-      )
-      console.log('BaseLink pups', this.linkData.source)
+      this.d = this.createPathD(this.linkData.source, this.linkData.target)
     })
   },
 
@@ -73,7 +59,7 @@ export default {
       return PARENT.querySelector(`#${id} .node-child-node`)
     },
 
-    changeHandleCoordinatesByDeg(origin = [0, 0], deg = 45, distance = 10) {
+    changeHandleCoordinatesByDeg(origin = [0, 0], deg = 45, distance = 200) {
       const x = Math.round(
         Math.cos((deg * Math.PI) / 180) * distance + origin[0]
       )
