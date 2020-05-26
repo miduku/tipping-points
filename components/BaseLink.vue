@@ -1,6 +1,14 @@
 <template>
   <g class="link">
-    <path stroke="white" stroke-width="2" fill="none" :d="d" />
+    <path
+      :stroke-width="strokeWidth"
+      :stroke-dasharray="isDashed ? '2 4' : ''"
+      stroke="#000"
+      stroke-linecap="round"
+      fill="none"
+      marker-end="url(#link-arrow)"
+      :d="d"
+    />
   </g>
 </template>
 
@@ -10,6 +18,16 @@ export default {
     linkData: {
       type: Object,
       required: true
+    },
+
+    strokeWidth: {
+      type: Number,
+      default: 1
+    },
+
+    isDashed: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -36,30 +54,51 @@ export default {
       const SOURCE_BOUNDS = sourceElement.getBoundingClientRect()
       const TARGET_BOUNDS = targetElement.getBoundingClientRect()
 
-      const sourceCoords = [SOURCE_BOUNDS.x, SOURCE_BOUNDS.y]
-      const targetCoords = [TARGET_BOUNDS.x, TARGET_BOUNDS.y]
+      const sourceCoordsCenter = [
+        SOURCE_BOUNDS.x + SOURCE_BOUNDS.width / 2,
+        SOURCE_BOUNDS.y + SOURCE_BOUNDS.height / 2
+      ]
+      const targetCoordsCenter = [
+        TARGET_BOUNDS.x + TARGET_BOUNDS.width / 2,
+        TARGET_BOUNDS.y + TARGET_BOUNDS.height / 2
+      ]
 
-      const sourceHandle = this.changeHandleCoordinatesByDeg(
-        sourceCoords,
+      const sourceCoordsMovedFromCenter = this.changeCoordinatesByDeg(
+        sourceCoordsCenter,
+        sourceDegrees,
+        9
+      )
+      const targetCoordsMovedFromCenter = this.changeCoordinatesByDeg(
+        targetCoordsCenter,
+        targetDegrees,
+        9
+      )
+
+      // move bezier handles
+      const sourceHandle = this.changeCoordinatesByDeg(
+        sourceCoordsCenter,
         sourceDegrees
       )
-      const targetHandle = this.changeHandleCoordinatesByDeg(
-        targetCoords,
+      const targetHandle = this.changeCoordinatesByDeg(
+        targetCoordsCenter,
         targetDegrees
       )
 
-      console.log('penis', sourceDegrees, targetDegrees)
-      return `M ${sourceCoords.join()} C ${sourceHandle.join()} ${targetHandle.join()} ${targetCoords.join()}`
+      return `
+        M ${sourceCoordsMovedFromCenter.join()}
+        C ${sourceHandle.join()}
+        ${targetHandle.join()}
+        ${targetCoordsMovedFromCenter.join()}
+      `
     },
 
     getElement(id) {
       const PARENT = this.$el.parentElement.parentElement
-      // console.log(PARENT)
-      // console.log(id)
+
       return PARENT.querySelector(`#${id} .node-child-node`)
     },
 
-    changeHandleCoordinatesByDeg(origin = [0, 0], deg = 45, distance = 200) {
+    changeCoordinatesByDeg(origin = [0, 0], deg = 45, distance = 200) {
       const x = Math.round(
         Math.cos((deg * Math.PI) / 180) * distance + origin[0]
       )

@@ -17,8 +17,29 @@
           `
         "
       >
+        <defs>
+          <marker
+            id="link-arrow"
+            markerWidth="5"
+            markerHeight="9"
+            refX="4"
+            refY="4.5"
+            orient="auto"
+            markerUnits="strokeWidth"
+          >
+            <path
+              d="M1 1L4.5 4.5L1 8"
+              stroke="black"
+              stroke-width="1"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              fill="none"
+            />
+          </marker>
+        </defs>
+
         <TheNodes :data="DATA.nodes" @hook:mounted="isNodesMounted = true" />
-        <TheLinks v-if="isNodesMounted" :data="DATA.links" />
+        <TheLinks v-if="isNodesMounted" :data="LINKS" />
       </svg>
     </panZoom>
 
@@ -37,10 +58,19 @@
 import TheNodes from '~/components/TheNodes.vue'
 import TheLinks from '~/components/TheLinks.vue'
 
+const getLinks = () =>
+  import('~/assets/json/links.json').then((m) => m.default || m)
+
 export default {
   components: {
     TheNodes,
     TheLinks
+  },
+
+  async asyncData({ req }) {
+    const LINKS = await getLinks()
+
+    return { LINKS }
   },
 
   data() {
@@ -148,11 +178,6 @@ export default {
           newZoomLevel
         )
       }
-    },
-
-    changeZoomSettings() {
-      this.options.minZoom = 0
-      this.options.maxZoom = 10
     }
   }
 }
@@ -195,7 +220,7 @@ export default {
 
     .pan-element {
       position: relative;
-      background: greenyellow;
+      background: #fff;
       left: 0%;
       top: 0%;
     }

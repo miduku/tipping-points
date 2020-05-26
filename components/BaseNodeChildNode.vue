@@ -21,7 +21,7 @@
           :cy="data.position[1]"
         />
         <circle
-          class="dot"
+          class="circle-dot"
           :r="2"
           :cx="data.position[0]"
           :cy="data.position[1]"
@@ -30,13 +30,19 @@
 
       <g v-else class="node-child-node" :data-degrees="data.degrees">
         <rect
+          class="pill-border"
+          :x="data.position[0] - size"
+          :y="data.position[1] - size"
+          :width="size * 2"
+          :height="size * 2"
+        />
+        <rect
           class="pill"
           :x="data.position[0] - size"
           :y="data.position[1] - (size + size / 4) / 2"
           :width="size * 2"
           :height="size + size / 4"
           :rx="(size + size / 4) / 2"
-          stroke="#484D51"
         />
       </g>
     </g>
@@ -104,13 +110,23 @@ export default {
   .node-child-node {
     .circle,
     .pill {
-      fill: none;
       stroke: fuchsia;
       stroke-width: 1;
     }
-    .dot {
-      fill: fuchsia;
+
+    .circle,
+    .pill {
+      fill: none;
+    }
+    .circle-dot,
+    .pill-border {
       stroke: none;
+    }
+    .circle-dot {
+      fill: fuchsia;
+    }
+    .pill-border {
+      fill: transparent;
     }
   }
 
