@@ -63,23 +63,23 @@ export default {
         TARGET_BOUNDS.y + TARGET_BOUNDS.height / 2
       ]
 
-      const sourceCoordsMovedFromCenter = this.changeCoordinatesByDeg(
+      const sourceCoordsMovedFromCenter = this.changeCoordinatesByDegreeAndDistance(
         sourceCoordsCenter,
         sourceDegrees,
         9
       )
-      const targetCoordsMovedFromCenter = this.changeCoordinatesByDeg(
+      const targetCoordsMovedFromCenter = this.changeCoordinatesByDegreeAndDistance(
         targetCoordsCenter,
         targetDegrees,
         9
       )
 
       // move bezier handles
-      const sourceHandle = this.changeCoordinatesByDeg(
+      const sourceHandle = this.changeCoordinatesByDegreeAndDistance(
         sourceCoordsCenter,
         sourceDegrees
       )
-      const targetHandle = this.changeCoordinatesByDeg(
+      const targetHandle = this.changeCoordinatesByDegreeAndDistance(
         targetCoordsCenter,
         targetDegrees
       )
@@ -98,7 +98,11 @@ export default {
       return PARENT.querySelector(`#${id} .node-child-node`)
     },
 
-    changeCoordinatesByDeg(origin = [0, 0], deg = 45, distance = 200) {
+    changeCoordinatesByDegreeAndDistance(
+      origin = [0, 0],
+      deg = 45,
+      distance = 200
+    ) {
       const x = Math.round(
         Math.cos((deg * Math.PI) / 180) * distance + origin[0]
       )
