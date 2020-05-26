@@ -1,0 +1,38 @@
+{
+  "panSize": [4000, 2600],
+  "nodes": [
+    {
+      "id": "AMZN",
+      "title": "Amazon rainforest dieback",
+      "position": [1070, 1230],
+      "children": {
+        "input": [
+          { "title": "Increase in wildfires" },
+          { "title": "Deforestation" },
+          { "title": "Less transpiration of moisture from plant leaves" }
+        ],
+        "output": [
+          { "title": "Dying or dead Amazon Rainforest" },
+          { "title": "Loss of of an important carbon sink" },
+          { "title": "Shift of the climate to a drier state" },
+          { "title": "Less moisture is returned to the atmosphere " },
+          { "title": "Less fertile tropical soil" }
+        ]
+      }
+    },
+    {
+      "id": "AMOC",
+      "title": "Atlantic Meridional Overturning Circulation Breakdown",
+      "position": [1495, 720],
+      "children": {
+        "input": [{ "title": "Salinity decreases" }],
+        "output": [
+          { "title": "Circulation slowing down" },
+          { "title": "Unable to pull warm, salty water from the south" },
+          { "title": "Less evaporation from the North Atlantic" },
+          { "title": "Decreased rainfall" }
+        ]
+      }
+    }
+  ]
+}

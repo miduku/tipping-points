@@ -8,12 +8,12 @@
     >
       <svg
         ref="OWNER"
-        :view-box.camel="`0 0 ${DATA.panSize[0]} ${DATA.panSize[1]}`"
+        :view-box.camel="`0 0 ${NODES.panSize[0]} ${NODES.panSize[1]}`"
         class="pan-element owner"
         :style="
           `
-          width: ${DATA.panSize[0]}px;
-          height: ${DATA.panSize[1]}px;
+          width: ${NODES.panSize[0]}px;
+          height: ${NODES.panSize[1]}px;
           `
         "
       >
@@ -38,7 +38,7 @@
           </marker>
         </defs>
 
-        <TheNodes :data="DATA.nodes" @hook:mounted="isNodesMounted = true" />
+        <TheNodes :data="NODES.nodes" @hook:mounted="isNodesMounted = true" />
         <TheLinks v-if="isNodesMounted" :data="LINKS" />
       </svg>
     </panZoom>
@@ -58,6 +58,8 @@
 import TheNodes from '~/components/TheNodes.vue'
 import TheLinks from '~/components/TheLinks.vue'
 
+const getNodes = () =>
+  import('~/assets/json/nodes.json').then((m) => m.default || m)
 const getLinks = () =>
   import('~/assets/json/links.json').then((m) => m.default || m)
 
@@ -68,9 +70,10 @@ export default {
   },
 
   async asyncData({ req }) {
+    const NODES = await getNodes()
     const LINKS = await getLinks()
 
-    return { LINKS }
+    return { NODES, LINKS }
   },
 
   data() {
@@ -86,49 +89,6 @@ export default {
       },
       panInstance: {
         transform: 'init'
-      },
-      DATA: {
-        panSize: [4000, 2600],
-        nodes: [
-          {
-            id: 'AMZN',
-            title: 'Amazon rainforest dieback',
-            position: [1070, 1230],
-            children: {
-              input: [
-                { title: 'Increase in wildfires' },
-                { title: 'Deforestation' },
-                { title: 'Less transpiration of moisture from plant leaves' }
-              ],
-              output: [
-                { title: 'Dying or dead Amazon Rainforest' },
-                { title: 'Loss of of an important carbon sink' },
-                { title: 'Shift of the climate to a drier state' },
-                { title: 'Less moisture is returned to the atmosphere ' },
-                { title: 'Less fertile tropical soil' }
-              ]
-            }
-          },
-          {
-            id: 'AMOC',
-            title: 'Atlantic Meridional Overturning Circulation Breakdown',
-            position: [1495, 720],
-            children: {
-              input: [{ title: 'Salinity decreases' }],
-              output: [
-                { title: 'Circulation slowing down' },
-                { title: 'Unable to pull warm, salty water from the south' },
-                { title: 'Less evaporation from the North Atlantic' },
-                { title: 'Decreased rainfall' }
-              ]
-            }
-          }
-        ],
-        links: [
-          { source: 'AMOC-input-0', target: 'AMZN-input-0' },
-          { source: 'AMZN-output-2', target: 'AMZN-input-0' },
-          { source: 'AMOC-output-0', target: 'AMZN-output-0' }
-        ]
       }
     }
   },

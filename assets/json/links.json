@@ -1,0 +1,10 @@
+[
+  { "source": "AMOC-input-0", "target": "AMZN-input-0" },
+  { "source": "AMZN-output-2", "target": "AMZN-input-0" },
+  { "source": "AMZN-output-4", "target": "AMZN-input-0" },
+  { "source": "AMOC-output-0", "target": "AMZN-output-4" },
+  { "source": "AMOC-output-2", "target": "AMZN-output-0" },
+  { "source": "AMOC-output-2", "target": "AMZN-output-1" },
+  { "source": "AMOC-output-2", "target": "AMZN-output-2" },
+  { "source": "AMZN-output-4", "target": "AMZN-output-0" }
+]
