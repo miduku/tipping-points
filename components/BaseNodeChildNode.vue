@@ -92,7 +92,7 @@ export default {
   mounted() {
     // console.log(this.data)
     this.$nextTick(function() {
-      console.log('BaseNodeChildNode pups')
+      // console.log('BaseNodeChildNode pups')
     })
   }
 }

@@ -27,7 +27,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/vue-panzoom.js', ssr: false }],
+  plugins: [
+    { src: '~/plugins/vue-panzoom.js', ssr: false },
+    { src: '~/plugins/vue-resize-directive', ssr: false }
+  ],
   /*
    ** Nuxt.js dev-modules
    */

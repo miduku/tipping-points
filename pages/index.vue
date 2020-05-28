@@ -8,15 +8,13 @@
       @transform="onTransform"
     >
       <svg
-        id="OWNER"
-        :view-box.camel="
-          `0 0 ${NODES_JSON.panSize[0]} ${NODES_JSON.panSize[1]}`
-        "
+        ref="OWNER"
+        :view-box.camel="`0 0 ${getNodes.panSize[0]} ${getNodes.panSize[1]}`"
         class="pan-element owner"
         :style="
           `
-          width: ${NODES_JSON.panSize[0]}px;
-          height: ${NODES_JSON.panSize[1]}px;
+          width: ${getNodes.panSize[0]}px;
+          height: ${getNodes.panSize[1]}px;
           `
         "
       >
@@ -42,11 +40,11 @@
         </defs>
 
         <TheNodes
-          :data="NODES_JSON.nodes"
+          :data="getNodes.nodes"
           @hook:mounted="isNodesMounted = true"
         />
 
-        <TheLinks v-if="isNodesMounted" :data="LINKS_JSON" />
+        <TheLinks v-if="isNodesMounted" :data="getLinks" />
       </svg>
     </panZoom>
 
@@ -64,10 +62,8 @@ import { mapState } from 'vuex'
 import TheNodes from '~/components/TheNodes.vue'
 import TheLinks from '~/components/TheLinks.vue'
 
-const getNodes = () =>
-  import('~/assets/json/nodes.json').then((m) => m.default || m)
-const getLinks = () =>
-  import('~/assets/json/links.json').then((m) => m.default || m)
+import getNodes from '~/assets/json/nodes.json'
+import getLinks from '~/assets/json/links.json'
 
 export default {
   components: {
@@ -75,11 +71,8 @@ export default {
     TheLinks
   },
 
-  async asyncData({ req }) {
-    const NODES_JSON = await getNodes()
-    const LINKS_JSON = await getLinks()
-
-    return { NODES_JSON, LINKS_JSON }
+  asyncData({ params }) {
+    return { getNodes, getLinks }
   },
 
   data() {
@@ -100,12 +93,15 @@ export default {
   },
 
   computed: {
-    ...mapState(['panToNodeId'])
+    ...mapState(['timeStamp', 'panToNodeId', 'panZoomCoords'])
   },
 
   watch: {
-    panToNodeId(value, oldValue) {
-      this.panTo(value)
+    timeStamp(value, oldValue) {
+      console.log(value)
+      if (value !== oldValue) {
+        this.panTo(this.panToNodeId)
+      }
     }
   },
 
@@ -115,10 +111,9 @@ export default {
 
   methods: {
     panTo(nodeId, newZoomLevel = 1) {
-      const MAIN_PARENT = this.$root.$el.querySelector('#content-main')
-      const OWNER = MAIN_PARENT.querySelector('#OWNER')
-      const OWNER_PARENT_BOUNDS = OWNER.parentElement.getBoundingClientRect()
+      const OWNER = this.$refs.OWNER
       const PANZOOM = this.$refs.PANZOOM.$panZoomInstance
+      const OWNER_PARENT_BOUNDS = OWNER.parentElement.getBoundingClientRect()
 
       const nodeElement = OWNER.querySelector('#' + nodeId)
       const nodeElementCircle = nodeElement.querySelector('.node-circle')
@@ -141,6 +136,12 @@ export default {
       // Delete this on production
       const pan = this.$refs.PANZOOM.$panZoomInstance
       const getTransform = pan.getTransform()
+
+      this.$store.commit('GET_PANTOOM_COORDS', [
+        getTransform.x,
+        getTransform.y,
+        getTransform.scale
+      ])
 
       // console.log('panning')
       this.panInstance.transform = `

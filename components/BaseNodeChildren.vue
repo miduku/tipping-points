@@ -58,7 +58,7 @@ export default {
   mounted() {
     // console.log(this.data)
     this.$nextTick(function() {
-      console.log('BaseNodeChildren pups')
+      // console.log('BaseNodeChildren pups')
     })
   },
 

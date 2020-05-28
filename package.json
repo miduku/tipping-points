@@ -15,7 +15,8 @@
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/style-resources": "^1.0.0",
     "nuxt": "^2.0.0",
-    "vue-panzoom": "^1.1.1"
+    "vue-panzoom": "^1.1.1",
+    "vue-resize-directive": "^1.2.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.0",

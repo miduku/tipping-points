@@ -21,7 +21,7 @@ export default {
 
   mounted() {
     this.$nextTick(function() {
-      console.log('links pups')
+      // console.log('links pups')
     })
   }
 }

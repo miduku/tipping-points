@@ -1,16 +1,18 @@
 <template>
   <nav class="nav nav-main">
-    <button class="button" @click.prevent="vuexPanTo('AMZN')">amazon</button>
-    <button class="button" @click.prevent="vuexPanTo('AMOC')">atlantic</button>
+    <div class="nav-impacts">
+      <button class="button" @click.prevent="vuexPanTo('AMZN')">amazon</button>
+      <button class="button" @click.prevent="vuexPanTo('AMOC')">
+        atlantic
+      </button>
+    </div>
   </nav>
 </template>
 
 <script>
 export default {
   mounted() {
-    this.$nextTick(function() {
-      console.log(this.$root.$el.querySelector('.content-main'))
-    })
+    this.$nextTick(function() {})
   },
 
   methods: {

@@ -65,7 +65,7 @@ export default {
   mounted() {
     // console.log('id: ', this.$el.querySelector('#AMOC-output-0'))
     this.$nextTick(function() {
-      console.log('BaseNode pups')
+      // console.log('BaseNode pups')
     })
   }
 }

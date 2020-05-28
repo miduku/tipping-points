@@ -7,7 +7,23 @@
       stroke-linecap="round"
       fill="none"
       marker-end="url(#link-arrow)"
-      :d="d"
+      :d="
+        `
+        M
+        ${dSourceCoords[0]},
+        ${dSourceCoords[1]}
+
+        C
+        ${dSourceCoordsHandle[0]},
+        ${dSourceCoordsHandle[1]}
+
+        ${dTargetCoordsHandle[0] - differenceCoords[0]},
+        ${dTargetCoordsHandle[1] - differenceCoords[1]}
+
+        ${dTargetCoords[0] - differenceCoords[1]},
+        ${dTargetCoords[1] - differenceCoords[1]}
+        `
+      "
     />
   </g>
 </template>
@@ -28,25 +44,34 @@ export default {
     isDashed: {
       type: Boolean,
       default: false
+    },
+
+    differenceCoords: {
+      type: Array,
+      default: () => [0, 0, 1]
     }
   },
 
   data() {
     return {
-      d: ''
+      dSourceCoords: [0, 0],
+      dSourceCoordsHandle: [0, 0],
+      dTargetCoordsHandle: [0, 0],
+      dTargetCoords: [0, 0]
     }
   },
 
   mounted() {
     this.$nextTick(function() {
+      console.log(this.differenceCoords)
       this.d = this.createPathD(this.linkData.source, this.linkData.target)
     })
   },
 
   methods: {
-    createPathD(sourceId, targetId) {
-      const sourceElement = this.getElement(sourceId)
-      const targetElement = this.getElement(targetId)
+    createPathD(sourceId, targetId, parent) {
+      const sourceElement = this.getElement(sourceId, parent)
+      const targetElement = this.getElement(targetId, parent)
 
       const sourceDegrees = sourceElement.dataset.degrees
       const targetDegrees = targetElement.dataset.degrees
@@ -75,27 +100,29 @@ export default {
       )
 
       // move bezier handles
-      const sourceHandle = this.changeCoordinatesByDegreeAndDistance(
+      const sourceCoordsHandle = this.changeCoordinatesByDegreeAndDistance(
         sourceCoordsCenter,
         sourceDegrees
       )
-      const targetHandle = this.changeCoordinatesByDegreeAndDistance(
+      const targetCoordsHandle = this.changeCoordinatesByDegreeAndDistance(
         targetCoordsCenter,
         targetDegrees
       )
 
-      return `
-        M ${sourceCoordsMovedFromCenter.join()}
-        C ${sourceHandle.join()}
-        ${targetHandle.join()}
-        ${targetCoordsMovedFromCenter.join()}
-      `
+      this.dSourceCoords = [
+        sourceCoordsMovedFromCenter[0],
+        sourceCoordsMovedFromCenter[1]
+      ]
+      this.dSourceCoordsHandle = [sourceCoordsHandle[0], sourceCoordsHandle[1]]
+      this.dTargetCoordsHandle = [targetCoordsHandle[0], targetCoordsHandle[1]]
+      this.dTargetCoords = [
+        targetCoordsMovedFromCenter[0],
+        targetCoordsMovedFromCenter[1]
+      ]
     },
 
-    getElement(id) {
-      const PARENT = this.$el.parentElement.parentElement
-
-      return PARENT.querySelector(`#${id} .node-child-node`)
+    getElement(id, parent = this.$root.$el) {
+      return parent.querySelector(`#${id} .node-child-node`)
     },
 
     changeCoordinatesByDegreeAndDistance(
