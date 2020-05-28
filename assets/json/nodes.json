@@ -4,7 +4,7 @@
     {
       "id": "AMZN",
       "title": "Amazon rainforest dieback",
-      "position": [1070, 1230],
+      "position": [1070, 1450],
       "children": {
         "input": [
           { "title": "Increase in wildfires" },
@@ -23,7 +23,7 @@
     {
       "id": "AMOC",
       "title": "Atlantic Meridional Overturning Circulation Breakdown",
-      "position": [1495, 720],
+      "position": [1495, 900],
       "children": {
         "input": [{ "title": "Salinity decreases" }],
         "output": [
@@ -31,6 +31,128 @@
           { "title": "Unable to pull warm, salty water from the south" },
           { "title": "Less evaporation from the North Atlantic" },
           { "title": "Decreased rainfall" }
+        ]
+      }
+    },
+
+    {
+      "id": "BFS",
+      "title": "Boreal Forest Shift",
+      "position": [860, 620],
+      "children": {
+        "input": [
+          { "title": "Stress on vegetation from climate change" },
+          { "title": "Permafrost Loss" }
+        ],
+        "output": [
+          { "title": "Boreal forest dieback and northward expansion" },
+          { "title": "Boreal forests displaced" },
+          { "title": "Changes in reflectivity of the land surface" },
+          { "title": "Massive release of carbon" },
+          { "title": "Regeneration impairment " }
+        ]
+      }
+    },
+
+    {
+      "id": "GIS",
+      "title": "Greenand Ice Sheet Disintegration",
+      "position": [1610, 290],
+      "children": {
+        "input": [
+          {
+            "title": "The snowline migrates to higher elevations as the ice sheet warms"
+          },
+          { "title": "High global temperatures" }
+        ],
+        "output": [
+          { "title": "Melting on surfaces of ice sheets" },
+          { "title": "Ice sheet gets lower via melting." },
+          { "title": "Meltwater running off into the ocean." }
+        ]
+      }
+    },
+
+    {
+      "id": "WAM",
+      "title": "West African Monsoon Shift",
+      "position": [2355, 1080],
+      "children": {
+        "input": [{ "title": "Southward shift of monsoon rains " }],
+        "output": [
+          { "title": "Increase in drought" },
+          {
+            "title": "Decrease in vegetation growth and increase in desertification"
+          },
+          { "title": "Decreased  local rainfall" },
+          { "title": "Extended drought contributes to a famine " }
+        ]
+      }
+    },
+
+    {
+      "id": "CRD",
+      "title": "Coral reef die-off",
+      "position": [3130, 1700],
+      "children": {
+        "input": [
+          { "title": "Direct damage or destruction" },
+          { "title": "Mass bleaching of corals" },
+          { "title": "Reduction of coral growth" }
+        ],
+        "output": [
+          { "title": "Dead or dying Coral Reefs" },
+          {
+            "title": "Amplified growth of tropical, fleshy macroalgae (mainly Caribbean corals)"
+          },
+          { "title": "The loss of herbivorous fish" }
+        ]
+      }
+    },
+
+    {
+      "id": "IMS",
+      "title": "Indian Monsoon Shift",
+      "position": [2960, 850],
+      "children": {
+        "input": [{ "title": "Decreased locoal Rainfall" }],
+        "output": [
+          { "title": "Dry state" },
+          { "title": "Negative effect on Agriculture" }
+        ]
+      }
+    },
+
+    {
+      "id": "PERM",
+      "title": "Permafrost Loss",
+      "position": [2390, 460],
+      "children": {
+        "input": [{ "title": "Large-scale thawing" }],
+        "output": [
+          { "title": "Release of stored greenhouse gases" },
+          { "title": "increase of ocean acidification from Carbon" }
+        ]
+      }
+    },
+
+    {
+      "id": "WAIS",
+      "title": "West Atlantic Ice Sheet Disintegration",
+      "position": [1475, 2270],
+      "children": {
+        "input": [
+          { "title": "Less snowfall" },
+          { "title": "Risk of ice shelves melting from above and below" },
+          {
+            "title": "Gradual flow of the ice from its interior towards the coast and Southern Ocean"
+          }
+        ],
+        "output": [
+          { "title": "Ice sheet loss" },
+          {
+            "title": "Ice sheet loses more ice to the ocean than it gains in snow"
+          }
         ]
       }
     }

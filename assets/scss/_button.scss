@@ -1,0 +1,11 @@
+.button {
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  background: pink;
+  border-radius: $border-radius;
+  border: none;
+
+  &.is-bordered {
+    border: 1px solid $light;
+  }
+}

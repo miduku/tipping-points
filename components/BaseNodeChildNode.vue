@@ -48,7 +48,7 @@
     </g>
 
     <foreignObject
-      :width="size * 30"
+      :width="size * 25"
       :height="size * 2"
       :x="data.position[0] - size * 4"
       :y="data.position[1] - size"
@@ -56,12 +56,17 @@
       :style="
         `
           transform-origin: ${data.position[0]}px ${data.position[1]}px;
-          transform: translateX(${data.margin * 2 + size * 2}px);
+          transform: translateX(${data.margin * 2 + size}px);
         `
       "
     >
       <div class="title-wrapper">
-        <span class="title">
+        <span
+          class="title"
+          :class="
+            data.i === 0 && data.direction === 'output' ? 'is-strong' : ''
+          "
+        >
           {{ data.childData.title }}
         </span>
       </div>
@@ -135,15 +140,14 @@ export default {
     justify-content: center;
     align-items: center;
     height: inherit;
-    /* background: fuchsia; */
 
     .title {
       position: absolute;
       text-align: left;
-      /* background: chocolate; */
       word-break: keep-all;
       width: 100%;
-      font-size: 1rem;
+      opacity: 0.5;
+      font-size: 0.625rem;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       font-feature-settings: 'cpsp' on;

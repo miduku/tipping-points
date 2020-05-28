@@ -19,9 +19,9 @@
     >
       <NodeChildNode
         :data="{
+          i,
           childData,
           direction,
-          i,
           position: data.position,
           margin: data.size,
           degrees: setNodeChildrenDegrees(

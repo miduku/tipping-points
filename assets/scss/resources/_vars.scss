@@ -1,0 +1,36 @@
+// Units (using 8px)
+// (1rem = 16px)
+$letter-spacing: 0.025em;
+$root-font-size: 16;
+$root-line-height: 24;
+$root-unit: 16;
+
+$unit: $root-unit / $root-font-size * 1rem;
+$margin: 2 * $unit;
+
+$border-radius: $unit * 0.25;
+
+// Colors
+$red: #eb4747;
+$dark: #171a1c;
+$dark-grey: #484d51;
+$light: #c9cccf;
+
+// Easing
+// $easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+// $easeOutExpo: cubic-bezier(0.19, 1, 0.22, 1);
+// $easeOutQuart: cubic-bezier(0.165, 0.84, 0.44, 1);
+$easeOutQuint: cubic-bezier(0.23, 1, 0.32, 1);
+$easeInOutQuint: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+// Device sizes
+$tablet: 769px;
+$desktop: 1024px;
+$widescreen: 1280px;
+$fullhd: 1366px;
+$reallywidescreen: 1920px;
+
+// Type
+// $sans-serif: 'calluna sans', sans-serif;
+$sans-serif: 'inter', sans-serif;
+$serif: 'calluna', serif;

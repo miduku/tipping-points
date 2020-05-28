@@ -1,13 +1,14 @@
 <template>
-  <div class="cont">
+  <div id="content-main">
     <panZoom
-      ref="panZoom"
+      id="PANZOOM"
+      ref="PANZOOM"
       :options="options"
       class="pan-zoom"
       @transform="onTransform"
     >
       <svg
-        ref="OWNER"
+        id="OWNER"
         :view-box.camel="`0 0 ${NODES.panSize[0]} ${NODES.panSize[1]}`"
         class="pan-element owner"
         :style="
@@ -46,9 +47,6 @@
     <div class="dot"></div>
 
     <div class="buttons">
-      <button @click.prevent="panTo('AMZN')">amazon</button>
-      <button @click.prevent="panTo('AMOC')">atlantic</button>
-      <br />
       <p>{{ panInstance.transform }}</p>
     </div>
   </div>
@@ -94,37 +92,20 @@ export default {
   },
 
   mounted() {
-    this.$nextTick(function() {
-      this.isRootMounted = true
-    })
+    this.$nextTick(function() {})
   },
 
   methods: {
-    onTransform() {
-      const pan = this.$refs.panZoom.$panZoomInstance
-      const getTransform = pan.getTransform()
-
-      // console.log('panning')
-      this.panInstance.transform = `
-        x: ${getTransform.x},
-        y: ${getTransform.y},
-        scale: ${getTransform.scale}
-      `
-    },
-
     panTo(nodeId, newZoomLevel = 1) {
-      const OWNER = this.$refs.OWNER
+      const MAIN_PARENT = this.$root.$el.querySelector('#content-main')
+      const OWNER = MAIN_PARENT.querySelector('#OWNER')
       const OWNER_PARENT_BOUNDS = OWNER.parentElement.getBoundingClientRect()
-      const PANZOOM = this.$refs.panZoom.$panZoomInstance
+      const PANZOOM = this.$refs.PANZOOM.$panZoomInstance
+
+      // TODO use vuex
 
       const nodeElement = OWNER.querySelector('#' + nodeId)
       const nodeElementCircle = nodeElement.querySelector('.node-circle')
-
-      // console.log(
-      //   'nodeElement',
-      //   nodeElementCircle,
-      //   nodeElementCircle.getBoundingClientRect()
-      // )
 
       OWNER.classList.add('has-transition')
       PANZOOM.moveToCenterOfElement(nodeElementCircle, 0, 0)
@@ -138,6 +119,19 @@ export default {
           newZoomLevel
         )
       }
+    },
+
+    onTransform() {
+      const pan = this.$refs.PANZOOM.$panZoomInstance
+      const getTransform = pan.getTransform()
+      console.log(this.$refs.PANZOOM)
+
+      // console.log('panning')
+      this.panInstance.transform = `
+        x: ${getTransform.x},
+        y: ${getTransform.y},
+        scale: ${getTransform.scale}
+      `
     }
   }
 }
