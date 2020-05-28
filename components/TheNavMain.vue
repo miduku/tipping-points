@@ -1,7 +1,7 @@
 <template>
   <nav class="nav nav-main">
-    <button class="button" @click.prevent="panTo('AMZN')">amazon</button>
-    <button class="button" @click.prevent="panTo('AMOC')">atlantic</button>
+    <button class="button" @click.prevent="vuexPanTo('AMZN')">amazon</button>
+    <button class="button" @click.prevent="vuexPanTo('AMOC')">atlantic</button>
   </nav>
 </template>
 
@@ -13,6 +13,10 @@ export default {
     })
   },
 
-  methods: {}
+  methods: {
+    vuexPanTo(nodeId) {
+      this.$store.commit('TO_NODE_ID', nodeId)
+    }
+  }
 }
 </script>

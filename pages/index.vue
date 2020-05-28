@@ -9,12 +9,14 @@
     >
       <svg
         id="OWNER"
-        :view-box.camel="`0 0 ${NODES.panSize[0]} ${NODES.panSize[1]}`"
+        :view-box.camel="
+          `0 0 ${NODES_JSON.panSize[0]} ${NODES_JSON.panSize[1]}`
+        "
         class="pan-element owner"
         :style="
           `
-          width: ${NODES.panSize[0]}px;
-          height: ${NODES.panSize[1]}px;
+          width: ${NODES_JSON.panSize[0]}px;
+          height: ${NODES_JSON.panSize[1]}px;
           `
         "
       >
@@ -39,8 +41,12 @@
           </marker>
         </defs>
 
-        <TheNodes :data="NODES.nodes" @hook:mounted="isNodesMounted = true" />
-        <TheLinks v-if="isNodesMounted" :data="LINKS" />
+        <TheNodes
+          :data="NODES_JSON.nodes"
+          @hook:mounted="isNodesMounted = true"
+        />
+
+        <TheLinks v-if="isNodesMounted" :data="LINKS_JSON" />
       </svg>
     </panZoom>
 
@@ -53,6 +59,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import TheNodes from '~/components/TheNodes.vue'
 import TheLinks from '~/components/TheLinks.vue'
 
@@ -68,10 +76,10 @@ export default {
   },
 
   async asyncData({ req }) {
-    const NODES = await getNodes()
-    const LINKS = await getLinks()
+    const NODES_JSON = await getNodes()
+    const LINKS_JSON = await getLinks()
 
-    return { NODES, LINKS }
+    return { NODES_JSON, LINKS_JSON }
   },
 
   data() {
@@ -91,6 +99,16 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState(['panToNodeId'])
+  },
+
+  watch: {
+    panToNodeId(value, oldValue) {
+      this.panTo(value)
+    }
+  },
+
   mounted() {
     this.$nextTick(function() {})
   },
@@ -101,8 +119,6 @@ export default {
       const OWNER = MAIN_PARENT.querySelector('#OWNER')
       const OWNER_PARENT_BOUNDS = OWNER.parentElement.getBoundingClientRect()
       const PANZOOM = this.$refs.PANZOOM.$panZoomInstance
-
-      // TODO use vuex
 
       const nodeElement = OWNER.querySelector('#' + nodeId)
       const nodeElementCircle = nodeElement.querySelector('.node-circle')
@@ -122,9 +138,9 @@ export default {
     },
 
     onTransform() {
+      // Delete this on production
       const pan = this.$refs.PANZOOM.$panZoomInstance
       const getTransform = pan.getTransform()
-      console.log(this.$refs.PANZOOM)
 
       // console.log('panning')
       this.panInstance.transform = `
