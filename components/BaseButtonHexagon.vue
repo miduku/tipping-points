@@ -1,6 +1,9 @@
 <template>
   <button class="button">
-    <span class="title">{{ title }}</span>
+    <div class="title is-strong">
+      <span>{{ title }}</span>
+    </div>
+
     <svg
       width="32"
       height="36"
@@ -50,7 +53,7 @@ $background: $red;
     }
 
     svg path {
-      fill: rgba($red, 0.25);
+      fill: lighten($red, 25%);
     }
   }
 
@@ -64,6 +67,10 @@ $background: $red;
     opacity: 0;
     transform: translateX(-$size);
     transition: transform 0.33s $easeOutQuint, opacity 0.66s $easeOutQuint;
+
+    span {
+      background: rgba(#fff, 0.75);
+    }
   }
 
   svg {

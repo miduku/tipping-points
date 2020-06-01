@@ -5,8 +5,18 @@
       :cx="nodeData.position[0]"
       :cy="nodeData.position[1]"
       :r="size"
-      fill="hotpink"
     />
+
+    <g class="node-links">
+      <Link
+        v-for="(nodeLink, j) in nodeData.links"
+        :key="j"
+        :link-data="nodeLink"
+        :distance="size * 1.15"
+        invert-angle
+        class="node-link"
+      />
+    </g>
 
     <foreignObject
       :width="size * 3"
@@ -45,10 +55,12 @@
 </template>
 
 <script>
+import Link from '~/components/BaseLink.vue'
 import NodeChildren from '~/components/BaseNodeChildren.vue'
 
 export default {
   components: {
+    Link,
     NodeChildren
   },
 
@@ -57,6 +69,7 @@ export default {
       type: Object,
       required: true
     },
+
     size: {
       type: Number,
       default: 80
@@ -64,9 +77,8 @@ export default {
   },
 
   mounted() {
-    // console.log('id: ', this.$el.querySelector('#AMOC-output-0'))
     this.$nextTick(function() {
-      // console.log('BaseNode pups')
+      console.log('mounted BaseNode')
     })
   }
 }
@@ -74,14 +86,18 @@ export default {
 
 <style lang="scss" scoped>
 .node {
-  position: absolute;
-  background: hotpink;
-  /* border-radius: 50%; */
+  .node-circle {
+    stroke: $light;
+    fill: rgba(#fff, 0.75);
+    pointer-events: all;
 
-  .group-circle {
-    .node-circle:hover {
+    &:hover {
       fill: red;
     }
+  }
+
+  .node-link {
+    opacity: 0.25;
   }
 
   .node-foreign {
@@ -97,7 +113,6 @@ export default {
     .title {
       position: absolute;
       text-align: center;
-      /* background: chocolate; */
       word-break: keep-all;
       width: 100%;
       font-size: 1rem;

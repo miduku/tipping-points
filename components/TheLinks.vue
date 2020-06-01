@@ -1,6 +1,6 @@
 <template>
   <g id="links">
-    <Link v-for="(link, i) in data" :key="i" :link-data="link" />
+    <Link v-for="(link, i) in data" :key="i" :link-data="link" class="links" />
   </g>
 </template>
 
@@ -21,7 +21,7 @@ export default {
 
   mounted() {
     this.$nextTick(function() {
-      // console.log('links pups')
+      console.log('mounted TheLinks')
     })
   }
 }

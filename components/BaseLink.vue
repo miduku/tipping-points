@@ -1,12 +1,12 @@
 <template>
-  <g class="link">
+  <g
+    class="link"
+    :class="linkData.lock ? `link-lock-${linkData.lock}` : 'none'"
+  >
     <path
       :stroke-width="strokeWidth * differenceCoords[2]"
-      :stroke-dasharray="isDashed ? '2 4' : ''"
-      stroke="#000"
       stroke-linecap="round"
       fill="none"
-      marker-end="url(#link-arrow)"
       :d="
         `
         M
@@ -81,7 +81,10 @@ export default {
 
   methods: {
     lockCoordsifTrue(coords, checkForLock) {
-      if (checkForLock === this.linkData.lock) {
+      if (
+        this.linkData.lock !== undefined &&
+        checkForLock === this.linkData.lock
+      ) {
         return coords.join()
       }
 
@@ -173,7 +176,42 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-path {
-  transition: d ease-out;
+.link {
+  &.links {
+    path {
+      stroke: $dark-grey;
+    }
+  }
+
+  &.links-impact.link-lock-source,
+  &.links-impact.link-lock-target {
+    path {
+      stroke: $red;
+      marker-end: url(#link-arrow-red);
+      animation: dash-animation 0.5s linear reverse infinite;
+      stroke-dasharray: 4 8;
+      opacity: 1;
+    }
+  }
+  &.links-impact.link-lock-source {
+    path {
+    }
+  }
+
+  path {
+    transition: d ease-out;
+    stroke: $dark;
+    marker-end: url(#link-arrow);
+    opacity: 0.75;
+  }
+
+  &.is-dash-animated path {
+  }
+}
+
+@keyframes dash-animation {
+  to {
+    stroke-dashoffset: 12;
+  }
 }
 </style>

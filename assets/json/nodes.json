@@ -5,6 +5,17 @@
       "id": "AMZN",
       "title": "Amazon rainforest dieback",
       "position": [1070, 1450],
+      "links": [
+        { "source": "AMZN-input-0", "target": "AMZN-output-4" },
+        { "source": "AMZN-input-1", "target": "AMZN-output-4" },
+        { "source": "AMZN-input-2", "target": "AMZN-output-3" },
+        { "source": "AMZN-output-0", "target": "AMZN-output-1" },
+        { "source": "AMZN-output-2", "target": "AMZN-output-0" },
+        { "source": "AMZN-output-2", "target": "AMZN-input-0" },
+        { "source": "AMZN-output-2", "target": "AMZN-input-2" },
+        { "source": "AMZN-output-3", "target": "AMZN-output-2" },
+        { "source": "AMZN-output-4", "target": "AMZN-input-2" }
+      ],
       "children": {
         "input": [
           { "title": "Increase in wildfires" },
@@ -20,10 +31,18 @@
         ]
       }
     },
+
     {
       "id": "AMOC",
       "title": "Atlantic Meridional Overturning Circulation Breakdown",
       "position": [1495, 900],
+      "links": [
+        { "source": "AMOC-input-0", "target": "AMOC-output-1" },
+        { "source": "AMOC-output-0", "target": "AMOC-output-2" },
+        { "source": "AMOC-output-1", "target": "AMOC-output-0" },
+        { "source": "AMOC-output-2", "target": "AMOC-output-3" },
+        { "source": "AMOC-output-2", "target": "AMOC-input-0" }
+      ],
       "children": {
         "input": [{ "title": "Salinity decreases" }],
         "output": [
@@ -39,6 +58,14 @@
       "id": "BFS",
       "title": "Boreal Forest Shift",
       "position": [860, 620],
+      "links": [
+        { "source": "BFS-input-0", "target": "BFS-output-4" },
+        { "source": "BFS-input-1", "target": "BFS-output-3" },
+        { "source": "BFS-output-0", "target": "BFS-output-1" },
+        { "source": "BFS-output-1", "target": "BFS-output-2" },
+        { "source": "BFS-output-1", "target": "BFS-output-3" },
+        { "source": "BFS-output-4", "target": "BFS-output-0" }
+      ],
       "children": {
         "input": [
           { "title": "Stress on vegetation from climate change" },
@@ -58,6 +85,12 @@
       "id": "GIS",
       "title": "Greenand Ice Sheet Disintegration",
       "position": [1610, 290],
+      "links": [
+        { "source": "GIS-input-0", "target": "GIS-output-1" },
+        { "source": "GIS-input-1", "target": "GIS-output-0" },
+        { "source": "GIS-output-0", "target": "GIS-output-2" },
+        { "source": "GIS-output-1", "target": "GIS-output-0" }
+      ],
       "children": {
         "input": [
           {
@@ -67,8 +100,8 @@
         ],
         "output": [
           { "title": "Melting on surfaces of ice sheets" },
-          { "title": "Ice sheet gets lower via melting." },
-          { "title": "Meltwater running off into the ocean." }
+          { "title": "Ice sheet gets lower via melting" },
+          { "title": "Meltwater running off into the ocean" }
         ]
       }
     },
@@ -77,6 +110,13 @@
       "id": "WAM",
       "title": "West African Monsoon Shift",
       "position": [2355, 1080],
+      "links": [
+        { "source": "WAM-input-0", "target": "WAM-output-0" },
+        { "source": "WAM-output-0", "target": "WAM-output-1" },
+        { "source": "WAM-output-0", "target": "WAM-output-3" },
+        { "source": "WAM-output-1", "target": "WAM-output-2" },
+        { "source": "WAM-output-2", "target": "WAM-output-0" }
+      ],
       "children": {
         "input": [{ "title": "Southward shift of monsoon rains " }],
         "output": [
@@ -94,6 +134,15 @@
       "id": "CRD",
       "title": "Coral reef die-off",
       "position": [3130, 1700],
+      "links": [
+        { "source": "CRD-input-0", "target": "CRD-output-0" },
+        { "source": "CRD-input-0", "target": "CRD-output-2" },
+        { "source": "CRD-input-1", "target": "CRD-output-0" },
+        { "source": "CRD-input-2", "target": "CRD-output-0" },
+        { "source": "CRD-output-0", "target": "CRD-output-1" },
+        { "source": "CRD-output-1", "target": "CRD-output-0" },
+        { "source": "CRD-output-2", "target": "CRD-output-1" }
+      ],
       "children": {
         "input": [
           { "title": "Direct damage or destruction" },
@@ -114,6 +163,10 @@
       "id": "IMS",
       "title": "Indian Monsoon Shift",
       "position": [2960, 850],
+      "links": [
+        { "source": "IMS-input-0", "target": "IMS-output-0" },
+        { "source": "IMS-output-0", "target": "IMS-output-1" }
+      ],
       "children": {
         "input": [{ "title": "Decreased locoal Rainfall" }],
         "output": [
@@ -127,6 +180,10 @@
       "id": "PERM",
       "title": "Permafrost Loss",
       "position": [2390, 460],
+      "links": [
+        { "source": "PERM-input-0", "target": "PERM-output-0" },
+        { "source": "PERM-output-0", "target": "PERM-output-1" }
+      ],
       "children": {
         "input": [{ "title": "Large-scale thawing" }],
         "output": [
@@ -140,6 +197,12 @@
       "id": "WAIS",
       "title": "West Atlantic Ice Sheet Disintegration",
       "position": [1475, 2270],
+      "links": [
+        { "source": "WAIS-input-0", "target": "WAIS-output-1" },
+        { "source": "WAIS-input-1", "target": "WAIS-output-0" },
+        { "source": "WAIS-input-2", "target": "WAIS-output-1" },
+        { "source": "WAIS-output-1", "target": "WAIS-output-0" }
+      ],
       "children": {
         "input": [
           { "title": "Less snowfall" },

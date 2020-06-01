@@ -1,0 +1,6 @@
+[
+  { "id": "IMPACT-TEMP", "title": "Increase in global weather temperatures" },
+  { "id": "IMPACT-ALB", "title": "Albedo Impact" },
+  { "id": "IMPACT-CO2", "title": "Increase in global CO2 levels" },
+  { "id": "IMPACT-SEA", "title": "Increase in global sea levels" }
+]

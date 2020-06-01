@@ -1,1 +1,6 @@
-[{ "source": "BFS-output-2", "target": "AMOC-output-0" }]
+[
+  { "source": "PERM-output-0", "target": "BFS-input-1" },
+  { "source": "PERM-output-1", "target": "CRD-input-2" },
+  { "source": "GIS-output-2", "target": "CRD-input-2" },
+  { "source": "GIS-output-2", "target": "AMOC-input-0" }
+]

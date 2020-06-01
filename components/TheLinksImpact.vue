@@ -5,6 +5,7 @@
     :height="size[1]"
     :view-box.camel="`0 0 ${size[0]} ${size[1]}`"
   >
+    <!-- TODO: delete this later -->
     <rect
       x="0"
       y="0"
@@ -20,6 +21,7 @@
       :key="i"
       :link-data="link"
       :difference-coords="panZoomCoords"
+      class="links-impact"
     />
   </svg>
 </template>
@@ -58,7 +60,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['panZoomCoords'])
+    ...mapState({ panZoomCoords: (state) => state.panZoomCoords })
   },
 
   created() {
@@ -67,7 +69,7 @@ export default {
 
   mounted() {
     this.$nextTick(function() {
-      console.log('linksImpacts', this.linksImpacts)
+      console.log('mounted TheLinksImpact')
     })
   }
 }
@@ -76,7 +78,7 @@ export default {
 <style lang="scss" scoped>
 #IMPACT_LINKS {
   position: fixed;
-  z-index: 9;
+  /* z-index: 1; */
   pointer-events: none;
 }
 </style>

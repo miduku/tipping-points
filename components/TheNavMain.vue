@@ -1,50 +1,39 @@
 <template>
   <nav class="nav nav-main">
     <ul class="nav-main--impacts">
-      <!-- <li id="IMPACT-0">
-        <button class="button vuex-pan-to" @click.prevent="vuexPanTo('AMZN')">
-          <div>Amazon</div>
-        </button>
-      </li>
-      <li id="IMPACT-1">
-        <button class="button vuex-pan-to" @click.prevent="vuexPanTo('AMOC')">
-          <div>Atlantic</div>
-        </button>
-      </li> -->
-      <li id="IMPACT-TEMP">
-        <ButtonHexagon
-          title="Increase in global weather temperatures"
-          class="vuex-pan-to"
-        />
-      </li>
-      <li id="IMPACT-ALB">
-        <ButtonHexagon title="Albedo Impact" class="vuex-pan-to" />
-      </li>
-      <li id="IMPACT-CO2">
-        <ButtonHexagon
-          title="Increase in global CO2 levels"
-          class="vuex-pan-to"
-        />
-      </li>
-      <li id="IMPACT-SEA">
-        <ButtonHexagon
-          title="Increase in global sea levels"
-          class="vuex-pan-to"
-        />
+      <li v-for="(impact, i) in impacts" :id="impact.id" :key="i">
+        <ButtonHexagon :title="impact.title" class="vuex-pan-to" />
       </li>
     </ul>
   </nav>
 </template>
 
 <script>
+import getImpactsJson from '~/assets/json/impacts.json'
 import ButtonHexagon from '~/components/BaseButtonHexagon.vue'
 
 export default {
   components: {
     ButtonHexagon
   },
+
+  asyncData({ params }) {
+    console.log(params)
+    return { getImpactsJson }
+  },
+
+  data() {
+    return {
+      impacts: {}
+    }
+  },
+
   mounted() {
-    this.$nextTick(function() {})
+    this.$nextTick(function() {
+      this.impacts = getImpactsJson
+      console.log('mounted TheNavMain')
+      this.$store.commit('SET_MOUNTED', ['theNavMain', true])
+    })
   },
 
   methods: {

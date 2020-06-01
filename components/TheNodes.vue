@@ -21,7 +21,8 @@ export default {
 
   mounted() {
     this.$nextTick(function() {
-      // console.log('nodes pups')
+      console.log('mounted TheNodes')
+      this.$store.commit('SET_MOUNTED', ['theNodes', true])
     })
   }
 }

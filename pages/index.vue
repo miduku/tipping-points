@@ -1,15 +1,20 @@
 <template>
   <div id="content-main">
+    <TheLinksImpact
+      v-if="isMounted.theNodes && isMounted.theNavMain"
+      :size="[window.width, window.height]"
+    />
+
     <panZoom
       id="PANZOOM"
       ref="PANZOOM"
-      :options="options"
       class="pan-zoom"
+      :options="options"
       @transform="onTransform"
     >
-      <svg
+      <ThePanzoomSvg
         ref="OWNER"
-        class="pan-element owner"
+        class="owner"
         :view-box.camel="
           `
           0
@@ -25,48 +30,28 @@
           `
         "
       >
-        <!-- Arrow head for paths -->
-        <defs>
-          <marker
-            id="link-arrow"
-            markerWidth="5"
-            markerHeight="9"
-            refX="4"
-            refY="4.5"
-            orient="auto"
-            markerUnits="strokeWidth"
-          >
-            <path
-              d="M1 1L4.5 4.5L1 8"
-              stroke="black"
-              stroke-width="1"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              fill="none"
-            />
-          </marker>
-        </defs>
-
-        <TheNodes
-          :data="getNodesJson.nodes"
-          @hook:mounted="isNodesMounted = true"
+        <TheLinks
+          v-if="isMounted.theNodes && isMounted.theNavMain"
+          :data="getLinksJson"
         />
 
-        <TheLinks v-if="isNodesMounted" :data="getLinksJson" />
-      </svg>
+        <TheNodes :data="getNodesJson.nodes" />
+      </ThePanzoomSvg>
     </panZoom>
 
-    <div class="dot"></div>
+    <div class="dot" />
 
-    <div class="buttons">
+    <!-- <div class="buttons">
       <p>{{ panInstance.transform }}</p>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
+import TheLinksImpact from '~/components/TheLinksImpact.vue'
+import ThePanzoomSvg from '~/components/ThePanzoomSvg.vue'
 import TheNodes from '~/components/TheNodes.vue'
 import TheLinks from '~/components/TheLinks.vue'
 
@@ -75,6 +60,8 @@ import getLinksJson from '~/assets/json/links.json'
 
 export default {
   components: {
+    TheLinksImpact,
+    ThePanzoomSvg,
     TheNodes,
     TheLinks
   },
@@ -85,13 +72,12 @@ export default {
 
   data() {
     return {
-      isNodesMounted: false,
       isPanning: false,
       isZooming: false,
       options: {
         // transformOrigin: { x: 0.5, y: 0.5 },
-        minZoom: 0.1,
-        maxZoom: 15
+        minZoom: 0.5,
+        maxZoom: 2
         // autocenter: true
       },
       panInstance: {
@@ -101,7 +87,12 @@ export default {
   },
 
   computed: {
-    ...mapState(['timeStamp', 'panToNodeId'])
+    ...mapState({
+      timeStamp: (state) => state.timeStamp,
+      panToNodeId: (state) => state.panToNodeId,
+      isMounted: (state) => state.isMounted,
+      window: (state) => state.window
+    })
   },
 
   watch: {
@@ -113,7 +104,9 @@ export default {
   },
 
   mounted() {
-    this.$nextTick(function() {})
+    this.$nextTick(function() {
+      console.log('mounted INDEX')
+    })
   },
 
   methods: {
@@ -169,6 +162,7 @@ export default {
 }
 
 .dot {
+  /**/
   position: absolute;
   width: 2px;
   height: 2px;
@@ -179,6 +173,7 @@ export default {
 }
 
 .buttons {
+  /**/
   position: fixed;
   background: yellow;
   top: 0;
@@ -187,7 +182,7 @@ export default {
 
 .pan-zoom {
   overflow: hidden;
-  background: blueviolet;
+  background: transparent;
   width: 100vw;
   height: 100vh;
 
@@ -195,13 +190,6 @@ export default {
     overflow: hidden;
     width: 100vw;
     height: 100vh;
-
-    .pan-element {
-      position: relative;
-      background: #fff;
-      left: 0%;
-      top: 0%;
-    }
   }
 }
 

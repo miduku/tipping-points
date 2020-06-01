@@ -56,7 +56,6 @@
       :height="size * 2"
       :x="data.position[0] - size * 4"
       :y="data.position[1] - size"
-      overflow="visible"
       :style="
         `
           transform-origin: ${data.position[0]}px ${data.position[1]}px;
@@ -65,14 +64,14 @@
       "
     >
       <div class="title-wrapper">
-        <span
+        <div
           class="title"
           :class="
             data.i === 0 && data.direction === 'output' ? 'is-strong' : ''
           "
         >
-          {{ data.childData.title }}
-        </span>
+          <span>{{ data.childData.title }}</span>
+        </div>
       </div>
     </foreignObject>
   </g>
@@ -116,23 +115,24 @@ export default {
     }
   }
 
+  foreignObject {
+    overflow: visible;
+  }
+
   .node-child-node {
     .circle,
     .pill {
-      stroke: fuchsia;
+      stroke: $dark-grey;
       stroke-width: 1;
     }
 
     .circle,
     .pill {
-      fill: none;
-    }
-    .circle-dot,
-    .pill-border {
-      stroke: pink;
+      fill: rgba(#fff, 0.75);
     }
     .circle-dot {
-      fill: fuchsia;
+      stroke: none;
+      fill: $dark-grey;
     }
     .pill-border {
       fill: transparent;
@@ -150,11 +150,16 @@ export default {
       text-align: left;
       word-break: keep-all;
       width: 100%;
-      opacity: 0.5;
+      /* opacity: 0.5; */
       font-size: 0.625rem;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       font-feature-settings: 'cpsp' on;
+      color: $dark-grey;
+
+      span {
+        background: rgba(#fff, 0.5);
+      }
     }
   }
 }
