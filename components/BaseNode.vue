@@ -31,6 +31,7 @@
       }"
       direction="input"
     />
+
     <NodeChildren
       :data="{
         childrenData: nodeData.children,

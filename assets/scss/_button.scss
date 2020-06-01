@@ -1,11 +1,17 @@
 .button {
   min-width: 2.5rem;
   min-height: 2.5rem;
-  background: pink;
+  background: transparent /**/;
   border-radius: $border-radius;
   border: none;
+  margin: $unit/2 0;
+  cursor: pointer;
 
   &.is-bordered {
     border: 1px solid $light;
+  }
+
+  .vuex-pan-to {
+    display: inline-block;
   }
 }

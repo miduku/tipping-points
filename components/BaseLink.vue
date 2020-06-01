@@ -1,7 +1,7 @@
 <template>
   <g class="link">
     <path
-      :stroke-width="strokeWidth"
+      :stroke-width="strokeWidth * differenceCoords[2]"
       :stroke-dasharray="isDashed ? '2 4' : ''"
       stroke="#000"
       stroke-linecap="round"
@@ -10,18 +10,14 @@
       :d="
         `
         M
-        ${dSourceCoords[0]},
-        ${dSourceCoords[1]}
+        ${lockCoordsifTrue(d_SourceCoords, 'source')}
 
         C
-        ${dSourceCoordsHandle[0]},
-        ${dSourceCoordsHandle[1]}
+        ${lockCoordsifTrue(d_SourceCoordsHandle, 'source')}
 
-        ${dTargetCoordsHandle[0] - differenceCoords[0]},
-        ${dTargetCoordsHandle[1] - differenceCoords[1]}
+        ${lockCoordsifTrue(d_TargetCoordsHandle, 'target')}
 
-        ${dTargetCoords[0] - differenceCoords[1]},
-        ${dTargetCoords[1] - differenceCoords[1]}
+        ${lockCoordsifTrue(d_TargetCoords, 'target')}
         `
       "
     />
@@ -49,36 +45,70 @@ export default {
     differenceCoords: {
       type: Array,
       default: () => [0, 0, 1]
+    },
+
+    invertAngle: {
+      type: Boolean,
+      default: false
+    },
+
+    distance: {
+      type: Number,
+      default: 400
     }
   },
 
   data() {
     return {
-      dSourceCoords: [0, 0],
-      dSourceCoordsHandle: [0, 0],
-      dTargetCoordsHandle: [0, 0],
-      dTargetCoords: [0, 0]
+      d_SourceCoords: [0, 0],
+      d_SourceCoordsHandle: [0, 0],
+      d_TargetCoordsHandle: [0, 0],
+      d_TargetCoords: [0, 0]
     }
   },
 
   mounted() {
     this.$nextTick(function() {
-      console.log(this.differenceCoords)
-      this.d = this.createPathD(this.linkData.source, this.linkData.target)
+      // Init creating paths
+      this.d = this.createPathD(
+        this.linkData.source,
+        this.linkData.target,
+        this.invertAngle,
+        this.distance
+      )
     })
   },
 
   methods: {
-    createPathD(sourceId, targetId, parent) {
-      const sourceElement = this.getElement(sourceId, parent)
-      const targetElement = this.getElement(targetId, parent)
+    lockCoordsifTrue(coords, checkForLock) {
+      if (checkForLock === this.linkData.lock) {
+        return coords.join()
+      }
 
-      const sourceDegrees = sourceElement.dataset.degrees
-      const targetDegrees = targetElement.dataset.degrees
+      return `
+        ${this.differenceCoords[2] * coords[0] + this.differenceCoords[0]},
+        ${this.differenceCoords[2] * coords[1] + this.differenceCoords[1]}
+      `
+    },
 
-      const SOURCE_BOUNDS = sourceElement.getBoundingClientRect()
-      const TARGET_BOUNDS = targetElement.getBoundingClientRect()
+    createPathD(sourceId, targetId, invertAngle, distance) {
+      const INVERT_ANGLE = invertAngle ? 180 : 0
 
+      const SOURCE_ELEMENT = this.getElementById(sourceId)
+      const SOURCE_BOUNDS = SOURCE_ELEMENT.getBoundingClientRect()
+
+      const TARGET_ELEMENT = this.getElementById(targetId)
+      const TARGET_BOUNDS = TARGET_ELEMENT.getBoundingClientRect()
+
+      // Get angle in deg
+      const sourceDegrees = SOURCE_ELEMENT.dataset.degrees
+        ? SOURCE_ELEMENT.dataset.degrees
+        : 360
+      const targetDegrees = TARGET_ELEMENT.dataset.degrees
+        ? TARGET_ELEMENT.dataset.degrees
+        : 360
+
+      // Get center of element
       const sourceCoordsCenter = [
         SOURCE_BOUNDS.x + SOURCE_BOUNDS.width / 2,
         SOURCE_BOUNDS.y + SOURCE_BOUNDS.height / 2
@@ -88,57 +118,62 @@ export default {
         TARGET_BOUNDS.y + TARGET_BOUNDS.height / 2
       ]
 
+      // Move the point of the path outside of the element
       const sourceCoordsMovedFromCenter = this.changeCoordinatesByDegreeAndDistance(
         sourceCoordsCenter,
-        sourceDegrees,
-        9
+        sourceDegrees - INVERT_ANGLE + 15,
+        this.linkData.lock === 'source' ? 20 : 10
       )
       const targetCoordsMovedFromCenter = this.changeCoordinatesByDegreeAndDistance(
         targetCoordsCenter,
-        targetDegrees,
-        9
+        targetDegrees - INVERT_ANGLE - 15,
+        this.linkData.lock === 'target' ? 20 : 10
       )
 
-      // move bezier handles
+      // Move bezier handles for the curve
       const sourceCoordsHandle = this.changeCoordinatesByDegreeAndDistance(
         sourceCoordsCenter,
-        sourceDegrees
+        sourceDegrees - INVERT_ANGLE,
+        distance
       )
       const targetCoordsHandle = this.changeCoordinatesByDegreeAndDistance(
         targetCoordsCenter,
-        targetDegrees
+        targetDegrees - INVERT_ANGLE,
+        distance
       )
 
-      this.dSourceCoords = [
+      this.d_SourceCoords = [
         sourceCoordsMovedFromCenter[0],
         sourceCoordsMovedFromCenter[1]
       ]
-      this.dSourceCoordsHandle = [sourceCoordsHandle[0], sourceCoordsHandle[1]]
-      this.dTargetCoordsHandle = [targetCoordsHandle[0], targetCoordsHandle[1]]
-      this.dTargetCoords = [
+      this.d_SourceCoordsHandle = [sourceCoordsHandle[0], sourceCoordsHandle[1]]
+      this.d_TargetCoordsHandle = [targetCoordsHandle[0], targetCoordsHandle[1]]
+      this.d_TargetCoords = [
         targetCoordsMovedFromCenter[0],
         targetCoordsMovedFromCenter[1]
       ]
     },
 
-    getElement(id, parent = this.$root.$el) {
-      return parent.querySelector(`#${id} .node-child-node`)
+    getElementById(id) {
+      const PARENT = this.$root.$el
+
+      return PARENT.querySelector(`#${id} .vuex-pan-to`)
     },
 
-    changeCoordinatesByDegreeAndDistance(
-      origin = [0, 0],
-      deg = 45,
-      distance = 200
-    ) {
-      const x = Math.round(
-        Math.cos((deg * Math.PI) / 180) * distance + origin[0]
-      )
-      const y = Math.round(
-        Math.sin((deg * Math.PI) / 180) * distance + origin[1]
-      )
+    changeCoordinatesByDegreeAndDistance(origin = [0, 0], deg = 45, distance) {
+      const MATH = deg === 0 ? 0 : (deg * Math.PI) / 180
+
+      const x = Math.round(Math.cos(MATH) * distance + origin[0])
+      const y = Math.round(Math.sin(MATH) * distance + origin[1])
 
       return [x, y]
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+path {
+  transition: d ease-out;
+}
+</style>

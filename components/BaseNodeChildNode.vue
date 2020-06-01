@@ -4,14 +4,14 @@
       class="translateX"
       :style="
         `
-          transform-origin: ${data.position[0]}px ${data.position[1]}px;
-          transform: translateX(${data.margin * 1.5}px);
-          `
+        transform-origin: ${data.position[0]}px ${data.position[1]}px;
+        transform: translateX(${data.margin * 1.5}px);
+        `
       "
     >
       <g
         v-if="data.i === 0 && data.direction === 'output'"
-        class="node-child-node"
+        class="node-child-node vuex-pan-to"
         :data-degrees="data.degrees"
       >
         <circle
@@ -28,7 +28,11 @@
         />
       </g>
 
-      <g v-else class="node-child-node" :data-degrees="data.degrees">
+      <g
+        v-else
+        class="node-child-node vuex-pan-to"
+        :data-degrees="data.degrees"
+      >
         <rect
           class="pill-border"
           :x="data.position[0] - size"
@@ -125,7 +129,7 @@ export default {
     }
     .circle-dot,
     .pill-border {
-      stroke: none;
+      stroke: pink;
     }
     .circle-dot {
       fill: fuchsia;

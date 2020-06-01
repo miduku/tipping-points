@@ -1,1 +1,13 @@
-[{ "source": "BFS-output-0", "target": "AMOC-output-0", "lock": "source" }]
+[
+  { "source": "IMPACT-TEMP", "target": "WAM-input-0", "lock": "source" },
+  { "source": "IMPACT-TEMP", "target": "CRD-input-1", "lock": "source" },
+  { "source": "IMPACT-TEMP", "target": "WAIS-input-0", "lock": "source" },
+  { "source": "IMPACT-TEMP", "target": "WAIS-input-1", "lock": "source" },
+  { "source": "IMPACT-TEMP", "target": "AMZN-input-0", "lock": "source" },
+  { "source": "IMPACT-TEMP", "target": "BFS-input-0", "lock": "source" },
+  { "source": "IMPACT-TEMP", "target": "GIS-input-1", "lock": "source" },
+  { "source": "IMPACT-TEMP", "target": "PERM-input-0", "lock": "source" },
+  { "source": "AMOC-output-0", "target": "IMPACT-TEMP", "lock": "target" },
+  { "source": "WAM-output-1", "target": "IMPACT-TEMP", "lock": "target" },
+  { "source": "IMPACT-TEMP", "target": "IMPACT-TEMP", "lock": "target" }
+]

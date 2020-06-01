@@ -5,25 +5,35 @@
     :height="size[1]"
     :view-box.camel="`0 0 ${size[0]} ${size[1]}`"
   >
-    <rect x="500" y="500" width="100" height="100" />
+    <rect
+      x="0"
+      y="0"
+      :width="size[0]"
+      :height="size[1]"
+      fill="none"
+      stroke-width="4"
+      stroke="hotpink"
+    />
 
-    <!-- <Link
-      v-for="(link, i) in LINKSIMPACT_JSON"
+    <Link
+      v-for="(link, i) in linksImpacts"
       :key="i"
       :link-data="link"
-      :difference-coords="DIFFERENCE"
-    /> -->
+      :difference-coords="panZoomCoords"
+    />
   </svg>
 </template>
 
 <script>
-// import Link from '~/components/BaseLink.vue'
+import { mapState } from 'vuex'
 
-import getLinksImpacts from '~/assets/json/links-impacts.json'
+import getLinksImpactsJson from '~/assets/json/links-impacts.json'
+
+import Link from '~/components/BaseLink.vue'
 
 export default {
   components: {
-    // Link
+    Link
   },
 
   props: {
@@ -34,7 +44,7 @@ export default {
   },
 
   asyncData({ params }) {
-    return { getLinksImpacts }
+    return { getLinksImpactsJson }
   },
 
   data() {
@@ -43,20 +53,22 @@ export default {
         innerHeight: 0,
         innerWidth: 0
       },
-      DIFFERENCE: [0, 0, 1]
+      linksImpacts: []
     }
+  },
+
+  computed: {
+    ...mapState(['panZoomCoords'])
+  },
+
+  created() {
+    this.linksImpacts = getLinksImpactsJson
   },
 
   mounted() {
     this.$nextTick(function() {
-      console.log('LINKSIMPACT_JSON', getLinksImpacts)
+      console.log('linksImpacts', this.linksImpacts)
     })
-  },
-
-  methods: {
-    setNewCoordinatesDifference(x, y, scale) {
-      // TODO get difference from vuex
-    }
   }
 }
 </script>

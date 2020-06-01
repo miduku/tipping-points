@@ -9,15 +9,23 @@
     >
       <svg
         ref="OWNER"
-        :view-box.camel="`0 0 ${getNodes.panSize[0]} ${getNodes.panSize[1]}`"
         class="pan-element owner"
+        :view-box.camel="
+          `
+          0
+          0
+          ${getNodesJson.panSize[0]}
+          ${getNodesJson.panSize[1]}
+          `
+        "
         :style="
           `
-          width: ${getNodes.panSize[0]}px;
-          height: ${getNodes.panSize[1]}px;
+          width: ${getNodesJson.panSize[0]}px;
+          height: ${getNodesJson.panSize[1]}px;
           `
         "
       >
+        <!-- Arrow head for paths -->
         <defs>
           <marker
             id="link-arrow"
@@ -40,11 +48,11 @@
         </defs>
 
         <TheNodes
-          :data="getNodes.nodes"
+          :data="getNodesJson.nodes"
           @hook:mounted="isNodesMounted = true"
         />
 
-        <TheLinks v-if="isNodesMounted" :data="getLinks" />
+        <TheLinks v-if="isNodesMounted" :data="getLinksJson" />
       </svg>
     </panZoom>
 
@@ -62,8 +70,8 @@ import { mapState } from 'vuex'
 import TheNodes from '~/components/TheNodes.vue'
 import TheLinks from '~/components/TheLinks.vue'
 
-import getNodes from '~/assets/json/nodes.json'
-import getLinks from '~/assets/json/links.json'
+import getNodesJson from '~/assets/json/nodes.json'
+import getLinksJson from '~/assets/json/links.json'
 
 export default {
   components: {
@@ -72,7 +80,7 @@ export default {
   },
 
   asyncData({ params }) {
-    return { getNodes, getLinks }
+    return { getNodesJson, getLinksJson }
   },
 
   data() {
@@ -87,18 +95,17 @@ export default {
         // autocenter: true
       },
       panInstance: {
-        transform: 'init'
+        transform: ''
       }
     }
   },
 
   computed: {
-    ...mapState(['timeStamp', 'panToNodeId', 'panZoomCoords'])
+    ...mapState(['timeStamp', 'panToNodeId'])
   },
 
   watch: {
     timeStamp(value, oldValue) {
-      console.log(value)
       if (value !== oldValue) {
         this.panTo(this.panToNodeId)
       }
