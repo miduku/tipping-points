@@ -179,7 +179,8 @@ export default {
 .link {
   &.links {
     path {
-      stroke: $dark-grey;
+      stroke: $light;
+      stroke-dasharray: 4 8;
     }
   }
 
@@ -200,7 +201,7 @@ export default {
 
   path {
     transition: d ease-out;
-    stroke: $dark;
+    stroke: $light;
     marker-end: url(#link-arrow);
     opacity: 0.75;
   }

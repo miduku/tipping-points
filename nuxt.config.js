@@ -1,5 +1,14 @@
+// const onlineURL = 'https://test.dustinkummer.com/tipping-points'
+const baseURL =
+  process.env.NODE_ENV === 'development' ? '/' : '/tipping-points/'
+
 export default {
   mode: 'universal',
+
+  router: {
+    base: baseURL
+  },
+
   /*
    ** Headers of the page
    */
@@ -7,14 +16,20 @@ export default {
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1, user-scalable=no'
+      },
       {
         hid: 'description',
         name: 'description',
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    htmlAttrs: {
+      lang: 'de'
+    }
   },
   /*
    ** Customize the progress-bar color

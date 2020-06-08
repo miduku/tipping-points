@@ -53,7 +53,7 @@ svg {
 
   marker {
     &#link-arrow path {
-      stroke: $dark-grey;
+      stroke: $light;
     }
 
     &#link-arrow-red path {

@@ -7,6 +7,7 @@
       :r="size"
     />
 
+    <!-- Inner node links -->
     <g class="node-links">
       <Link
         v-for="(nodeLink, j) in nodeData.links"
@@ -32,24 +33,25 @@
       </div>
     </foreignObject>
 
+    <!-- Outer smaller nodes -->
     <NodeChildren
+      direction="input"
       :data="{
         childrenData: nodeData.children,
         position: nodeData.position,
         parentId: nodeData.id,
         size
       }"
-      direction="input"
     />
 
     <NodeChildren
+      direction="output"
       :data="{
         childrenData: nodeData.children,
         position: nodeData.position,
         parentId: nodeData.id,
         size
       }"
-      direction="output"
     />
   </g>
 </template>

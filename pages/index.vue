@@ -4,40 +4,41 @@
       v-if="isMounted.theNodes && isMounted.theNavMain"
       :size="[window.width, window.height]"
     />
-
-    <panZoom
-      id="PANZOOM"
-      ref="PANZOOM"
-      class="pan-zoom"
-      :options="options"
-      @transform="onTransform"
-    >
-      <ThePanzoomSvg
-        ref="OWNER"
-        class="owner"
-        :view-box.camel="
-          `
-          0
-          0
-          ${getNodesJson.panSize[0]}
-          ${getNodesJson.panSize[1]}
-          `
-        "
-        :style="
-          `
-          width: ${getNodesJson.panSize[0]}px;
-          height: ${getNodesJson.panSize[1]}px;
-          `
-        "
+    <client-only>
+      <panZoom
+        id="PANZOOM"
+        ref="PANZOOM"
+        class="pan-zoom"
+        :options="options"
+        @transform="onTransform"
       >
-        <TheLinks
-          v-if="isMounted.theNodes && isMounted.theNavMain"
-          :data="getLinksJson"
-        />
+        <ThePanzoomSvg
+          ref="OWNER"
+          class="owner"
+          :view-box.camel="
+            `
+            0
+            0
+            ${getNodesJson.panSize[0]}
+            ${getNodesJson.panSize[1]}
+            `
+          "
+          :style="
+            `
+            width: ${getNodesJson.panSize[0]}px;
+            height: ${getNodesJson.panSize[1]}px;
+            `
+          "
+        >
+          <TheLinks
+            v-if="isMounted.theNodes && isMounted.theNavMain"
+            :data="getLinksJson"
+          />
 
-        <TheNodes :data="getNodesJson.nodes" />
-      </ThePanzoomSvg>
-    </panZoom>
+          <TheNodes :data="getNodesJson.nodes" />
+        </ThePanzoomSvg>
+      </panZoom>
+    </client-only>
 
     <div class="dot" />
 
@@ -191,6 +192,13 @@ export default {
     width: 100vw;
     height: 100vh;
   }
+  /*
+  /deep/ .owner {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform;
+  } */
 }
 
 .has-transition {
