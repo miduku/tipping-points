@@ -1,7 +1,10 @@
 <template>
   <g
     class="link"
-    :class="linkData.lock ? `link-lock-${linkData.lock}` : 'none'"
+    :class="[
+      linkData.lock ? `link-lock-${linkData.lock}` : 'none',
+      `link-group-${linkData.group}`
+    ]"
   >
     <path
       :stroke-width="strokeWidth * differenceCoords[2]"
@@ -37,11 +40,6 @@ export default {
       default: 1
     },
 
-    isDashed: {
-      type: Boolean,
-      default: false
-    },
-
     differenceCoords: {
       type: Array,
       default: () => [0, 0, 1]
@@ -63,7 +61,8 @@ export default {
       d_SourceCoords: [0, 0],
       d_SourceCoordsHandle: [0, 0],
       d_TargetCoordsHandle: [0, 0],
-      d_TargetCoords: [0, 0]
+      d_TargetCoords: [0, 0],
+      group: this.linkData.group ? this.linkData.group : undefined
     }
   },
 
@@ -180,7 +179,9 @@ export default {
   &.links {
     path {
       stroke: $dark-grey;
-      stroke-dasharray: 2 10;
+      animation: normal-dash-animation 1s linear reverse infinite;
+      stroke-dasharray: 14 2;
+      opacity: 0.25;
     }
   }
 
@@ -189,28 +190,30 @@ export default {
     path {
       stroke: $red;
       marker-end: url(#link-arrow-red);
-      animation: dash-animation 0.5s linear reverse infinite;
+      animation: impact-dash-animation 1s linear reverse infinite;
       stroke-dasharray: 4 10;
-      opacity: 1;
     }
   }
-  &.links-impact.link-lock-source {
-    path {
-    }
+
+  &.links-impact {
+    opacity: 0.1;
+    transition: opacity 0.5s $easeOutQuint;
   }
 
   path {
-    transition: d ease-out;
+    transition: d $easeOutQuint;
     stroke: $dark-grey;
     marker-end: url(#link-arrow);
-    /* opacity: 0.75; */
-  }
-
-  &.is-dash-animated path {
   }
 }
 
-@keyframes dash-animation {
+@keyframes normal-dash-animation {
+  to {
+    stroke-dashoffset: 16;
+  }
+}
+
+@keyframes impact-dash-animation {
   to {
     stroke-dashoffset: 14;
   }

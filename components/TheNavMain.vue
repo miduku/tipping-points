@@ -2,15 +2,21 @@
   <nav class="nav nav-main">
     <ul class="nav-main--impacts">
       <li v-for="(impact, i) in impacts" :id="impact.id" :key="i">
-        <ButtonHexagon :title="impact.title" class="vuex-pan-to" />
+        <ButtonHexagon
+          :title="impact.title"
+          class="vuex-pan-to"
+          @click="toggleImpactLinksGroup(impact.id)"
+        />
       </li>
     </ul>
 
-    <ButtonHexagon title="AMZN" @click="vuexPanTo('AMZN')" />
+    <!-- <ButtonHexagon title="AMZN" @click="vuexPanTo('AMZN')" />
+
     <ButtonHexagon
       title="open sidebar"
       @click="vuexSetSidebar([true, 'AMZN'])"
     />
+-->
     <ButtonHexagon title="close sidebar" @click="vuexSetSidebar([false])" />
   </nav>
 </template>
@@ -41,10 +47,22 @@ export default {
 
   mounted() {
     this.$nextTick(function() {
-      this.impacts = getImpactsJson
       console.log('mounted TheNavMain')
+      this.impacts = getImpactsJson
       this.$store.commit('SET_MOUNTED', ['theNavMain', true])
     })
+  },
+
+  methods: {
+    toggleImpactLinksGroup(id) {
+      let bool = false
+
+      this.$store.state.impactLinksGroups[id] === true
+        ? (bool = false)
+        : (bool = true)
+
+      this.$store.commit('SET_IMPACT_LINKS_GROUPS', [id, bool])
+    }
   }
 }
 </script>

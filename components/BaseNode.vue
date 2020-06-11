@@ -124,13 +124,14 @@ export default {
 <style lang="scss" scoped>
 .node {
   .node-circle {
-    stroke: $light;
+    stroke: rgba($light, 0.25);
     fill: rgba(#fff, 0.75);
     pointer-events: all;
     cursor: pointer;
+    transition: stroke 0.5s $easeOutQuint;
 
     &:hover {
-      fill: red;
+      stroke: rgba($light, 1);
     }
   }
 

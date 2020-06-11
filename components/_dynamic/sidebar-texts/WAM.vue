@@ -1,5 +1,5 @@
 <template lang="md">
-  # Hello AMZN!
+  # Hello WAM!
 
   Current route is: {{ $route.path }}
 </template>

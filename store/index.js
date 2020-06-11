@@ -13,7 +13,8 @@ export const state = () => ({
   sidebar: {
     isOpen: false,
     contentInstanceName: ''
-  }
+  },
+  impactLinksGroups: {}
 })
 
 export const mutations = {
@@ -31,12 +32,20 @@ export const mutations = {
     state.viewSize.height = sizes[1]
   },
 
-  SET_MOUNTED(state, set) {
-    state.isMounted[set[0]] = set[1]
+  SET_MOUNTED(state, setArr) {
+    state.isMounted[setArr[0]] = setArr[1]
   },
 
   OPEN_SIDEBAR(state, openArr) {
     state.sidebar.isOpen = openArr[0]
     if (openArr[0] === true) state.sidebar.contentInstanceName = openArr[1]
+  },
+
+  CREATE_IMPACT_LINKS_GROUPS(state, groups) {
+    state.impactLinksGroups = groups
+  },
+
+  SET_IMPACT_LINKS_GROUPS(state, setArr) {
+    state.impactLinksGroups[setArr[0]] = setArr[1]
   }
 }
