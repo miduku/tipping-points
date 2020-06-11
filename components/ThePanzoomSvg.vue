@@ -41,6 +41,7 @@
 
     <!-- Slot -->
     <slot />
+    <!-- Slot END -->
   </svg>
 </template>
 
@@ -50,10 +51,11 @@ svg {
   background: transparent;
   left: 0;
   top: 0;
+  pointer-events: none;
 
   marker {
     &#link-arrow path {
-      stroke: $light;
+      stroke: $dark-grey;
     }
 
     &#link-arrow-red path {

@@ -59,7 +59,8 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/markdownit'
   ],
   styleResources: {
     scss: [
@@ -69,7 +70,16 @@ export default {
       '~assets/scss/resources/_helpers.scss'
     ]
   },
-
+  // See https://github.com/markdown-it/markdown-it
+  markdownit: {
+    preset: 'default',
+    linkify: true,
+    breaks: true
+    // use: [
+    //   'markdown-it-div',
+    //   'markdown-it-attrs'
+    // ]
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options

@@ -5,6 +5,13 @@
         <ButtonHexagon :title="impact.title" class="vuex-pan-to" />
       </li>
     </ul>
+
+    <ButtonHexagon title="AMZN" @click="vuexPanTo('AMZN')" />
+    <ButtonHexagon
+      title="open sidebar"
+      @click="vuexSetSidebar([true, 'AMZN'])"
+    />
+    <ButtonHexagon title="close sidebar" @click="vuexSetSidebar([false])" />
   </nav>
 </template>
 
@@ -38,7 +45,13 @@ export default {
 
   methods: {
     vuexPanTo(nodeId) {
+      // console.log(nodeId)
       this.$store.commit('TO_NODE_ID', nodeId)
+    },
+
+    vuexSetSidebar(openArr) {
+      // console.log(openArr)
+      this.$store.commit('OPEN_SIDEBAR', openArr)
     }
   }
 }
@@ -48,7 +61,7 @@ export default {
 .nav {
   display: flex;
   align-items: center;
-  pointer-events: none;
+  /* pointer-events: none; */
 
   ul {
     list-style: none;
@@ -57,7 +70,6 @@ export default {
 
     li {
       .button {
-        pointer-events: all;
       }
     }
   }

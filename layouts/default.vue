@@ -2,12 +2,7 @@
   <div class="root">
     <TheNavMain />
 
-    <div v-resize="getWindowSizes" class="root-content">
-      <!-- <TheLinksImpact
-        v-if="isMountedNavMain"
-        :size="[WINDOW.innerWidth, WINDOW.innerHeight]"
-      /> -->
-
+    <div class="root-content">
       <nuxt />
     </div>
   </div>
@@ -16,12 +11,10 @@
 <script>
 import { mapState } from 'vuex'
 
-// import TheLinksImpact from '~/components/TheLinksImpact.vue'
 import TheNavMain from '~/components/TheNavMain.vue'
 
 export default {
   components: {
-    // TheLinksImpact,
     TheNavMain
   },
 
@@ -41,22 +34,9 @@ export default {
   },
 
   mounted() {
-    this.$nextTick(function() {
-      this.getWindowSizes()
-    })
+    this.$nextTick(function() {})
   },
 
-  methods: {
-    getWindowSizes() {
-      const ROOT_EL = this.$root.$el
-      this.$store.commit('GET_WINDOW_SIZE', [
-        ROOT_EL.clientWidth,
-        ROOT_EL.clientHeight
-      ])
-
-      // this.WINDOW.innerHeight = ROOT_EL.clientHeight
-      // this.WINDOW.innerWidth = ROOT_EL.clientWidth
-    }
-  }
+  methods: {}
 }
 </script>

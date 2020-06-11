@@ -1,50 +1,58 @@
 <template>
-  <div id="content-main">
-    <TheLinksImpact
-      v-if="isMounted.theNodes && isMounted.theNavMain"
-      :size="[window.width, window.height]"
-    />
-    <client-only>
-      <panZoom
-        id="PANZOOM"
-        ref="PANZOOM"
-        class="pan-zoom"
-        :options="options"
-        @transform="onTransform"
-      >
-        <ThePanzoomSvg
-          ref="OWNER"
-          class="owner"
-          :view-box.camel="
-            `
-            0
-            0
-            ${getNodesJson.panSize[0]}
-            ${getNodesJson.panSize[1]}
-            `
-          "
-          :style="
-            `
-            width: ${getNodesJson.panSize[0]}px;
-            height: ${getNodesJson.panSize[1]}px;
-            `
-          "
+  <div
+    id="content-main-wrapper"
+    :class="isSidebarOpen ? 'is-sidebar-open' : ''"
+  >
+    <div id="content-main" ref="CONTENTMAIN" v-resize="getElementSize">
+      <TheLinksImpact
+        v-if="isMounted.theNodes && isMounted.theNavMain"
+        :size="[elementSize.width, elementSize.height]"
+      />
+
+      <client-only>
+        <panZoom
+          id="PANZOOM"
+          ref="PANZOOM"
+          class="pan-zoom"
+          :options="options"
+          @transform="onTransform"
         >
-          <TheLinks
-            v-if="isMounted.theNodes && isMounted.theNavMain"
-            :data="getLinksJson"
-          />
+          <ThePanzoomSvg
+            ref="OWNER"
+            class="owner"
+            :view-box.camel="
+              `
+              0
+              0
+              ${getNodesJson.panSize[0]}
+              ${getNodesJson.panSize[1]}
+              `
+            "
+            :style="
+              `
+              width: ${getNodesJson.panSize[0]}px;
+              height: ${getNodesJson.panSize[1]}px;
+              `
+            "
+          >
+            <TheLinks
+              v-if="isMounted.theNodes && isMounted.theNavMain"
+              :data="getLinksJson"
+            />
 
-          <TheNodes :data="getNodesJson.nodes" />
-        </ThePanzoomSvg>
-      </panZoom>
-    </client-only>
+            <TheNodes :data="getNodesJson.nodes" />
+          </ThePanzoomSvg>
+        </panZoom>
+      </client-only>
 
-    <div class="dot" />
+      <div class="dot" />
 
-    <!-- <div class="buttons">
-      <p>{{ panInstance.transform }}</p>
-    </div> -->
+      <!-- <div class="buttons">
+        <p>{{ panInstance.transform }}</p>
+      </div> -->
+    </div>
+
+    <TheSidebar id="content-sidebar" />
   </div>
 </template>
 
@@ -55,12 +63,14 @@ import TheLinksImpact from '~/components/TheLinksImpact.vue'
 import ThePanzoomSvg from '~/components/ThePanzoomSvg.vue'
 import TheNodes from '~/components/TheNodes.vue'
 import TheLinks from '~/components/TheLinks.vue'
+import TheSidebar from '~/components/TheSidebar.vue'
 
 import getNodesJson from '~/assets/json/nodes.json'
 import getLinksJson from '~/assets/json/links.json'
 
 export default {
   components: {
+    TheSidebar,
     TheLinksImpact,
     ThePanzoomSvg,
     TheNodes,
@@ -92,7 +102,8 @@ export default {
       timeStamp: (state) => state.timeStamp,
       panToNodeId: (state) => state.panToNodeId,
       isMounted: (state) => state.isMounted,
-      window: (state) => state.window
+      elementSize: (state) => state.elementSize,
+      isSidebarOpen: (state) => state.sidebar.isOpen
     })
   },
 
@@ -107,12 +118,13 @@ export default {
   mounted() {
     this.$nextTick(function() {
       console.log('mounted INDEX')
+      this.getElementSize()
     })
   },
 
   methods: {
     panTo(nodeId, newZoomLevel = 1) {
-      const OWNER = this.$refs.OWNER
+      const OWNER = this.$refs.OWNER.$el
       const PANZOOM = this.$refs.PANZOOM.$panZoomInstance
       const OWNER_PARENT_BOUNDS = OWNER.parentElement.getBoundingClientRect()
 
@@ -150,16 +162,45 @@ export default {
         y: ${getTransform.y},
         scale: ${getTransform.scale}
       `
+    },
+
+    getElementSize() {
+      const ROOT_EL = this.$refs.CONTENTMAIN
+
+      this.$store.commit('GET_ELEMENT_SIZE', [
+        ROOT_EL.clientWidth,
+        ROOT_EL.clientHeight
+      ])
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.cont {
+$sidebar-width: 25vw;
+
+#content-main-wrapper {
   position: relative;
   display: block;
-  background: pink;
+  /* background: pink; */
+  margin-right: 0;
+  transition: margin-right 0.6s $easeOutQuint;
+
+  &.is-sidebar-open {
+    margin-right: $sidebar-width;
+  }
+
+  #content-main {
+    /* overflow: hidden; */
+  }
+
+  #content-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: $sidebar-width;
+    height: 100vh;
+  }
 }
 
 .dot {
@@ -184,12 +225,12 @@ export default {
 .pan-zoom {
   overflow: hidden;
   background: transparent;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
 
   /deep/ .vue-pan-zoom-scene {
     overflow: hidden;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
   }
   /*

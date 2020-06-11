@@ -2,13 +2,17 @@ export const state = () => ({
   timeStamp: '',
   panToNodeId: '',
   panZoomCoords: [0, 0, 1],
-  window: {
+  elementSize: {
     width: 0,
     height: 0
   },
   isMounted: {
     theNavMain: false,
     theNodes: false
+  },
+  sidebar: {
+    isOpen: false,
+    contentInstanceName: ''
   }
 })
 
@@ -22,12 +26,17 @@ export const mutations = {
     state.panZoomCoords = coords
   },
 
-  GET_WINDOW_SIZE(state, sizes) {
-    state.window.width = sizes[0]
-    state.window.height = sizes[1]
+  GET_ELEMENT_SIZE(state, sizes) {
+    state.elementSize.width = sizes[0]
+    state.elementSize.height = sizes[1]
   },
 
   SET_MOUNTED(state, set) {
     state.isMounted[set[0]] = set[1]
+  },
+
+  OPEN_SIDEBAR(state, openArr) {
+    state.sidebar.isOpen = openArr[0]
+    if (openArr[0] === true) state.sidebar.contentInstanceName = openArr[1]
   }
 }

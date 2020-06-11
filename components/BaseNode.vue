@@ -1,6 +1,9 @@
 <template>
   <g :id="nodeData.id" class="node">
     <circle
+      @click="onClick"
+      @dragstart="onDragStart"
+      @dragend="onDragEnd"
       class="node-circle"
       :cx="nodeData.position[0]"
       :cy="nodeData.position[1]"
@@ -82,6 +85,30 @@ export default {
     this.$nextTick(function() {
       console.log('mounted BaseNode')
     })
+  },
+
+  methods: {
+    onClick() {
+      console.log('click')
+    },
+
+    onDragStart() {
+      console.log('start')
+    },
+
+    onDragEnd() {
+      console.log('End')
+    },
+
+    vuexPanTo(nodeId) {
+      console.log(nodeId)
+      this.$store.commit('TO_NODE_ID', nodeId)
+    },
+
+    vuexSetSidebar(openArr) {
+      console.log(openArr)
+      this.$store.commit('OPEN_SIDEBAR', openArr)
+    }
   }
 }
 </script>
@@ -92,6 +119,7 @@ export default {
     stroke: $light;
     fill: rgba(#fff, 0.75);
     pointer-events: all;
+    cursor: pointer;
 
     &:hover {
       fill: red;

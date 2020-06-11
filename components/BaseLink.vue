@@ -179,8 +179,8 @@ export default {
 .link {
   &.links {
     path {
-      stroke: $light;
-      stroke-dasharray: 4 8;
+      stroke: $dark-grey;
+      stroke-dasharray: 2 10;
     }
   }
 
@@ -190,7 +190,7 @@ export default {
       stroke: $red;
       marker-end: url(#link-arrow-red);
       animation: dash-animation 0.5s linear reverse infinite;
-      stroke-dasharray: 4 8;
+      stroke-dasharray: 4 10;
       opacity: 1;
     }
   }
@@ -201,9 +201,9 @@ export default {
 
   path {
     transition: d ease-out;
-    stroke: $light;
+    stroke: $dark-grey;
     marker-end: url(#link-arrow);
-    opacity: 0.75;
+    /* opacity: 0.75; */
   }
 
   &.is-dash-animated path {
@@ -212,7 +212,7 @@ export default {
 
 @keyframes dash-animation {
   to {
-    stroke-dashoffset: 12;
+    stroke-dashoffset: 14;
   }
 }
 </style>

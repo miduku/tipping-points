@@ -1,5 +1,5 @@
 <template>
-  <button class="button">
+  <button class="button" @click="$emit('click')">
     <div class="title is-strong">
       <span>{{ title }}</span>
     </div>
