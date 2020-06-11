@@ -2,7 +2,7 @@ export const state = () => ({
   timeStamp: '',
   panToNodeId: '',
   panZoomCoords: [0, 0, 1],
-  elementSize: {
+  viewSize: {
     width: 0,
     height: 0
   },
@@ -22,13 +22,13 @@ export const mutations = {
     state.timeStamp = Date.now()
   },
 
-  GET_PANTOOM_COORDS(state, coords) {
+  GET_PANZOOM_COORDS(state, coords) {
     state.panZoomCoords = coords
   },
 
-  GET_ELEMENT_SIZE(state, sizes) {
-    state.elementSize.width = sizes[0]
-    state.elementSize.height = sizes[1]
+  GET_VIEW_SIZE(state, sizes) {
+    state.viewSize.width = sizes[0]
+    state.viewSize.height = sizes[1]
   },
 
   SET_MOUNTED(state, set) {

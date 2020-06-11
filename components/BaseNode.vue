@@ -1,13 +1,12 @@
 <template>
   <g :id="nodeData.id" class="node">
     <circle
-      @click="onClick"
-      @dragstart="onDragStart"
-      @dragend="onDragEnd"
       class="node-circle"
       :cx="nodeData.position[0]"
       :cy="nodeData.position[1]"
       :r="size"
+      @mousedown="onMouseDown"
+      @mouseup="onMouseUp"
     />
 
     <!-- Inner node links -->
@@ -60,6 +59,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
+import vuexPanTo from '~/mixins/vuexPanTo'
+import vuexSetSidebar from '~/mixins/vuexSetSidebar'
+
 import Link from '~/components/BaseLink.vue'
 import NodeChildren from '~/components/BaseNodeChildren.vue'
 
@@ -68,6 +72,8 @@ export default {
     Link,
     NodeChildren
   },
+
+  mixins: [vuexPanTo, vuexSetSidebar],
 
   props: {
     nodeData: {
@@ -81,6 +87,18 @@ export default {
     }
   },
 
+  data() {
+    return {
+      tempPanZoomCoords: Array
+    }
+  },
+
+  computed: {
+    ...mapState({
+      panZoomCoords: (state) => state.panZoomCoords
+    })
+  },
+
   mounted() {
     this.$nextTick(function() {
       console.log('mounted BaseNode')
@@ -88,26 +106,16 @@ export default {
   },
 
   methods: {
-    onClick() {
-      console.log('click')
+    onMouseDown() {
+      this.tempPanZoomCoords = this.panZoomCoords
     },
 
-    onDragStart() {
-      console.log('start')
-    },
-
-    onDragEnd() {
-      console.log('End')
-    },
-
-    vuexPanTo(nodeId) {
-      console.log(nodeId)
-      this.$store.commit('TO_NODE_ID', nodeId)
-    },
-
-    vuexSetSidebar(openArr) {
-      console.log(openArr)
-      this.$store.commit('OPEN_SIDEBAR', openArr)
+    onMouseUp() {
+      if (this.tempPanZoomCoords === this.panZoomCoords) {
+        console.log('not dragged')
+        this.vuexPanTo(this.nodeData.id)
+        this.vuexSetSidebar([true, this.nodeData.id])
+      }
     }
   }
 }

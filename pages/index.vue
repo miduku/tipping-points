@@ -3,10 +3,10 @@
     id="content-main-wrapper"
     :class="isSidebarOpen ? 'is-sidebar-open' : ''"
   >
-    <div id="content-main" ref="CONTENTMAIN" v-resize="getElementSize">
+    <div id="content-main" ref="CONTENTMAIN" v-resize="getviewSize">
       <TheLinksImpact
         v-if="isMounted.theNodes && isMounted.theNavMain"
-        :size="[elementSize.width, elementSize.height]"
+        :size="[viewSize.width, viewSize.height]"
       />
 
       <client-only>
@@ -102,7 +102,7 @@ export default {
       timeStamp: (state) => state.timeStamp,
       panToNodeId: (state) => state.panToNodeId,
       isMounted: (state) => state.isMounted,
-      elementSize: (state) => state.elementSize,
+      viewSize: (state) => state.viewSize,
       isSidebarOpen: (state) => state.sidebar.isOpen
     })
   },
@@ -118,7 +118,7 @@ export default {
   mounted() {
     this.$nextTick(function() {
       console.log('mounted INDEX')
-      this.getElementSize()
+      this.getviewSize()
     })
   },
 
@@ -150,7 +150,7 @@ export default {
       const pan = this.$refs.PANZOOM.$panZoomInstance
       const getTransform = pan.getTransform()
 
-      this.$store.commit('GET_PANTOOM_COORDS', [
+      this.$store.commit('GET_PANZOOM_COORDS', [
         getTransform.x,
         getTransform.y,
         getTransform.scale
@@ -164,10 +164,10 @@ export default {
       `
     },
 
-    getElementSize() {
+    getviewSize() {
       const ROOT_EL = this.$refs.CONTENTMAIN
 
-      this.$store.commit('GET_ELEMENT_SIZE', [
+      this.$store.commit('GET_VIEW_SIZE', [
         ROOT_EL.clientWidth,
         ROOT_EL.clientHeight
       ])

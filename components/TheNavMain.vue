@@ -16,6 +16,9 @@
 </template>
 
 <script>
+import vuexPanTo from '~/mixins/vuexPanTo'
+import vuexSetSidebar from '~/mixins/vuexSetSidebar'
+
 import getImpactsJson from '~/assets/json/impacts.json'
 import ButtonHexagon from '~/components/BaseButtonHexagon.vue'
 
@@ -24,8 +27,9 @@ export default {
     ButtonHexagon
   },
 
+  mixins: [vuexPanTo, vuexSetSidebar],
+
   asyncData({ params }) {
-    console.log(params)
     return { getImpactsJson }
   },
 
@@ -41,18 +45,6 @@ export default {
       console.log('mounted TheNavMain')
       this.$store.commit('SET_MOUNTED', ['theNavMain', true])
     })
-  },
-
-  methods: {
-    vuexPanTo(nodeId) {
-      // console.log(nodeId)
-      this.$store.commit('TO_NODE_ID', nodeId)
-    },
-
-    vuexSetSidebar(openArr) {
-      // console.log(openArr)
-      this.$store.commit('OPEN_SIDEBAR', openArr)
-    }
   }
 }
 </script>
@@ -61,7 +53,7 @@ export default {
 .nav {
   display: flex;
   align-items: center;
-  /* pointer-events: none; */
+  pointer-events: none;
 
   ul {
     list-style: none;
