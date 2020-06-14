@@ -134,7 +134,7 @@ export default {
       OWNER.classList.add('has-transition')
       PANZOOM.moveToCenterOfElement(nodeElementCircle, 0, 0)
 
-      OWNER.ontransitionend = () => {
+      setTimeout(() => {
         OWNER.classList.remove('has-transition')
 
         PANZOOM.smoothZoomAbs(
@@ -142,7 +142,7 @@ export default {
           OWNER_PARENT_BOUNDS.height / 2,
           newZoomLevel
         )
-      }
+      }, 250)
     },
 
     onTransform() {
@@ -177,7 +177,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$sidebar-width: 25vw;
+$sidebar-width: 400px;
 
 #content-main-wrapper {
   position: relative;

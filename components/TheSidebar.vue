@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar" :class="isOpen ? 'is-open' : 'is-closed'">
+  <div class="sidebar" :class="sidebarIsOpen ? 'is-open' : 'is-closed'">
     <component :is="textInstance" />
   </div>
 </template>
@@ -14,7 +14,7 @@ export default {
 
   computed: {
     ...mapState({
-      isOpen: (state) => state.sidebar.isOpen,
+      sidebarIsOpen: (state) => state.sidebar.isOpen,
       contentInstanceName: (state) => state.sidebar.contentInstanceName
     }),
 
@@ -31,9 +31,10 @@ export default {
   },
 
   watch: {
-    isOpen(value, oldValue) {
-      if (value !== oldValue) {
+    sidebarIsOpen(value, oldValue) {
+      if (value !== oldValue && value) {
         setTimeout(() => {
+          console.log('dragged from sidebar')
           this.vuexPanTo(this.contentInstanceName)
         }, 500)
       }
@@ -44,7 +45,7 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar {
-  background: hotpink;
+  background: white;
   transition: right 0.5s $easeOutQuint;
 
   &::before {

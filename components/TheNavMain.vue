@@ -11,12 +11,12 @@
     </ul>
 
     <!-- <ButtonHexagon title="AMZN" @click="vuexPanTo('AMZN')" />
+-->
 
     <ButtonHexagon
       title="open sidebar"
       @click="vuexSetSidebar([true, 'AMZN'])"
     />
--->
     <ButtonHexagon title="close sidebar" @click="vuexSetSidebar([false])" />
   </nav>
 </template>

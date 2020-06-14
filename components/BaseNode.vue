@@ -9,23 +9,55 @@
       @mouseup="onMouseUp"
     />
 
-    <!-- Inner node links -->
-    <g class="node-links">
-      <Link
-        v-for="(nodeLink, j) in nodeData.links"
-        :key="j"
-        :link-data="nodeLink"
-        :distance="size * 1.15"
-        invert-angle
-        class="node-link"
+    <g :style="`opacity: ${panZoomCoords[2] < 0.9 ? 0.2 : 1}`">
+      <!-- Inner node links -->
+      <g class="node-links">
+        <Link
+          v-for="(nodeLink, j) in nodeData.links"
+          :key="j"
+          :link-data="nodeLink"
+          :distance="size * 1.15"
+          invert-angle
+          class="node-link"
+        />
+      </g>
+
+      <!-- Outer smaller nodes -->
+      <NodeChildren
+        direction="input"
+        :data="{
+          childrenData: nodeData.children,
+          position: nodeData.position,
+          parentId: nodeData.id,
+          size
+        }"
+      />
+
+      <NodeChildren
+        direction="output"
+        :data="{
+          childrenData: nodeData.children,
+          position: nodeData.position,
+          parentId: nodeData.id,
+          size
+        }"
       />
     </g>
 
+    <!-- Node title -->
     <foreignObject
       :width="size * 3"
       :height="size * 3"
       :x="nodeData.position[0] - size - size / 2"
       :y="nodeData.position[1] - size - size / 2"
+      :style="
+        `
+        transform: scale(${
+          panZoomCoords[2] < 0.9 ? 0.9 / panZoomCoords[2] : '1'
+        });
+        transform-origin: ${nodeData.position[0]}px ${nodeData.position[1]}px;
+        `
+      "
       class="node-foreign"
     >
       <div class="title-wrapper">
@@ -34,27 +66,6 @@
         </span>
       </div>
     </foreignObject>
-
-    <!-- Outer smaller nodes -->
-    <NodeChildren
-      direction="input"
-      :data="{
-        childrenData: nodeData.children,
-        position: nodeData.position,
-        parentId: nodeData.id,
-        size
-      }"
-    />
-
-    <NodeChildren
-      direction="output"
-      :data="{
-        childrenData: nodeData.children,
-        position: nodeData.position,
-        parentId: nodeData.id,
-        size
-      }"
-    />
   </g>
 </template>
 
@@ -95,7 +106,8 @@ export default {
 
   computed: {
     ...mapState({
-      panZoomCoords: (state) => state.panZoomCoords
+      panZoomCoords: (state) => state.panZoomCoords,
+      sidebarIsOpen: (state) => state.sidebar.isOpen
     })
   },
 
@@ -113,7 +125,11 @@ export default {
     onMouseUp() {
       if (this.tempPanZoomCoords === this.panZoomCoords) {
         console.log('not dragged')
-        this.vuexPanTo(this.nodeData.id)
+        if (this.sidebarIsOpen) {
+          console.log('dragged from node')
+          this.vuexPanTo(this.nodeData.id)
+        }
+
         this.vuexSetSidebar([true, this.nodeData.id])
       }
     }
@@ -123,6 +139,10 @@ export default {
 
 <style lang="scss" scoped>
 .node {
+  > g {
+    transition: opacity 0.5s ease;
+  }
+
   .node-circle {
     stroke: rgba($light, 0.25);
     fill: rgba(#fff, 0.75);
@@ -154,7 +174,9 @@ export default {
       text-align: center;
       word-break: keep-all;
       width: 100%;
-      font-size: 1rem;
+      font-size: 1.5rem;
+      font-family: $serif;
+      font-weight: bold;
     }
   }
 }
