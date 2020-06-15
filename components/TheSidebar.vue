@@ -18,7 +18,7 @@ import vuexSetSidebar from '~/mixins/vuexSetSidebar'
 
 export default {
   components: {
-    BaseButton
+    Button
   },
 
   mixins: [vuexPanTo, vuexSetSidebar],
