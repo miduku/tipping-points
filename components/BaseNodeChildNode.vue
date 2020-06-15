@@ -9,7 +9,7 @@
         `
       "
     >
-      <g
+      <!-- <g
         v-if="data.i === 0 && data.direction === 'output'"
         class="node-child-node vuex-pan-to"
         :data-degrees="data.degrees"
@@ -26,13 +26,9 @@
           :cx="data.position[0]"
           :cy="data.position[1]"
         />
-      </g>
+      </g> -->
 
-      <g
-        v-else
-        class="node-child-node vuex-pan-to"
-        :data-degrees="data.degrees"
-      >
+      <g class="node-child-node vuex-pan-to" :data-degrees="data.degrees">
         <rect
           class="pill-border"
           :x="data.position[0] - size"
@@ -42,6 +38,9 @@
         />
         <rect
           class="pill"
+          :class="
+            data.i === 0 && data.direction === 'output' ? 'is-main-output' : ''
+          "
           :x="data.position[0] - size"
           :y="data.position[1] - (size + size / 4) / 2"
           :width="size * 2"
@@ -58,8 +57,8 @@
       :y="data.position[1] - size"
       :style="
         `
-          transform-origin: ${data.position[0]}px ${data.position[1]}px;
-          transform: translateX(${data.margin * 2 + size}px);
+        transform-origin: ${data.position[0]}px ${data.position[1]}px;
+        transform: translateX(${data.margin * 2 + size}px);
         `
       "
     >
@@ -124,6 +123,10 @@ export default {
     .pill {
       stroke: $dark-grey;
       stroke-width: 1;
+
+      &.is-main-output {
+        stroke-width: 2;
+      }
     }
 
     .circle,
