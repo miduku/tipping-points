@@ -46,6 +46,7 @@
 
     <!-- Node title -->
     <foreignObject
+      :class="panZoomCoords[2] > 1.2 ? 'is-zoomed' : ''"
       :width="size * 3"
       :height="size * 3"
       :x="nodeData.position[0] - size - size / 2"
@@ -53,7 +54,7 @@
       :style="
         `
         transform: scale(${
-          panZoomCoords[2] < 0.9 ? 0.9 / panZoomCoords[2] : '1'
+          panZoomCoords[2] < 0.9 ? 0.9 / panZoomCoords[2] : 1
         });
         transform-origin: ${nodeData.position[0]}px ${nodeData.position[1]}px;
         `
@@ -143,12 +144,20 @@ export default {
     transition: opacity 0.5s ease;
   }
 
+  foreignObject {
+    transition: opacity 0.5s ease;
+
+    &.is-zoomed {
+      opacity: 0.25;
+    }
+  }
+
   .node-circle {
     stroke: rgba($light, 0.25);
     fill: rgba(#fff, 0.75);
     pointer-events: all;
-    cursor: pointer;
     transition: stroke 0.5s $easeOutQuint;
+    cursor: pointer;
 
     &:hover {
       stroke: rgba($light, 1);
