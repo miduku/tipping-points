@@ -148,7 +148,7 @@ export default {
     transition: opacity 0.5s ease;
 
     &.is-zoomed {
-      opacity: 0.25;
+      opacity: 0.1;
     }
   }
 

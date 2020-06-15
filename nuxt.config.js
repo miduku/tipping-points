@@ -81,7 +81,7 @@ export default {
     // use: [
     //   'markdown-it-div',
     //   'markdown-it-attrs'
-    // ]
+    // ],
   },
   /*
    ** Axios module configuration

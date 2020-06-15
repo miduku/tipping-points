@@ -76,9 +76,36 @@ export default {
       rgba(255, 255, 255, 0) 100%
     );
   }
+
+  /deep/ section {
+    padding: 2.5rem;
+    overflow: auto;
+    display: block;
+    height: inherit;
+    opacity: 0;
+    transform: translateX(1rem);
+    animation: appear 0.5s $easeOutQuint 0.25s forwards;
+
+    &::before {
+      content: '— tipping point';
+      font-variant: small-caps;
+      line-height: 1.5rem;
+    }
+
+    > :last-child {
+      margin-bottom: 2.5rem;
+    }
+  }
 }
 
 .is-closed {
   right: -50vw !important;
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 </style>

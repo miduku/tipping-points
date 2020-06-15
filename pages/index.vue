@@ -177,17 +177,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$sidebar-width: 400px;
+$sidebar-width-mobile: 100vw;
+$sidebar-width-tablet: 50vw;
+$sidebar-width-desktop: 480px;
+
+/* @include desktop {
+  $sidebar-width: 50vw;
+} */
 
 #content-main-wrapper {
   position: relative;
   display: block;
-  /* background: pink; */
   margin-right: 0;
   transition: margin-right 0.6s $easeOutQuint;
 
   &.is-sidebar-open {
-    margin-right: $sidebar-width;
+    margin-right: $sidebar-width-mobile;
+
+    @include tablet {
+      margin-right: $sidebar-width-tablet;
+    }
+
+    @include desktop {
+      margin-right: $sidebar-width-desktop;
+    }
   }
 
   #content-main {
@@ -195,11 +208,21 @@ $sidebar-width: 400px;
   }
 
   #content-sidebar {
+    /* background: pink; */
     position: fixed;
     top: 0;
     right: 0;
-    width: $sidebar-width;
     height: 100vh;
+    width: $sidebar-width-mobile;
+    z-index: 10;
+
+    @include tablet {
+      width: $sidebar-width-tablet;
+    }
+
+    @include desktop {
+      width: $sidebar-width-desktop;
+    }
   }
 }
 
