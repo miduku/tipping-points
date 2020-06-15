@@ -6,17 +6,6 @@
     :view-box.camel="`0 0 ${size[0]} ${size[1]}`"
     :class="linksImpactsClassesIsVisible"
   >
-    <!-- TODO: delete this later -->
-    <rect
-      x="0"
-      y="0"
-      :width="size[0]"
-      :height="size[1]"
-      fill="none"
-      stroke-width="4"
-      stroke="hotpink"
-    />
-
     <Link
       v-for="(link, i) in linksImpacts"
       :key="i"
