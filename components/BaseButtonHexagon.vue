@@ -47,6 +47,10 @@ $background: $red;
 
   &:focus,
   &:hover {
+    outline: none;
+    /* border: none;
+    outline-style: none; */
+
     .title {
       opacity: 1;
       transform: translateX(0);
