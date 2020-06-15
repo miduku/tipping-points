@@ -88,6 +88,16 @@ export default {
     );
   }
 
+  &.is-open {
+    .sidebar-button {
+      animation: appear 0.5s $easeOutQuint 0.75s forwards;
+    }
+  }
+
+  &.is-closed {
+    right: -50vw !important;
+  }
+
   /deep/ section {
     padding: 2.5rem;
     overflow: auto;
@@ -112,11 +122,10 @@ export default {
     position: absolute;
     bottom: $margin;
     right: 100%;
+    opacity: 0;
+    transform: translateX(1rem);
+    transition: opacity 0.5s ease;
   }
-}
-
-.is-closed {
-  right: -50vw !important;
 }
 
 @keyframes appear {
