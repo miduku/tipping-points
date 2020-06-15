@@ -41,15 +41,14 @@ $background: $red;
   height: $size;
   min-height: unset;
   min-width: unset;
-  /* background: red; */
+  background: transparent;
   border-radius: 0;
   pointer-events: all;
+  box-shadow: none;
 
   &:focus,
   &:hover {
     outline: none;
-    /* border: none;
-    outline-style: none; */
 
     .title {
       opacity: 1;

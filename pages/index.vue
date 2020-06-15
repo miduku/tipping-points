@@ -45,7 +45,7 @@
         </panZoom>
       </client-only>
 
-      <div class="dot" />
+      <!-- <div class="dot" /> -->
 
       <!-- <div class="buttons">
         <p>{{ panInstance.transform }}</p>

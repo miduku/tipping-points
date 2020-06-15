@@ -1,5 +1,9 @@
 <template>
   <div class="sidebar" :class="sidebarIsOpen ? 'is-open' : 'is-closed'">
+    <Button class="sidebar-button is-bordered" @click="vuexSetSidebar([false])">
+      Close
+    </Button>
+
     <component :is="textInstance" />
   </div>
 </template>
@@ -7,10 +11,17 @@
 <script>
 import { mapState } from 'vuex'
 
+import Button from '~/components/BaseButton.vue'
+
 import vuexPanTo from '~/mixins/vuexPanTo'
+import vuexSetSidebar from '~/mixins/vuexSetSidebar'
 
 export default {
-  mixins: [vuexPanTo],
+  components: {
+    BaseButton
+  },
+
+  mixins: [vuexPanTo, vuexSetSidebar],
 
   computed: {
     ...mapState({
@@ -95,6 +106,12 @@ export default {
     > :last-child {
       margin-bottom: 2.5rem;
     }
+  }
+
+  .sidebar-button {
+    position: absolute;
+    bottom: $margin;
+    right: 100%;
   }
 }
 

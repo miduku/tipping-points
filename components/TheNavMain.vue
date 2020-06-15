@@ -13,11 +13,11 @@
     <!-- <ButtonHexagon title="AMZN" @click="vuexPanTo('AMZN')" />
 -->
 
-    <ButtonHexagon
+    <!-- <ButtonHexagon
       title="open sidebar"
       @click="vuexSetSidebar([true, 'AMZN'])"
-    />
-    <ButtonHexagon title="close sidebar" @click="vuexSetSidebar([false])" />
+    /> -->
+    <!-- <ButtonHexagon title="close sidebar" @click="vuexSetSidebar([false])" /> -->
   </nav>
 </template>
 
