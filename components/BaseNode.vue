@@ -153,14 +153,14 @@ export default {
   }
 
   .node-circle {
-    stroke: rgba($light, 0.25);
+    stroke: rgba($dark-grey, 0.15);
     fill: rgba(#fff, 0.75);
     pointer-events: all;
     transition: stroke 0.5s $easeOutQuint;
     cursor: pointer;
 
     &:hover {
-      stroke: rgba($light, 1);
+      stroke: rgba($dark-grey, 0.75);
     }
   }
 
