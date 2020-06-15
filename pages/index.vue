@@ -87,7 +87,7 @@ export default {
       isZooming: false,
       options: {
         // transformOrigin: { x: 0.5, y: 0.5 },
-        minZoom: 0.5,
+        minZoom: 0.4,
         maxZoom: 2
         // autocenter: true
       },
