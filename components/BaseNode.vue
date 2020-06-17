@@ -101,7 +101,7 @@ export default {
 
   data() {
     return {
-      tempPanZoomCoords: Array
+      tempClickPanZoomCoords: Array
     }
   },
 
@@ -120,11 +120,11 @@ export default {
 
   methods: {
     onMouseDown() {
-      this.tempPanZoomCoords = this.panZoomCoords
+      this.tempClickPanZoomCoords = this.panZoomCoords
     },
 
     onMouseUp() {
-      if (this.tempPanZoomCoords === this.panZoomCoords) {
+      if (this.tempClickPanZoomCoords === this.panZoomCoords) {
         console.log('not dragged')
         if (this.sidebarIsOpen) {
           console.log('dragged from node')
@@ -141,11 +141,11 @@ export default {
 <style lang="scss" scoped>
 .node {
   > g {
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s $easeOutQuint;
   }
 
   foreignObject {
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s $easeOutQuint, transform 0.5s $easeOutQuint 0.15s;
 
     &.is-zoomed {
       opacity: 0.1;

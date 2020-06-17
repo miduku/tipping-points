@@ -47,9 +47,9 @@
 
       <!-- <div class="dot" /> -->
 
-      <!-- <div class="buttons">
+      <div class="buttons">
         <p>{{ panInstance.transform }}</p>
-      </div> -->
+      </div>
     </div>
 
     <TheSidebar id="content-sidebar" />
@@ -57,6 +57,8 @@
 </template>
 
 <script>
+import _throttle from 'lodash/throttle'
+
 import { mapState } from 'vuex'
 
 import TheLinksImpact from '~/components/TheLinksImpact.vue'
@@ -145,8 +147,8 @@ export default {
       }, 250)
     },
 
-    onTransform() {
-      // Delete this on production
+    onTransform: _throttle(function() {
+      console.log('onTransform')
       const pan = this.$refs.PANZOOM.$panZoomInstance
       const getTransform = pan.getTransform()
 
@@ -156,22 +158,23 @@ export default {
         getTransform.scale
       ])
 
-      // console.log('panning')
+      // delete this on prod
       this.panInstance.transform = `
         x: ${getTransform.x},
         y: ${getTransform.y},
         scale: ${getTransform.scale}
       `
-    },
+    }, 120),
 
-    getviewSize() {
+    getviewSize: _throttle(function() {
+      console.log('getviewSize')
       const ROOT_EL = this.$refs.CONTENTMAIN
 
       this.$store.commit('GET_VIEW_SIZE', [
         ROOT_EL.clientWidth,
         ROOT_EL.clientHeight
       ])
-    }
+    }, 250)
   }
 }
 </script>
