@@ -62,7 +62,7 @@ export default {
   &::before {
     content: '';
     position: absolute;
-    width: 10%;
+    width: 15%;
     height: inherit;
     background: blue;
     right: 100%;
@@ -99,7 +99,7 @@ export default {
   }
 
   /deep/ section {
-    padding: 2.5rem;
+    padding: 2rem;
     overflow: auto;
     display: block;
     height: inherit;
@@ -114,7 +114,7 @@ export default {
     }
 
     > :last-child {
-      margin-bottom: 2.5rem;
+      margin-bottom: 3.5rem;
     }
   }
 

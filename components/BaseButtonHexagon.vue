@@ -72,7 +72,8 @@ $background: $red;
     transition: transform 0.33s $easeOutQuint, opacity 0.66s $easeOutQuint;
 
     span {
-      background: rgba(#fff, 0.75);
+      background: rgba(#fff, 0.85);
+      padding-right: 0.5rem;
     }
   }
 

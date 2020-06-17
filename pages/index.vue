@@ -24,32 +24,32 @@
               `
               0
               0
-              ${getNodesJson.panSize[0]}
-              ${getNodesJson.panSize[1]}
+              ${importNodesJson.panSize[0]}
+              ${importNodesJson.panSize[1]}
               `
             "
             :style="
               `
-              width: ${getNodesJson.panSize[0]}px;
-              height: ${getNodesJson.panSize[1]}px;
+              width: ${importNodesJson.panSize[0]}px;
+              height: ${importNodesJson.panSize[1]}px;
               `
             "
           >
             <TheLinks
               v-if="isMounted.theNodes && isMounted.theNavMain"
-              :data="getLinksJson"
+              :data="importLinksJson"
             />
 
-            <TheNodes :data="getNodesJson.nodes" />
+            <TheNodes :data="importNodesJson.nodes" />
           </ThePanzoomSvg>
         </panZoom>
       </client-only>
 
+      <!-- delete this on prod -->
       <!-- <div class="dot" /> -->
-
-      <div class="buttons">
+      <!-- <div class="buttons">
         <p>{{ panInstance.transform }}</p>
-      </div>
+      </div> -->
     </div>
 
     <TheSidebar id="content-sidebar" />
@@ -67,8 +67,8 @@ import TheNodes from '~/components/TheNodes.vue'
 import TheLinks from '~/components/TheLinks.vue'
 import TheSidebar from '~/components/TheSidebar.vue'
 
-import getNodesJson from '~/assets/json/nodes.json'
-import getLinksJson from '~/assets/json/links.json'
+import importNodesJson from '~/assets/json/nodes.json'
+import importLinksJson from '~/assets/json/links.json'
 
 export default {
   components: {
@@ -80,7 +80,7 @@ export default {
   },
 
   asyncData({ params }) {
-    return { getNodesJson, getLinksJson }
+    return { importNodesJson, importLinksJson }
   },
 
   data() {
@@ -182,7 +182,7 @@ export default {
 <style lang="scss" scoped>
 $sidebar-width-mobile: 100vw;
 $sidebar-width-tablet: 50vw;
-$sidebar-width-desktop: 480px;
+$sidebar-width-desktop: 420px;
 
 /* @include desktop {
   $sidebar-width: 50vw;

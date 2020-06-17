@@ -19,7 +19,7 @@
 <script>
 import { mapState } from 'vuex'
 
-import getLinksImpactsJson from '~/assets/json/links-impacts.json'
+import importLinksImpactsJson from '~/assets/json/links-impacts.json'
 
 import Link from '~/components/BaseLink.vue'
 
@@ -36,7 +36,7 @@ export default {
   },
 
   asyncData({ params }) {
-    return { getLinksImpactsJson }
+    return { importLinksImpactsJson }
   },
 
   data() {
@@ -73,7 +73,7 @@ export default {
   },
 
   created() {
-    this.linksImpacts = getLinksImpactsJson
+    this.linksImpacts = importLinksImpactsJson
   },
 
   mounted() {

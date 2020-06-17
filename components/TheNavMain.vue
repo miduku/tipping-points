@@ -1,14 +1,29 @@
 <template>
-  <nav class="nav nav-main">
-    <ul class="nav-main--impacts">
-      <li v-for="(impact, i) in impacts" :id="impact.id" :key="i">
-        <ButtonHexagon
-          :title="impact.title"
-          class="vuex-pan-to"
-          @click="toggleImpactLinksGroup(impact.id)"
-        />
-      </li>
-    </ul>
+  <div class="nav nav-main">
+    <div class="title">
+      <h1>Tipping Points</h1>
+    </div>
+
+    <nav class="nav-main--impacts">
+      <ul>
+        <li v-for="(impact, i) in impacts" :id="impact.id" :key="i">
+          <ButtonHexagon
+            :title="impact.title"
+            class="vuex-pan-to is-normal-case"
+            @click="toggleImpactLinksGroup(impact.id)"
+          />
+        </li>
+      </ul>
+    </nav>
+
+    <nav class="nav-main--meta">
+      <ul>
+        <li>dd</li>
+      </ul>
+      <ul>
+        <li>aaa</li>
+      </ul>
+    </nav>
 
     <!-- <ButtonHexagon title="AMZN" @click="vuexPanTo('AMZN')" />
 -->
@@ -18,7 +33,7 @@
       @click="vuexSetSidebar([true, 'AMZN'])"
     /> -->
     <!-- <ButtonHexagon title="close sidebar" @click="vuexSetSidebar([false])" /> -->
-  </nav>
+  </div>
 </template>
 
 <script>
@@ -70,18 +85,16 @@ export default {
 <style lang="scss" scoped>
 .nav {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  /* align-items: center; */
   pointer-events: none;
+  /* background: pink; */
 
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
-
-    li {
-      .button {
-      }
-    }
   }
 
   &.nav-main {
@@ -89,28 +102,51 @@ export default {
     top: 0;
     left: 0;
     height: 100vh;
-    width: 11em;
+    width: 0;
+    /* width: 11em; */
     z-index: 10;
     padding: $margin;
-    // background: linear-gradient(
-    //   90deg,
-    //   #ffffff 50%,
-    //   rgba(255, 255, 255, 0.991353) 53.33%,
-    //   rgba(255, 255, 255, 0.96449) 56.67%,
-    //   rgba(255, 255, 255, 0.91834) 60%,
-    //   rgba(255, 255, 255, 0.852589) 63.33%,
-    //   rgba(255, 255, 255, 0.768225) 66.67%,
-    //   rgba(255, 255, 255, 0.668116) 70%,
-    //   rgba(255, 255, 255, 0.557309) 73.33%,
-    //   rgba(255, 255, 255, 0.442691) 76.67%,
-    //   rgba(255, 255, 255, 0.331884) 80%,
-    //   rgba(255, 255, 255, 0.231775) 83.33%,
-    //   rgba(255, 255, 255, 0.147411) 86.67%,
-    //   rgba(255, 255, 255, 0.0816599) 90%,
-    //   rgba(255, 255, 255, 0.03551) 93.33%,
-    //   rgba(255, 255, 255, 0.0086472) 96.67%,
-    //   rgba(255, 255, 255, 0) 100%
-    // );
+    /* background: linear-gradient(
+      90deg,
+      #ffffff 50%,
+      rgba(255, 255, 255, 0.991353) 53.33%,
+      rgba(255, 255, 255, 0.96449) 56.67%,
+      rgba(255, 255, 255, 0.91834) 60%,
+      rgba(255, 255, 255, 0.852589) 63.33%,
+      rgba(255, 255, 255, 0.768225) 66.67%,
+      rgba(255, 255, 255, 0.668116) 70%,
+      rgba(255, 255, 255, 0.557309) 73.33%,
+      rgba(255, 255, 255, 0.442691) 76.67%,
+      rgba(255, 255, 255, 0.331884) 80%,
+      rgba(255, 255, 255, 0.231775) 83.33%,
+      rgba(255, 255, 255, 0.147411) 86.67%,
+      rgba(255, 255, 255, 0.0816599) 90%,
+      rgba(255, 255, 255, 0.03551) 93.33%,
+      rgba(255, 255, 255, 0.0086472) 96.67%,
+      rgba(255, 255, 255, 0) 100%
+    ); */
+
+    > * {
+      display: flex;
+      height: calc(100vh / 3 - #{$margin});
+    }
+  }
+
+  .title {
+    position: relative;
+    width: 50vw;
+
+    h1 {
+      position: absolute;
+    }
+  }
+
+  .nav-main--impacts {
+    align-items: center;
+  }
+
+  .nav-main--meta {
+    align-items: flex-end;
   }
 }
 </style>
