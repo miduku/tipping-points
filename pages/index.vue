@@ -89,8 +89,8 @@ export default {
       isZooming: false,
       options: {
         // transformOrigin: { x: 0.5, y: 0.5 },
-        minZoom: 0.4,
-        maxZoom: 2
+        minZoom: 0.25,
+        maxZoom: 2.25
         // autocenter: true
       },
       panInstance: {
@@ -105,7 +105,8 @@ export default {
       panToNodeId: (state) => state.panToNodeId,
       isMounted: (state) => state.isMounted,
       viewSize: (state) => state.viewSize,
-      isSidebarOpen: (state) => state.sidebar.isOpen
+      isSidebarOpen: (state) => state.sidebar.isOpen,
+      newZoomLevel: (state) => state.newZoomLevel
     })
   },
 
@@ -114,6 +115,10 @@ export default {
       if (value !== oldValue) {
         this.panTo(this.panToNodeId)
       }
+    },
+
+    newZoomLevel(value, oldValue) {
+      this.setZoomLevelFromCenter(value)
     }
   },
 
@@ -125,10 +130,9 @@ export default {
   },
 
   methods: {
-    panTo(nodeId, newZoomLevel = 1) {
+    panTo(nodeId, toNewZoomLevel = 1) {
       const OWNER = this.$refs.OWNER.$el
       const PANZOOM = this.$refs.PANZOOM.$panZoomInstance
-      const OWNER_PARENT_BOUNDS = OWNER.parentElement.getBoundingClientRect()
 
       const nodeElement = OWNER.querySelector('#' + nodeId)
       const nodeElementCircle = nodeElement.querySelector('.node-circle')
@@ -139,12 +143,20 @@ export default {
       setTimeout(() => {
         OWNER.classList.remove('has-transition')
 
-        PANZOOM.smoothZoomAbs(
-          OWNER_PARENT_BOUNDS.width / 2,
-          OWNER_PARENT_BOUNDS.height / 2,
-          newZoomLevel
-        )
+        this.setZoomLevelFromCenter(toNewZoomLevel, OWNER, PANZOOM)
       }, 250)
+    },
+
+    setZoomLevelFromCenter(zoomLevel, owner, panzoom) {
+      const OWNER = owner || this.$refs.OWNER.$el
+      const PANZOOM = panzoom || this.$refs.PANZOOM.$panZoomInstance
+      const OWNER_PARENT_BOUNDS = OWNER.parentElement.getBoundingClientRect()
+
+      PANZOOM.smoothZoomAbs(
+        OWNER_PARENT_BOUNDS.width / 2,
+        OWNER_PARENT_BOUNDS.height / 2,
+        zoomLevel
+      )
     },
 
     onTransform: _throttle(function() {

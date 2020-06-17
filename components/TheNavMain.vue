@@ -17,11 +17,14 @@
     </nav>
 
     <nav class="nav-main--meta">
-      <ul>
-        <li>dd</li>
-      </ul>
-      <ul>
-        <li>aaa</li>
+      <ul class="zoom-controls">
+        <li>
+          <Button @click="zoomOut" icon="minus" class="is-bordered" />
+        </li>
+        <li>
+          <Button @click="zoomIn" icon="plus" class="is-bordered" />
+        </li>
+        <li>{{ zoomLevel }}</li>
       </ul>
     </nav>
 
@@ -37,18 +40,23 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import vuexPanTo from '~/mixins/vuexPanTo'
 import vuexSetSidebar from '~/mixins/vuexSetSidebar'
+import vuexSmoothZoomAbs from '~/mixins/vuexSmoothZoomAbs'
 
 import impactImpactsJson from '~/assets/json/impacts.json'
 import ButtonHexagon from '~/components/BaseButtonHexagon.vue'
+import Button from '~/components/BaseButton.vue'
 
 export default {
   components: {
+    Button,
     ButtonHexagon
   },
 
-  mixins: [vuexPanTo, vuexSetSidebar],
+  mixins: [vuexPanTo, vuexSetSidebar, vuexSmoothZoomAbs],
 
   asyncData({ params }) {
     return { impactImpactsJson }
@@ -56,7 +64,21 @@ export default {
 
   data() {
     return {
-      impacts: {}
+      impacts: {},
+      zoomLevel: '100%'
+    }
+  },
+
+  computed: {
+    ...mapState({
+      panZoomCoords: (state) => state.panZoomCoords
+    })
+  },
+
+  watch: {
+    panZoomCoords(value) {
+      console.log('log')
+      this.zoomLevel = Math.round(value[2] * 100) + '%'
     }
   },
 
@@ -77,6 +99,16 @@ export default {
         : (bool = true)
 
       this.$store.commit('SET_IMPACT_LINKS_GROUPS', [id, bool])
+    },
+
+    zoomIn() {
+      const newZoomLevel = this.panZoomCoords[2] + 0.5
+      this.vuexSmoothZoomAbs(newZoomLevel)
+    },
+
+    zoomOut() {
+      const newZoomLevel = this.panZoomCoords[2] - 0.5
+      this.vuexSmoothZoomAbs(newZoomLevel)
     }
   }
 }
@@ -147,6 +179,24 @@ export default {
 
   .nav-main--meta {
     align-items: flex-end;
+
+    ul {
+      li {
+        > * {
+          pointer-events: all;
+        }
+      }
+    }
+
+    ul.zoom-controls {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      li {
+        margin-right: 0.5rem;
+      }
+    }
   }
 }
 </style>

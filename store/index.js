@@ -2,6 +2,7 @@ export const state = () => ({
   timeStamp: '',
   panToNodeId: '',
   panZoomCoords: [0, 0, 1],
+  newZoomLevel: 1,
   viewSize: {
     width: 0,
     height: 0
@@ -47,5 +48,9 @@ export const mutations = {
 
   SET_IMPACT_LINKS_GROUPS(state, setArr) {
     state.impactLinksGroups[setArr[0]] = setArr[1]
+  },
+
+  SET_NEW_ZOOM_LEVEL(state, payload) {
+    state.newZoomLevel = payload
   }
 }
