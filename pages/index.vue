@@ -101,24 +101,27 @@ export default {
 
   computed: {
     ...mapState({
-      timeStamp: (state) => state.timeStamp,
-      panToNodeId: (state) => state.panToNodeId,
+      panToNodeTimeStamp: (state) => state.panToNode.timeStamp,
+      panToNodeId: (state) => state.panToNode.id,
       isMounted: (state) => state.isMounted,
       viewSize: (state) => state.viewSize,
       isSidebarOpen: (state) => state.sidebar.isOpen,
-      newZoomLevel: (state) => state.newZoomLevel
+      newZoomLevel: (state) => state.newZoomLevel.level,
+      newZoomLevelTimeStamp: (state) => state.newZoomLevel.timeStamp
     })
   },
 
   watch: {
-    timeStamp(value, oldValue) {
+    panToNodeTimeStamp(value, oldValue) {
       if (value !== oldValue) {
         this.panTo(this.panToNodeId)
       }
     },
 
-    newZoomLevel(value, oldValue) {
-      this.setZoomLevelFromCenter(value)
+    newZoomLevelTimeStamp(value, oldValue) {
+      if (value !== oldValue) {
+        this.setZoomLevelFromCenter(this.newZoomLevel)
+      }
     }
   },
 

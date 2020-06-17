@@ -32,7 +32,12 @@
   }
 
   &.is-bordered {
-    border: 1px solid $light;
+    border: 1px solid rgba($dark-grey, 0.25);
+
+    &:focus,
+    &:hover {
+      border-color: rgba($dark-grey, 1);
+    }
   }
 
   &.is-normal-case {

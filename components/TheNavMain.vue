@@ -19,23 +19,16 @@
     <nav class="nav-main--meta">
       <ul class="zoom-controls">
         <li>
-          <Button @click="zoomOut" icon="minus" class="is-bordered" />
+          <Button icon="minus" class="is-bordered" @click="zoomOut" />
         </li>
         <li>
-          <Button @click="zoomIn" icon="plus" class="is-bordered" />
+          <Button class="is-bordered" icon="plus" @click="zoomIn" />
         </li>
-        <li>{{ zoomLevel }}</li>
+        <li>
+          <span @click.prevent="vuexSmoothZoomAbs(1)">{{ zoomLevel }}</span>
+        </li>
       </ul>
     </nav>
-
-    <!-- <ButtonHexagon title="AMZN" @click="vuexPanTo('AMZN')" />
--->
-
-    <!-- <ButtonHexagon
-      title="open sidebar"
-      @click="vuexSetSidebar([true, 'AMZN'])"
-    /> -->
-    <!-- <ButtonHexagon title="close sidebar" @click="vuexSetSidebar([false])" /> -->
   </div>
 </template>
 
@@ -195,6 +188,27 @@ export default {
 
       li {
         margin-right: 0.5rem;
+
+        &:last-child {
+          margin-left: 0.5rem;
+
+          span {
+            color: rgba($dark-grey, 0.75);
+            background: rgba(white, 0.9);
+            border: 1px solid rgba($dark-grey, 0.25);
+            border-radius: 2rem;
+            padding: 0 0.5rem;
+            transition: all 0.5s $easeOutQuint;
+            cursor: pointer;
+
+            &:focus,
+            &:hover {
+              color: rgba($dark-grey, 0.9);
+              /* background: rgba(white, 0.9); */
+              border-color: rgba($dark-grey, 0.75);
+            }
+          }
+        }
       }
     }
   }

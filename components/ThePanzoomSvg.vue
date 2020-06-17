@@ -39,6 +39,14 @@
       </marker>
     </defs>
 
+    <image
+      id="world-map"
+      x="0"
+      y="0"
+      width="100%"
+      xlink:href="~assets/svg/world.svg#world"
+    />
+
     <!-- Slot -->
     <slot />
     <!-- Slot END -->
@@ -52,6 +60,10 @@ svg {
   left: 0;
   top: 0;
   pointer-events: none;
+
+  #world-map {
+    opacity: 0.15;
+  }
 
   marker {
     &#link-arrow path {

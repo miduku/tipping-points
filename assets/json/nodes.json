@@ -35,7 +35,7 @@
     {
       "id": "AMOC",
       "title": "Atlantic Meridional Overturning Circulation Breakdown",
-      "position": [1495, 900],
+      "position": [1350, 950],
       "links": [
         { "source": "AMOC-input-0", "target": "AMOC-output-1" },
         { "source": "AMOC-output-0", "target": "AMOC-output-2" },
@@ -57,7 +57,7 @@
     {
       "id": "BFS",
       "title": "Boreal Forest Shift",
-      "position": [860, 620],
+      "position": [650, 550],
       "links": [
         { "source": "BFS-input-0", "target": "BFS-output-4" },
         { "source": "BFS-input-1", "target": "BFS-output-3" },
@@ -84,7 +84,7 @@
     {
       "id": "GIS",
       "title": "Greenand Ice Sheet Disintegration",
-      "position": [1610, 290],
+      "position": [1500, 350],
       "links": [
         { "source": "GIS-input-0", "target": "GIS-output-1" },
         { "source": "GIS-input-1", "target": "GIS-output-0" },
@@ -109,7 +109,7 @@
     {
       "id": "WAM",
       "title": "West African Monsoon Shift",
-      "position": [2355, 1080],
+      "position": [2200, 1300],
       "links": [
         { "source": "WAM-input-0", "target": "WAM-output-0" },
         { "source": "WAM-output-0", "target": "WAM-output-1" },
@@ -133,7 +133,7 @@
     {
       "id": "CRD",
       "title": "Coral reef die-off",
-      "position": [3130, 1700],
+      "position": [3300, 2050],
       "links": [
         { "source": "CRD-input-0", "target": "CRD-output-0" },
         { "source": "CRD-input-0", "target": "CRD-output-2" },
@@ -162,7 +162,7 @@
     {
       "id": "IMS",
       "title": "Indian Monsoon Shift",
-      "position": [2960, 850],
+      "position": [2800, 1050],
       "links": [
         { "source": "IMS-input-0", "target": "IMS-output-0" },
         { "source": "IMS-output-0", "target": "IMS-output-1" }
@@ -179,7 +179,7 @@
     {
       "id": "PERM",
       "title": "Permafrost Loss",
-      "position": [2390, 460],
+      "position": [2300, 460],
       "links": [
         { "source": "PERM-input-0", "target": "PERM-output-0" },
         { "source": "PERM-output-0", "target": "PERM-output-1" }

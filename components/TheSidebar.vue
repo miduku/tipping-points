@@ -1,8 +1,10 @@
 <template>
   <div class="sidebar" :class="sidebarIsOpen ? 'is-open' : 'is-closed'">
-    <Button class="sidebar-button is-bordered" @click="vuexSetSidebar([false])">
-      Close
-    </Button>
+    <div class="sidebar-button-wrapper">
+      <Button class="is-bordered" @click="vuexSetSidebar([false])">
+        Close
+      </Button>
+    </div>
 
     <component :is="textInstance" />
   </div>
@@ -89,7 +91,7 @@ export default {
   }
 
   &.is-open {
-    .sidebar-button {
+    .sidebar-button-wrapper {
       animation: appear 0.5s $easeOutQuint 0.75s forwards;
     }
   }
@@ -118,7 +120,7 @@ export default {
     }
   }
 
-  .sidebar-button {
+  .sidebar-button-wrapper {
     position: absolute;
     bottom: $margin;
     right: 100%;
