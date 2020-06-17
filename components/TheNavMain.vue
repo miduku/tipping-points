@@ -40,7 +40,7 @@
 import vuexPanTo from '~/mixins/vuexPanTo'
 import vuexSetSidebar from '~/mixins/vuexSetSidebar'
 
-import getImpactsJson from '~/assets/json/impacts.json'
+import impactImpactsJson from '~/assets/json/impacts.json'
 import ButtonHexagon from '~/components/BaseButtonHexagon.vue'
 
 export default {
@@ -51,7 +51,7 @@ export default {
   mixins: [vuexPanTo, vuexSetSidebar],
 
   asyncData({ params }) {
-    return { getImpactsJson }
+    return { impactImpactsJson }
   },
 
   data() {
@@ -63,7 +63,7 @@ export default {
   mounted() {
     this.$nextTick(function() {
       console.log('mounted TheNavMain')
-      this.impacts = getImpactsJson
+      this.impacts = impactImpactsJson
       this.$store.commit('SET_MOUNTED', ['theNavMain', true])
     })
   },
