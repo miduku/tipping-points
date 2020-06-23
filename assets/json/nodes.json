@@ -118,7 +118,7 @@
         { "source": "WAM-output-2", "target": "WAM-output-0" }
       ],
       "children": {
-        "input": [{ "title": "Southward shift of monsoon rains " }],
+        "input": [{ "title": "Southward shift of monsoon rains" }],
         "output": [
           { "title": "Increase in drought" },
           {
