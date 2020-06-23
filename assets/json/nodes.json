@@ -109,7 +109,7 @@
     {
       "id": "WAM",
       "title": "West African Monsoon Shift",
-      "position": [2200, 1300],
+      "position": [1950, 1200],
       "links": [
         { "source": "WAM-input-0", "target": "WAM-output-0" },
         { "source": "WAM-output-0", "target": "WAM-output-1" },
@@ -133,7 +133,7 @@
     {
       "id": "CRD",
       "title": "Coral reef die-off",
-      "position": [3300, 2050],
+      "position": [3500, 2050],
       "links": [
         { "source": "CRD-input-0", "target": "CRD-output-0" },
         { "source": "CRD-input-0", "target": "CRD-output-2" },
