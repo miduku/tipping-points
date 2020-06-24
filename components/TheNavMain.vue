@@ -1,7 +1,7 @@
 <template>
   <div class="nav nav-main">
     <div class="title">
-      <h1>Tipping Points</h1>
+      <h2>Tipping Points</h2>
     </div>
 
     <nav class="nav-main--impacts">

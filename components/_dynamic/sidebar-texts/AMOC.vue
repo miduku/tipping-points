@@ -1,5 +1,5 @@
 <template lang="md">
-  # Atlantic Meridional Overturning Circulation Breakdown
+  ## Atlantic Meridional Overturning Circulation Breakdown
 
   The Atlantic Meridional Overturning Circulation (AMOC) is a current system in the Atlantic Oceans that is responsible for transportation of warm and cold waters between the North and South. Starting from the Gulf of Mexico, warm, salty and therefore less dense water flows polewards in the upper ocean layers. This is known as the Gulf Stream and North Atlantic Current. When the water reaches the North it cools down, gains density, sinks and returns towards the southern hemisphere in greater depth than before. The AMOC is significant as it is part of a global-scale current system that releases heat into the atmosphere and influences ocean nutrient and carbon dioxide cycles.
 

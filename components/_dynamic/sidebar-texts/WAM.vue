@@ -1,5 +1,5 @@
 <template lang="md">
-  # West African Monsoon Shift
+  ## West African Monsoon Shift
 
   A monsoon is defined by a reversal of winds and moves with the position of the sun. While West Africa experiences dry winds coming from the inland from November to May, around June to September northward winds bring rainfall originating from the North Atlantic. This seasonal phenomenon has shown severe impact on the Sahel climate, which is a semi-arid region between the northern Sahara desert and southern tropical forest, stretching from east to west on the African continent.
 

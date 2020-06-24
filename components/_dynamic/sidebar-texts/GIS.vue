@@ -1,5 +1,5 @@
 <template lang="md">
-  # Greenland Ice Sheet Disintegration
+  ## Greenland Ice Sheet Disintegration
 
 “The Greenland Ice Sheet is the second largest mass of ice on Earth”. As it is one of the major contributors to global-sea-level rise it could add up to 7,2 meters once completely melted. There is very high confidence that the past two decades ice has been lost and high confidence that the mass loss rate has accelerated.
 

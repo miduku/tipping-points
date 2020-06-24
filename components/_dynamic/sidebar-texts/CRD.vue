@@ -1,5 +1,5 @@
 <template lang="md">
-  # Coral Reef Die-Off
+  ## Coral Reef Die-Off
 
   This is arguably the most sensitive of all nine tipping points mentioned and is in immediate danger on account of global warming. Coral Reefs are very likely to collapse in the following decades if the average global temperature exceeds 1,5°C. This would have fatal consequences for life on earth.
 

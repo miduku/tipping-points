@@ -1,5 +1,5 @@
 <template lang="md">
-  # Boreal Forest Shift
+  ## Boreal Forest Shift
 
   The boreal forests are located in the cold, low-rain climate zones in the northern hemisphere and cover large parts of North America, Northern Europe and Asia. The coniferous forests are characterized by tree species such as pine, spruce and larch, which are particularly cold-resistant. As the largest biome, boreal forests make up almost a third of the total forest area worldwide. They bind around a third of global carbon and are therefore a very important carbon storage.
 

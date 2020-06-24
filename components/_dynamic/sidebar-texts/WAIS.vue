@@ -1,5 +1,5 @@
 <template lang="md">
-  # West Antarctic Ice Sheet Loss
+  ## West Antarctic Ice Sheet Loss
 
   Even though the West Antarctic Ice Sheet isn’t the biggest Antarctic region it could, if completely melted, raise global sea levels by around 3,3 meters and thereby alter global coastlines substantially. The threshold of this tipping point is suspected to lie between 1,5°C and 2°C regional warming.
 

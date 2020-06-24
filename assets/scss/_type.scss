@@ -46,6 +46,20 @@ h6 {
 }
 
 h1 {
+  font-size: 8.75rem;
+  line-height: 9rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+
+  + .sub-header {
+    font-size: 3rem;
+    line-height: 4rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+}
+
+h2 {
   font-size: 2.5rem;
   line-height: 3rem;
   margin-bottom: 2rem;

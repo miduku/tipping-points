@@ -1,5 +1,5 @@
 <template lang="md">
-  # Permafrost Loss
+  ## Permafrost Loss
 
 “Permafrost is the term used to describe ground (soil or rock) that remains at or below 0 ° C throughout the year for at least two consecutive years.” Around a quarter (24%) of the land surface on the northern hemisphere are permafrost grounds (e.g. Alaska, Siberia, northern Canada). But it can also be found in some southern regions like Patagonia, Antarctica, South America or New Zealand’s southern Alps. Even parts of the Arctic Ocean sea floor is permanently frozen and thus called subsea permafrost.
 
