@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$size: $unit * 2;
+$size: $unit * 2.5;
 $background: $red;
 
 .button {
@@ -68,7 +68,7 @@ $background: $red;
     text-align: left;
     pointer-events: none;
     opacity: 0;
-    transform: translateX(-$size);
+    transform: translateX(-$size * 1.25);
     transition: transform 0.33s $easeOutQuint, opacity 0.66s $easeOutQuint;
 
     span {
