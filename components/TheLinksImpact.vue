@@ -4,15 +4,21 @@
     :width="size[0]"
     :height="size[1]"
     :view-box.camel="`0 0 ${size[0]} ${size[1]}`"
-    :class="linksImpactsClassesIsVisible"
+    :class="[
+      linksImpactsClassesIsVisible,
+      someNodeIsActive ? 'some-node-is-active' : '',
+      currentActiveNode
+    ]"
   >
-    <Link
-      v-for="(link, i) in linksImpacts"
-      :key="i"
-      :link-data="link"
-      :difference-coords="panZoomCoords"
-      class="links-impact"
-    />
+    <g :class="currentActiveNode">
+      <Link
+        v-for="(link, i) in linksImpactsJson"
+        :key="i"
+        :link-data="link"
+        :difference-coords="panZoomCoords"
+        class="links-impact"
+      />
+    </g>
   </svg>
 </template>
 
@@ -45,15 +51,19 @@ export default {
         innerHeight: 0,
         innerWidth: 0
       },
-      linksImpacts: [],
-      linksImpactsClassesIsVisible: ''
+      linksImpactsJson: [],
+      linksImpactsClassesIsVisible: '',
+      someNodeIsActive: false,
+      currentActiveNode: ''
     }
   },
 
   computed: {
     ...mapState({
       panZoomCoords: (state) => state.panZoomCoords,
-      impactLinksGroups: (state) => state.impactLinksGroups
+      impactLinksGroups: (state) => state.impactLinksGroups,
+      sidebarIsOpen: (state) => state.sidebar.isOpen,
+      sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName
     })
   },
 
@@ -66,14 +76,28 @@ export default {
           groupId += bool ? ' is-' + id : ''
         }
 
+        // Get which impact links are visible
         this.linksImpactsClassesIsVisible = groupId
       },
       deep: true
+    },
+
+    sidebarIsOpen(value, oldValue) {
+      if (value !== oldValue) {
+        this.someNodeIsActive = value
+      }
+    },
+
+    sidebarContentInstanceName(value, oldValue) {
+      if (value !== oldValue) {
+        this.currentActiveNode =
+          'active-node-' + this.sidebarContentInstanceName
+      }
     }
   },
 
   created() {
-    this.linksImpacts = importLinksImpactsJson
+    this.linksImpactsJson = importLinksImpactsJson
   },
 
   mounted() {
@@ -82,7 +106,7 @@ export default {
       // put them into an array and commit them into vuex
       this.$store.commit(
         'CREATE_IMPACT_LINKS_GROUPS',
-        this.linksImpacts.reduce((r, a) => {
+        this.linksImpactsJson.reduce((r, a) => {
           r[a.group] = false
           return r
         }, {})
@@ -93,31 +117,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$impacts: 'IMPACT-TEMP', 'IMPACT-ALB', 'IMPACT-CO2', 'IMPACT-SEA';
+$nodes: 'AMZN', 'AMOC', 'BFS', 'GIS', 'WAM', 'CRD', 'IMS', 'PERM', 'WAIS';
+
 #IMPACT_LINKS {
   position: fixed;
   pointer-events: none;
+  animation: init 1s $easeOutQuint forwards;
 
-  &.is-IMPACT-TEMP {
-    /deep/ .link-group-IMPACT-TEMP {
-      opacity: 1;
+  @each $impact in $impacts {
+    &.is-#{$impact} {
+      /deep/ .link-group-#{$impact} {
+        opacity: 1;
+      }
+    }
+
+    &.is-#{$impact}.some-node-is-active {
+      /deep/ .link-group-#{$impact} {
+        opacity: 0.35;
+      }
     }
   }
 
-  &.is-IMPACT-CO2 {
-    /deep/ .link-group-IMPACT-CO2 {
-      opacity: 1;
-    }
-  }
-
-  &.is-IMPACT-ALB {
-    /deep/ .link-group-IMPACT-ALB {
-      opacity: 1;
-    }
-  }
-
-  &.is-IMPACT-SEA {
-    /deep/ .link-group-IMPACT-SEA {
-      opacity: 1;
+  &.some-node-is-active {
+    @each $node in $nodes {
+      &.active-node-#{$node} {
+        /deep/ .link-node-#{$node} {
+          opacity: 1;
+        }
+      }
     }
   }
 }

@@ -2,8 +2,9 @@
   <g
     class="link"
     :class="[
-      linkData.lock ? `link-lock-${linkData.lock}` : 'none',
-      `link-group-${linkData.group}`
+      linkData.lock ? `link-lock-${linkData.lock}` : '',
+      `link-group-${linkData.group}`,
+      `link-node-${linkData.node}`
     ]"
   >
     <path
@@ -196,7 +197,7 @@ export default {
   }
 
   &.links-impact {
-    opacity: 0.1;
+    opacity: 0.075;
     transition: opacity 0.5s $easeOutQuint;
   }
 

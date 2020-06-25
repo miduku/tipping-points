@@ -14,6 +14,7 @@
           id="PANZOOM"
           ref="PANZOOM"
           class="pan-zoom"
+          :class="{ 'is-ready': isMounted.theNodes }"
           :options="options"
           @transform="onTransform"
         >
@@ -208,6 +209,8 @@ $sidebar-width-desktop: 420px;
   display: block;
   margin-right: 0;
   transition: margin-right 0.6s $easeOutQuint;
+  /* opacity: 0; */
+  animation: init 1s $easeOutQuint forwards;
 
   &.is-sidebar-open {
     margin-right: $sidebar-width-mobile;
@@ -263,11 +266,16 @@ $sidebar-width-desktop: 420px;
   left: 0;
 }
 
-.pan-zoom {
+#PANZOOM {
   overflow: hidden;
   background: transparent;
   width: 100%;
   height: 100vh;
+  opacity: 0;
+
+  &.is-ready {
+    animation: init 1s $easeOutQuint forwards;
+  }
 
   /deep/ .vue-pan-zoom-scene {
     overflow: hidden;

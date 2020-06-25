@@ -168,7 +168,7 @@
         { "source": "IMS-output-0", "target": "IMS-output-1" }
       ],
       "children": {
-        "input": [{ "title": "Decreased locoal Rainfall" }],
+        "input": [{ "title": "Decreased local Rainfall" }],
         "output": [
           { "title": "Dry state" },
           { "title": "Negative effect on Agriculture" }

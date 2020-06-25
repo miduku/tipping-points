@@ -40,6 +40,7 @@ import vuexSetSidebar from '~/mixins/vuexSetSidebar'
 import vuexSmoothZoomAbs from '~/mixins/vuexSmoothZoomAbs'
 
 import impactImpactsJson from '~/assets/json/impacts.json'
+
 import ButtonHexagon from '~/components/BaseButtonHexagon.vue'
 import Button from '~/components/BaseButton.vue'
 

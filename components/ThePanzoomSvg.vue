@@ -37,6 +37,10 @@
           fill="none"
         />
       </marker>
+
+      <filter id="shadow">
+        <feDropShadow dx="0" dy="0" stdDeviation="6" />
+      </filter>
     </defs>
 
     <image
@@ -72,6 +76,14 @@ svg {
 
     &#link-arrow-red path {
       stroke: $red;
+    }
+  }
+
+  filter {
+    &#shadow {
+      feDropShadow {
+        flood-color: $node-color;
+      }
     }
   }
 }

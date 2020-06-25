@@ -2,6 +2,9 @@
   <g :id="nodeData.id" class="node">
     <circle
       class="node-circle"
+      :class="{
+        'is-active': nodeData.id === sidebarContentInstanceName && sidebarIsOpen
+      }"
       :cx="nodeData.position[0]"
       :cy="nodeData.position[1]"
       :r="size"
@@ -108,7 +111,8 @@ export default {
   computed: {
     ...mapState({
       panZoomCoords: (state) => state.panZoomCoords,
-      sidebarIsOpen: (state) => state.sidebar.isOpen
+      sidebarIsOpen: (state) => state.sidebar.isOpen,
+      sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName
     })
   },
 
@@ -125,9 +129,10 @@ export default {
 
     onMouseUp() {
       if (this.tempClickPanZoomCoords === this.panZoomCoords) {
-        console.log('not dragged')
+        // console.log('not dragged')
+
         if (this.sidebarIsOpen) {
-          console.log('dragged from node')
+          // console.log('dragged from node')
           this.vuexPanTo(this.nodeData.id)
         }
 
@@ -153,14 +158,17 @@ export default {
   }
 
   .node-circle {
-    stroke: rgba($dark-grey, 0.15);
+    stroke: rgba($node-color, 0.15);
     fill: rgba(#fff, 0.75);
     pointer-events: all;
-    transition: stroke 0.5s $easeOutQuint;
+    transition: stroke 0.5s $easeOutQuint, filter 0.5s $easeOutQuint;
     cursor: pointer;
 
-    &:hover {
-      stroke: rgba($dark-grey, 0.75);
+    &:hover,
+    &.is-active {
+      fill: rgba(#fff, 1);
+      stroke: rgba($node-color, 0.75);
+      filter: url(#shadow);
     }
   }
 
