@@ -46,7 +46,7 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    { src: '~/plugins/vue-panzoom.js', ssr: false },
+    { src: '~/plugins/vue-panzoom', ssr: false },
     { src: '~/plugins/vue-resize-directive', ssr: false }
   ],
   /*
@@ -62,6 +62,7 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
+    'vue-scrollto/nuxt',
     '@nuxtjs/axios',
     '@nuxtjs/markdownit'
   ],

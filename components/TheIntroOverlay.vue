@@ -1,6 +1,6 @@
 <template>
   <div id="intro" :class="{ 'is-closed': isClosed }">
-    <section class="intro-1">
+    <section id="intro-1">
       <header>
         <h1>Tipping Points</h1>
         <span class="sub-header">And how they affect us</span>
@@ -13,10 +13,24 @@
             Visualizing their complexity, interrelations and impacts.
           </strong>
         </p>
+
+        <div class="arrow-down">
+          <a
+            v-scroll-to="{
+              el: '#intro-2',
+              container: '#intro',
+              easing: [0.23, 1, 0.32, 1],
+              duration: 1000
+            }"
+            href="#intro-2"
+          >
+            <img src="~/assets/svg/i-arrow-down.svg" alt="Arrow Down" />
+          </a>
+        </div>
       </div>
     </section>
 
-    <section class="intro-2">
+    <section id="intro-2">
       <div class="container">
         <p>
           But what is a tipping point? The climate has been warming
@@ -83,6 +97,7 @@ export default {
   components: {
     Button
   },
+
   data() {
     return {
       isClosed: false
@@ -104,7 +119,7 @@ export default {
   width: 100%;
   min-height: 100vh;
   height: 100%;
-  background: rgba(#fff, 0.9);
+  background: rgba(#fff, 0.95);
   z-index: 9999;
   overflow: auto;
   transition: opacity 0.6s $easeInOutQuint, transform 0.75s $easeInOutQuint;
@@ -125,9 +140,31 @@ export default {
     min-height: 100vh;
     padding: 4rem;
 
-    &.intro-1 {
+    &#intro-1 {
       display: flex;
       flex-direction: column;
+
+      .container {
+        opacity: 0;
+        transform: translateY(5vh);
+        animation: header-text 1.25s $easeOutQuint 2.5s forwards;
+
+        .arrow-down {
+          display: flex;
+          justify-content: center;
+          transform: translateY(7vh);
+
+          .button {
+            border: none;
+            box-shadow: none;
+          }
+
+          img {
+            width: 2.5rem;
+            animation: hovering 2s $easeInOutQuint infinite;
+          }
+        }
+      }
     }
 
     &:last-child {
@@ -137,6 +174,9 @@ export default {
     header {
       text-align: center;
       margin-bottom: 8.75rem;
+      transform: translateY(7vh);
+      opacity: 0;
+      animation: header 2.25s $easeOutQuint 1.5s forwards;
 
       h1,
       span {
@@ -160,6 +200,36 @@ export default {
         justify-content: center;
       }
     }
+  }
+}
+
+@keyframes header {
+  33% {
+    transform: translateY(7vh);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes header-text {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes hovering {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(1rem);
+  }
+  0% {
+    transform: translateY(0);
   }
 }
 </style>

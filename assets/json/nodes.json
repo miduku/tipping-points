@@ -35,7 +35,7 @@
     {
       "id": "AMOC",
       "title": "Atlantic Meridional Overturning Circulation Breakdown",
-      "position": [1350, 950],
+      "position": [1300, 900],
       "links": [
         { "source": "AMOC-input-0", "target": "AMOC-output-1" },
         { "source": "AMOC-output-0", "target": "AMOC-output-2" },
@@ -133,7 +133,7 @@
     {
       "id": "CRD",
       "title": "Coral reef die-off",
-      "position": [3500, 2050],
+      "position": [3650, 1680],
       "links": [
         { "source": "CRD-input-0", "target": "CRD-output-0" },
         { "source": "CRD-input-0", "target": "CRD-output-2" },

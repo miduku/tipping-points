@@ -18,7 +18,8 @@
     "lodash": "^4.17.15",
     "nuxt": "^2.0.0",
     "vue-panzoom": "^1.1.1",
-    "vue-resize-directive": "^1.2.0"
+    "vue-resize-directive": "^1.2.0",
+    "vue-scrollto": "^2.18.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.0",
