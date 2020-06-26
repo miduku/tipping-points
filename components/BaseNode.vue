@@ -167,7 +167,7 @@ export default {
     &:hover,
     &.is-active {
       fill: rgba(#fff, 1);
-      stroke: rgba($node-color, 0.75);
+      stroke: rgba($node-color-active, 0.75);
       filter: url(#shadow);
     }
   }
@@ -194,6 +194,8 @@ export default {
       font-size: 1.5rem;
       font-family: $serif;
       font-weight: bold;
+      line-height: 1.2em;
+      transform: translateY(-0.1em);
     }
   }
 }

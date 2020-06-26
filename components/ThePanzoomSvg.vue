@@ -82,7 +82,7 @@ svg {
   filter {
     &#shadow {
       feDropShadow {
-        flood-color: $node-color;
+        flood-color: rgba($node-color-active, 0.5);
       }
     }
   }

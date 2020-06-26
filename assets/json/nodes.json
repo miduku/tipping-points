@@ -4,7 +4,7 @@
     {
       "id": "AMZN",
       "title": "Amazon rainforest dieback",
-      "position": [1070, 1450],
+      "position": [1200, 1400],
       "links": [
         { "source": "AMZN-input-0", "target": "AMZN-output-4" },
         { "source": "AMZN-input-1", "target": "AMZN-output-4" },
@@ -35,7 +35,7 @@
     {
       "id": "AMOC",
       "title": "Atlantic Meridional Overturning Circulation Breakdown",
-      "position": [1300, 900],
+      "position": [1400, 800],
       "links": [
         { "source": "AMOC-input-0", "target": "AMOC-output-1" },
         { "source": "AMOC-output-0", "target": "AMOC-output-2" },
@@ -57,7 +57,7 @@
     {
       "id": "BFS",
       "title": "Boreal Forest Shift",
-      "position": [650, 550],
+      "position": [700, 550],
       "links": [
         { "source": "BFS-input-0", "target": "BFS-output-4" },
         { "source": "BFS-input-1", "target": "BFS-output-3" },
@@ -109,7 +109,7 @@
     {
       "id": "WAM",
       "title": "West African Monsoon Shift",
-      "position": [1950, 1200],
+      "position": [2000, 1100],
       "links": [
         { "source": "WAM-input-0", "target": "WAM-output-0" },
         { "source": "WAM-output-0", "target": "WAM-output-1" },
@@ -133,7 +133,7 @@
     {
       "id": "CRD",
       "title": "Coral reef die-off",
-      "position": [3650, 1680],
+      "position": [3550, 1500],
       "links": [
         { "source": "CRD-input-0", "target": "CRD-output-0" },
         { "source": "CRD-input-0", "target": "CRD-output-2" },
@@ -162,7 +162,7 @@
     {
       "id": "IMS",
       "title": "Indian Monsoon Shift",
-      "position": [2800, 1050],
+      "position": [2700, 900],
       "links": [
         { "source": "IMS-input-0", "target": "IMS-output-0" },
         { "source": "IMS-output-0", "target": "IMS-output-1" }
