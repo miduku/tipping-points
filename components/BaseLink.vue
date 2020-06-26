@@ -125,12 +125,12 @@ export default {
       const sourceCoordsMovedFromCenter = this.changeCoordinatesByDegreeAndDistance(
         sourceCoordsCenter,
         sourceDegrees - INVERT_ANGLE + 15,
-        this.linkData.lock === 'source' ? 20 : 10
+        this.linkData.lock === 'source' ? 26 : 10
       )
       const targetCoordsMovedFromCenter = this.changeCoordinatesByDegreeAndDistance(
         targetCoordsCenter,
         targetDegrees - INVERT_ANGLE - 15,
-        this.linkData.lock === 'target' ? 20 : 10
+        this.linkData.lock === 'target' ? 26 : 10
       )
 
       // Move bezier handles for the curve

@@ -1,6 +1,6 @@
 <template>
   <button :class="icon ? 'icon' : ''" class="button" @click="$emit('click')">
-    <i v-if="icon" :class="icon" />
+    <i v-if="icon" :class="'i-' + icon" />
 
     <span>
       <slot />

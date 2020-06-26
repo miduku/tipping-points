@@ -4,11 +4,12 @@
       <h2>Tipping Points</h2>
     </div>
 
-    <nav class="nav-main--impacts">
+    <nav :class="linksImpactsButtonsIsActive" class="nav-main--impacts">
       <ul>
         <li v-for="(impact, i) in impacts" :id="impact.id" :key="i">
           <ButtonHexagon
             :title="impact.title"
+            :icon="impact.id"
             class="vuex-pan-to is-normal-case"
             @click="toggleImpactLinksGroup(impact.id)"
           />
@@ -59,13 +60,15 @@ export default {
   data() {
     return {
       impacts: {},
-      zoomLevel: '100%'
+      zoomLevel: '100%',
+      linksImpactsButtonsIsActive: ''
     }
   },
 
   computed: {
     ...mapState({
-      panZoomCoords: (state) => state.panZoomCoords
+      panZoomCoords: (state) => state.panZoomCoords,
+      impactLinksGroups: (state) => state.impactLinksGroups
     })
   },
 
@@ -73,6 +76,20 @@ export default {
     panZoomCoords(value) {
       console.log('log')
       this.zoomLevel = Math.round(value[2] * 100) + '%'
+    },
+
+    impactLinksGroups: {
+      handler(value) {
+        let groupId = ''
+
+        for (const [id, bool] of Object.entries(value)) {
+          groupId += bool ? ' is-' + id : ''
+        }
+
+        // Get which impact links are visible
+        this.linksImpactsButtonsIsActive = groupId
+      },
+      deep: true
     }
   },
 
