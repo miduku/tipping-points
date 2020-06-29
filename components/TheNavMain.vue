@@ -74,7 +74,6 @@ export default {
 
   watch: {
     panZoomCoords(value) {
-      console.log('log')
       this.zoomLevel = Math.round(value[2] * 100) + '%'
     },
 

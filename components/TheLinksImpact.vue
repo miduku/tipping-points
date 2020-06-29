@@ -121,6 +121,8 @@ $impacts: 'IMPACT-TEMP', 'IMPACT-ALB', 'IMPACT-CO2', 'IMPACT-SEA';
 $nodes: 'AMZN', 'AMOC', 'BFS', 'GIS', 'WAM', 'CRD', 'IMS', 'PERM', 'WAIS';
 
 #IMPACT_LINKS {
+  transform: translateZ(0);
+  will-change: transform;
   position: fixed;
   pointer-events: none;
   animation: init 1s $easeOutQuint forwards;

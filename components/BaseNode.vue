@@ -27,6 +27,7 @@
 
       <!-- Outer smaller nodes -->
       <NodeChildren
+        v-once
         direction="input"
         :data="{
           childrenData: nodeData.children,
@@ -37,6 +38,7 @@
       />
 
       <NodeChildren
+        v-once
         direction="output"
         :data="{
           childrenData: nodeData.children,
@@ -125,6 +127,7 @@ export default {
   methods: {
     onMouseDown() {
       this.tempClickPanZoomCoords = this.panZoomCoords
+      console.log('DOWN')
     },
 
     onMouseUp() {

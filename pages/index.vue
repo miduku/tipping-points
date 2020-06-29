@@ -41,7 +41,7 @@
               :data="importLinksJson"
             />
 
-            <TheNodes :data="importNodesJson.nodes" />
+            <TheNodes v-once :data="importNodesJson.nodes" />
           </ThePanzoomSvg>
         </panZoom>
       </client-only>
@@ -164,7 +164,7 @@ export default {
     },
 
     onTransform: _throttle(function() {
-      console.log('onTransform')
+      // console.log('onTransform')
       const pan = this.$refs.PANZOOM.$panZoomInstance
       const getTransform = pan.getTransform()
 
