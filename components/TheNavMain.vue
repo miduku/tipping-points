@@ -18,12 +18,16 @@
     </nav>
 
     <nav class="nav-main--meta">
+      <ul class="map-controls">
+        <li><Button @click="toggleMap">Map</Button></li>
+      </ul>
+
       <ul class="zoom-controls">
         <li>
-          <Button icon="minus" class="is-bordered" @click="zoomOut" />
+          <Button icon="minus" @click="zoomOut" />
         </li>
         <li>
-          <Button class="is-bordered" icon="plus" @click="zoomIn" />
+          <Button icon="plus" @click="zoomIn" />
         </li>
         <li>
           <span @click.prevent="vuexSmoothZoomAbs(1)">{{ zoomLevel }}</span>
@@ -68,7 +72,8 @@ export default {
   computed: {
     ...mapState({
       panZoomCoords: (state) => state.panZoomCoords,
-      impactLinksGroups: (state) => state.impactLinksGroups
+      impactLinksGroups: (state) => state.impactLinksGroups,
+      isMapVisible: (state) => state.isMapVisible
     })
   },
 
@@ -101,6 +106,14 @@ export default {
   },
 
   methods: {
+    toggleMap() {
+      if (this.isMapVisible) {
+        this.$store.commit('SET_MAP_VISIBLE', false)
+      } else {
+        this.$store.commit('SET_MAP_VISIBLE', true)
+      }
+    },
+
     toggleImpactLinksGroup(id) {
       let bool = false
 
@@ -129,7 +142,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* align-items: center; */
   pointer-events: none;
   /* background: pink; */
 
@@ -188,9 +200,14 @@ export default {
   }
 
   .nav-main--meta {
-    align-items: flex-end;
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: column;
+    /* width: 100vw; */
 
     ul {
+      margin-top: $margin / 2;
+
       li {
         > * {
           pointer-events: all;

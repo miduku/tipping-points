@@ -8,16 +8,16 @@
     </div>
 
     <div class="sidebar-button-wrapper">
-      <Button class="is-bordered" @click="vuexSetSidebar([false])">
+      <Button @click="vuexSetSidebar([false])">
         Close
       </Button>
     </div>
 
-    <div class="sources-toggle-wrapper">
-      <Button class="is-bordered" @click="vuexSetSidebar([false])">
+    <!-- <div class="sources-toggle-wrapper">
+      <Button @click="vuexSetSidebar([false])">
         Sources
       </Button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -119,7 +119,7 @@ export default {
     position: relative;
 
     > div {
-      transform: translateX(-50%);
+      /* transform: translateX(-50%); */
       height: inherit;
       display: flex;
       flex-shrink: 0;

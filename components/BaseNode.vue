@@ -12,7 +12,7 @@
       @mouseup="onMouseUp"
     />
 
-    <g :style="`opacity: ${panZoomCoords[2] < 0.9 ? 0.2 : 1}`">
+    <g :style="`opacity: ${panZoomZ < 0.9 ? 0.2 : 1}`">
       <!-- Inner node links -->
       <g class="node-links">
         <Link
@@ -51,16 +51,14 @@
 
     <!-- Node title -->
     <foreignObject
-      :class="panZoomCoords[2] > 1.2 ? 'is-zoomed' : ''"
+      :class="panZoomZ > 1.2 ? 'is-zoomed' : ''"
       :width="size * 3"
       :height="size * 3"
       :x="nodeData.position[0] - size - size / 2"
       :y="nodeData.position[1] - size - size / 2"
       :style="
         `
-        transform: scale(${
-          panZoomCoords[2] < 0.9 ? 0.9 / panZoomCoords[2] : 1
-        });
+        transform: scale(${panZoomZ < 0.9 ? 0.9 / panZoomZ : 1});
         transform-origin: ${nodeData.position[0]}px ${nodeData.position[1]}px;
         `
       "
@@ -106,16 +104,30 @@ export default {
 
   data() {
     return {
-      tempClickPanZoomCoords: Array
+      // tempClickPanZoomCoords: Array,
+      isMove: false
     }
   },
 
   computed: {
     ...mapState({
-      panZoomCoords: (state) => state.panZoomCoords,
+      isPanning: (state) => state.isPanning,
+      panZoomZ: (state) => state.panZoomCoords[2],
       sidebarIsOpen: (state) => state.sidebar.isOpen,
       sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName
     })
+  },
+
+  watch: {
+    isPanning(value, oldValue) {
+      if (!oldValue && value) {
+        this.isMove = true
+      }
+    }
+  },
+
+  updated() {
+    console.log(this.nodeData)
   },
 
   mounted() {
@@ -126,19 +138,15 @@ export default {
 
   methods: {
     onMouseDown() {
-      this.tempClickPanZoomCoords = this.panZoomCoords
-      console.log('DOWN')
+      this.isMove = false
     },
 
     onMouseUp() {
-      if (this.tempClickPanZoomCoords === this.panZoomCoords) {
-        // console.log('not dragged')
-
+      if (!this.isMove) {
         if (this.sidebarIsOpen) {
           // console.log('dragged from node')
           this.vuexPanTo(this.nodeData.id)
         }
-
         this.vuexSetSidebar([true, this.nodeData.id])
       }
     }

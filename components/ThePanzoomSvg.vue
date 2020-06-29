@@ -65,8 +65,17 @@ svg {
   top: 0;
   pointer-events: none;
 
+  &.is-map-hidden {
+    #world-map {
+      opacity: 0;
+      transform: scale(0.975);
+    }
+  }
+
   #world-map {
-    opacity: 0.15;
+    opacity: 0.175;
+    transform-origin: center;
+    transition: opacity 0.66s $easeOutQuint, transform 1s $easeOutQuint;
   }
 
   marker {

@@ -23,12 +23,14 @@ $impacts: (
   text-transform: uppercase;
   box-shadow: 0px 0px 10px rgba($shadow, 0.5);
   transition: all 0.33s $easeOutQuint;
+  border: 1px solid rgba($dark-grey, 0.25);
   cursor: pointer;
 
   &:focus,
   &:hover {
     box-shadow: 0px 0px 10px rgba($shadow-dark, 0.75);
     transform: translateY(-1px);
+    border-color: rgba($dark-grey, 1);
   }
 
   &:active {
@@ -36,15 +38,6 @@ $impacts: (
     transform: translateY(0);
     background: $dark;
     color: white;
-  }
-
-  &.is-bordered {
-    border: 1px solid rgba($dark-grey, 0.25);
-
-    &:focus,
-    &:hover {
-      border-color: rgba($dark-grey, 1);
-    }
   }
 
   &.is-normal-case {
@@ -66,6 +59,7 @@ $impacts: (
     min-width: unset;
     background: transparent;
     border-radius: 0;
+    border: none;
     pointer-events: all;
     box-shadow: none;
 

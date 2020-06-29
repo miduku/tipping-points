@@ -17,10 +17,13 @@
           :class="{ 'is-ready': isMounted.theNodes }"
           :options="options"
           @transform="onTransform"
+          @panstart="onPanStart"
+          @panend="onPanEnd"
         >
           <ThePanzoomSvg
             ref="OWNER"
             class="owner"
+            :class="{ 'is-map-hidden': !isMap }"
             :view-box.camel="
               `
               0
@@ -89,14 +92,13 @@ export default {
       isPanning: false,
       isZooming: false,
       options: {
-        // transformOrigin: { x: 0.5, y: 0.5 },
         minZoom: 0.25,
         maxZoom: 2.25
-        // autocenter: true
       },
       panInstance: {
         transform: ''
-      }
+      },
+      isMap: true
     }
   },
 
@@ -108,11 +110,16 @@ export default {
       viewSize: (state) => state.viewSize,
       isSidebarOpen: (state) => state.sidebar.isOpen,
       newZoomLevel: (state) => state.newZoomLevel.level,
-      newZoomLevelTimeStamp: (state) => state.newZoomLevel.timeStamp
+      newZoomLevelTimeStamp: (state) => state.newZoomLevel.timeStamp,
+      isMapVisible: (state) => state.isMapVisible
     })
   },
 
   watch: {
+    isMapVisible(value) {
+      this.isMap = value
+    },
+
     panToNodeTimeStamp(value, oldValue) {
       if (value !== oldValue) {
         this.panTo(this.panToNodeId)
@@ -190,7 +197,14 @@ export default {
         ROOT_EL.clientWidth,
         ROOT_EL.clientHeight
       ])
-    }, 250)
+    }, 250),
+
+    onPanStart() {
+      this.$store.commit('SET_PANNING', true)
+    },
+    onPanEnd() {
+      this.$store.commit('SET_PANNING', false)
+    }
   }
 }
 </script>

@@ -81,7 +81,7 @@
         </p>
 
         <div class="start-button">
-          <Button class="button is-bordered" @click="closeIntro">
+          <Button class="button" @click="closeIntro">
             Start Exploring
           </Button>
         </div>

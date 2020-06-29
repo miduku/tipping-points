@@ -14,6 +14,8 @@ export const state = () => ({
     width: 0,
     height: 0
   },
+  isMapVisible: true,
+  isPanning: false,
   isMounted: {
     theNavMain: false,
     theNodes: false
@@ -60,5 +62,13 @@ export const mutations = {
   SET_NEW_ZOOM_LEVEL(state, payload) {
     state.newZoomLevel.level = payload
     state.newZoomLevel.timeStamp = Date.now()
+  },
+
+  SET_PANNING(state, payload) {
+    state.isPanning = payload
+  },
+
+  SET_MAP_VISIBLE(state, payload) {
+    state.isMapVisible = payload
   }
 }
