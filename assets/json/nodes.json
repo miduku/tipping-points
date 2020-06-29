@@ -179,7 +179,7 @@
     {
       "id": "PERM",
       "title": "Permafrost Loss",
-      "position": [2300, 460],
+      "position": [2300, 400],
       "links": [
         { "source": "PERM-input-0", "target": "PERM-output-0" },
         { "source": "PERM-output-0", "target": "PERM-output-1" }

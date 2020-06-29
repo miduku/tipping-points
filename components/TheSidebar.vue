@@ -2,7 +2,7 @@
   <div class="sidebar" :class="sidebarIsOpen ? 'is-open' : 'is-closed'">
     <div class="sidebar-content-wrapper">
       <div>
-        <component class="sidebar-content" :is="textInstance" />
+        <component :is="textInstance" class="sidebar-content" />
         <TheSidebarSources />
       </div>
     </div>
