@@ -8,7 +8,7 @@
     ]"
   >
     <path
-      :stroke-width="strokeWidth * differenceCoords[2]"
+      :stroke-width="strokeWidth /* * differenceCoords[2]*/"
       stroke-linecap="round"
       fill="none"
       :d="
@@ -38,7 +38,7 @@ export default {
 
     strokeWidth: {
       type: Number,
-      default: 1
+      default: 1.25
     },
 
     differenceCoords: {

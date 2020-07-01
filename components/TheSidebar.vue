@@ -3,7 +3,7 @@
     <div class="sidebar-content-wrapper">
       <div>
         <component :is="textInstance" class="sidebar-content" />
-        <TheSidebarSources />
+        <!-- <TheSidebarSources /> -->
       </div>
     </div>
 
@@ -28,11 +28,11 @@ import vuexPanTo from '~/mixins/vuexPanTo'
 import vuexSetSidebar from '~/mixins/vuexSetSidebar'
 
 import Button from '~/components/BaseButton.vue'
-import TheSidebarSources from '~/components/TheSidebarSources.vue'
+// import TheSidebarSources from '~/components/TheSidebarSources.vue'
 
 export default {
   components: {
-    TheSidebarSources,
+    // TheSidebarSources,
     Button
   },
 
@@ -123,7 +123,7 @@ export default {
       height: inherit;
       display: flex;
       flex-shrink: 0;
-      width: 200%;
+      /* width: 200%; */
 
       /deep/ section {
         width: 100%;

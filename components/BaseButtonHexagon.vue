@@ -13,6 +13,7 @@
     >
       <path d="M16 0L31.5885 9V27L16 36L0.411543 27V9L16 0Z" />
     </svg>
+
     <i :class="'i-' + icon" />
   </button>
 </template>

@@ -126,10 +126,6 @@ export default {
     }
   },
 
-  updated() {
-    console.log(this.nodeData)
-  },
-
   mounted() {
     this.$nextTick(function() {
       console.log('mounted BaseNode')
