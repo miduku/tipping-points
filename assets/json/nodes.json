@@ -35,7 +35,7 @@
     {
       "id": "AMOC",
       "title": "Atlantic Circulation Breakdown",
-      "position": [1400, 800],
+      "position": [1350, 900],
       "links": [
         { "source": "AMOC-input-0", "target": "AMOC-output-1" },
         { "source": "AMOC-output-0", "target": "AMOC-output-2" },
@@ -57,7 +57,7 @@
     {
       "id": "BFS",
       "title": "Boreal Forest Shift",
-      "position": [700, 550],
+      "position": [850, 550],
       "links": [
         { "source": "BFS-input-0", "target": "BFS-output-4" },
         { "source": "BFS-input-1", "target": "BFS-output-3" },
@@ -84,7 +84,7 @@
     {
       "id": "GIS",
       "title": "Greenland Ice Sheet Disintegration",
-      "position": [1500, 350],
+      "position": [1600, 350],
       "links": [
         { "source": "GIS-input-0", "target": "GIS-output-1" },
         { "source": "GIS-input-1", "target": "GIS-output-0" },
@@ -162,7 +162,7 @@
     {
       "id": "IMS",
       "title": "Indian Monsoon Shift",
-      "position": [2700, 900],
+      "position": [2750, 950],
       "links": [
         { "source": "IMS-input-0", "target": "IMS-output-0" },
         { "source": "IMS-output-0", "target": "IMS-output-1" }
@@ -179,7 +179,7 @@
     {
       "id": "PERM",
       "title": "Permafrost Loss",
-      "position": [2300, 400],
+      "position": [2300, 450],
       "links": [
         { "source": "PERM-input-0", "target": "PERM-output-0" },
         { "source": "PERM-output-0", "target": "PERM-output-1" }
@@ -196,7 +196,7 @@
     {
       "id": "WAIS",
       "title": "Atlantic Ice Sheet Disintegration",
-      "position": [1475, 2270],
+      "position": [1475, 2200],
       "links": [
         { "source": "WAIS-input-0", "target": "WAIS-output-1" },
         { "source": "WAIS-input-1", "target": "WAIS-output-0" },

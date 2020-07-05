@@ -192,26 +192,16 @@ export default {
           if (!this.isActive) {
             this.isActive = true
             this.vuexPanTo(this.nodeData.id)
-            // this.$store.commit('SET_SOME_NODE', true)
           } else {
             this.isActive = false
             this.$store.commit('SET_SOME_NODE', false)
             this.vuexSetSidebar([false, ''])
-            // if (this.sidebarIsOpen) {
-            //   this.vuexSetSidebar([false])
-            //   console.log('close sidebar')
           }
         } else {
           this.isActive = false
           this.$store.commit('SET_SOME_NODE', false)
           this.vuexSetSidebar([false, ''])
         }
-        // }
-        // if (this.sidebarIsOpen) {
-        //   // console.log('dragged from node')
-        //   this.vuexPanTo(this.nodeData.id)
-        // }
-        // this.vuexSetSidebar([true, this.nodeData.id])
       }
     }
   }
