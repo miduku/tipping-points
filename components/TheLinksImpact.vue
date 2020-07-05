@@ -53,7 +53,7 @@ export default {
       },
       linksImpactsJson: [],
       linksImpactsClassesIsVisible: '',
-      someNodeIsActive: false,
+      // someNodeIsActive: false,
       currentActiveNode: ''
     }
   },
@@ -63,6 +63,7 @@ export default {
       panZoomCoords: (state) => state.panZoomCoords,
       impactLinksGroups: (state) => state.impactLinksGroups,
       sidebarIsOpen: (state) => state.sidebar.isOpen,
+      someNodeIsActive: (state) => state.someNodeIsActive,
       sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName
     })
   },
@@ -82,11 +83,11 @@ export default {
       deep: true
     },
 
-    sidebarIsOpen(value, oldValue) {
-      if (value !== oldValue) {
-        this.someNodeIsActive = value
-      }
-    },
+    // sidebarIsOpen(value, oldValue) {
+    //   if (value !== oldValue) {
+    //     this.someNodeIsActive = value
+    //   }
+    // },
 
     sidebarContentInstanceName(value, oldValue) {
       if (value !== oldValue) {

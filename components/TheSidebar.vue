@@ -8,7 +8,7 @@
     </div>
 
     <div class="sidebar-button-wrapper">
-      <Button @click="vuexSetSidebar([false])">
+      <Button @click="vuexSetSidebar([false, contentInstanceName])">
         Close
       </Button>
     </div>
@@ -45,7 +45,7 @@ export default {
     }),
 
     textInstance() {
-      if (this.contentInstanceName.length > 0) {
+      if (this.contentInstanceName && this.contentInstanceName.length > 0) {
         return () =>
           import(
             `~/components/_dynamic/sidebar-texts/${this.contentInstanceName}`

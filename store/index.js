@@ -24,6 +24,7 @@ export const state = () => ({
     isOpen: false,
     contentInstanceName: ''
   },
+  someNodeIsActive: false,
   impactLinksGroups: {}
 })
 
@@ -48,11 +49,16 @@ export const mutations = {
 
   OPEN_SIDEBAR(state, openArr) {
     state.sidebar.isOpen = openArr[0]
-    if (openArr[0] === true) state.sidebar.contentInstanceName = openArr[1]
+    // if (openArr[0] === true) state.sidebar.contentInstanceName = openArr[1]
+    state.sidebar.contentInstanceName = openArr[1]
   },
 
   CREATE_IMPACT_LINKS_GROUPS(state, groups) {
     state.impactLinksGroups = groups
+  },
+
+  SET_SOME_NODE(state, payload) {
+    state.someNodeIsActive = payload
   },
 
   SET_IMPACT_LINKS_GROUPS(state, setArr) {

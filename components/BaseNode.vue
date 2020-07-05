@@ -1,10 +1,14 @@
 <template>
-  <g :id="nodeData.id" class="node">
+  <g
+    :id="nodeData.id"
+    class="node"
+    :class="{
+      'is-active':
+        nodeData.id === sidebarContentInstanceName && someNodeIsActive
+    }"
+  >
     <circle
       class="node-circle"
-      :class="{
-        'is-active': nodeData.id === sidebarContentInstanceName && sidebarIsOpen
-      }"
       :cx="nodeData.position[0]"
       :cy="nodeData.position[1]"
       :r="size"
@@ -51,6 +55,7 @@
 
     <!-- Node title -->
     <foreignObject
+      class="node-foreign"
       :class="panZoomZ > 1.2 ? 'is-zoomed' : ''"
       :width="size * 3"
       :height="size * 3"
@@ -62,12 +67,31 @@
         transform-origin: ${nodeData.position[0]}px ${nodeData.position[1]}px;
         `
       "
-      class="node-foreign"
     >
       <div class="title-wrapper">
         <span class="title">
           {{ nodeData.title }}
         </span>
+      </div>
+    </foreignObject>
+
+    <foreignObject
+      class="node-foreign-button"
+      :width="size * 3"
+      :height="size * 3"
+      :x="nodeData.position[0] - size - size / 2"
+      :y="nodeData.position[1] - size - size / 2"
+    >
+      <div
+        class="button-wrapper"
+        :style="
+          `
+          bottom: ${panZoomZ < 0.9 ? -25 - 0.9 / panZoomZ : -10}%;
+          transform: scale(${panZoomZ < 0.9 ? 0.9 / panZoomZ : 1});
+          `
+        "
+      >
+        <Button @click="vuexSetSidebar([true, nodeData.id])">Read more</Button>
       </div>
     </foreignObject>
   </g>
@@ -81,9 +105,11 @@ import vuexSetSidebar from '~/mixins/vuexSetSidebar'
 
 import Link from '~/components/BaseLink.vue'
 import NodeChildren from '~/components/BaseNodeChildren.vue'
+import Button from '~/components/BaseButton.vue'
 
 export default {
   components: {
+    Button,
     Link,
     NodeChildren
   },
@@ -105,7 +131,8 @@ export default {
   data() {
     return {
       // tempClickPanZoomCoords: Array,
-      isMove: false
+      isMove: false,
+      isActive: false
     }
   },
 
@@ -114,6 +141,7 @@ export default {
       isPanning: (state) => state.isPanning,
       panZoomZ: (state) => state.panZoomCoords[2],
       sidebarIsOpen: (state) => state.sidebar.isOpen,
+      someNodeIsActive: (state) => state.someNodeIsActive,
       sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName
     })
   },
@@ -122,6 +150,21 @@ export default {
     isPanning(value, oldValue) {
       if (!oldValue && value) {
         this.isMove = true
+      }
+    },
+
+    sidebarContentInstanceName(value) {
+      if (value === this.nodeData.id) {
+        this.isActive = true
+      } else {
+        this.isActive = false
+      }
+    },
+
+    isActive(value) {
+      if (!this.someNodeIsActive) {
+        console.log('isActive', value)
+        this.$store.commit('SET_SOME_NODE', true)
       }
     }
   },
@@ -140,10 +183,35 @@ export default {
     onMouseUp() {
       if (!this.isMove) {
         if (this.sidebarIsOpen) {
-          // console.log('dragged from node')
-          this.vuexPanTo(this.nodeData.id)
+          this.vuexSetSidebar([true, this.nodeData.id])
+        } else {
+          this.vuexSetSidebar([false, this.nodeData.id])
         }
-        this.vuexSetSidebar([true, this.nodeData.id])
+
+        if (this.nodeData.id === this.sidebarContentInstanceName) {
+          if (!this.isActive) {
+            this.isActive = true
+            this.vuexPanTo(this.nodeData.id)
+            // this.$store.commit('SET_SOME_NODE', true)
+          } else {
+            this.isActive = false
+            this.$store.commit('SET_SOME_NODE', false)
+            this.vuexSetSidebar([false, ''])
+            // if (this.sidebarIsOpen) {
+            //   this.vuexSetSidebar([false])
+            //   console.log('close sidebar')
+          }
+        } else {
+          this.isActive = false
+          this.$store.commit('SET_SOME_NODE', false)
+          this.vuexSetSidebar([false, ''])
+        }
+        // }
+        // if (this.sidebarIsOpen) {
+        //   // console.log('dragged from node')
+        //   this.vuexPanTo(this.nodeData.id)
+        // }
+        // this.vuexSetSidebar([true, this.nodeData.id])
       }
     }
   }
@@ -157,60 +225,89 @@ export default {
   }
 
   foreignObject {
+    overflow: visible;
+    position: relative;
     transition: opacity 0.5s $easeOutQuint, transform 0.5s $easeOutQuint 0.15s;
 
     &.is-zoomed {
       opacity: 0.1;
     }
   }
+}
 
-  .node-circle {
-    stroke: rgba($node-color, 0.15);
-    fill: rgba(#fff, 0.75);
-    pointer-events: all;
-    transition: stroke 0.5s $easeOutQuint, filter 0.5s $easeOutQuint;
-    cursor: pointer;
+.node-circle {
+  stroke: rgba($node-color, 0.15);
+  fill: rgba(#fff, 0.75);
+  pointer-events: all;
+  transition: stroke 0.5s $easeOutQuint, filter 0.5s $easeOutQuint;
+  cursor: pointer;
 
-    &:hover,
-    &.is-active {
-      fill: rgba(#fff, 1);
-    }
-
-    &:hover {
-      stroke: rgba($node-color-hover, 0.75);
-      filter: url(#shadow);
-    }
-
-    &.is-active {
-      stroke: rgba($node-color-active, 0.75);
-      filter: url(#shadow-active);
-    }
+  &:hover,
+  .is-active & {
+    fill: rgba(#fff, 1);
   }
 
-  .node-link {
-    opacity: 0.25;
+  &:hover {
+    stroke: rgba($node-color-hover, 0.75);
+    filter: url(#shadow);
   }
 
-  .node-foreign {
-    pointer-events: none;
+  .is-active & {
+    stroke: rgba($node-color-active, 0.75);
+    filter: url(#shadow-active);
   }
+}
 
-  .title-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: inherit;
+.node-link {
+  opacity: 0.25;
+}
 
-    .title {
-      position: absolute;
-      text-align: center;
-      word-break: keep-all;
-      width: 100%;
-      font-size: 1.5rem;
-      font-family: $serif;
-      font-weight: bold;
-      line-height: 1.2em;
-      transform: translateY(-0.1em);
+.node-foreign {
+  pointer-events: none;
+}
+
+.title-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+
+  .title {
+    position: absolute;
+    text-align: center;
+    word-break: keep-all;
+    width: 100%;
+    font-size: 1.5rem;
+    font-family: $serif;
+    font-weight: bold;
+    line-height: 1.2em;
+    transform: translateY(-0.1em);
+  }
+}
+
+.button-wrapper {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  button {
+    transform: translateY(-25%);
+    opacity: 0;
+    transition: bottom 0.5s $easeOutQuint, opacity 0.3s $easeOutQuint,
+      transform 0.5s $easeOutQuint;
+
+    .is-active & {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+
+      .is-sidebar-open & {
+        transform: translateY(-25%);
+        opacity: 0;
+        pointer-events: none;
+      }
     }
   }
 }
