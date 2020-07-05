@@ -26,7 +26,7 @@
           { "title": "Dying or dead Amazon Rainforest" },
           { "title": "Loss of of an important carbon sink" },
           { "title": "Shift of the climate to a drier state" },
-          { "title": "Less moisture is returned to the atmosphere " },
+          { "title": "Less moisture is returned to the atmosphere" },
           { "title": "Less fertile tropical soil" }
         ]
       }
@@ -94,7 +94,7 @@
       "children": {
         "input": [
           {
-            "title": "The snowline migrates to higher elevations as the ice sheet warms"
+            "title": "Snowline migrates to higher elevations as the ice sheet warms"
           },
           { "title": "High global temperatures" }
         ],
@@ -124,8 +124,8 @@
           {
             "title": "Decrease in vegetation growth and increase in desertification"
           },
-          { "title": "Decreased  local rainfall" },
-          { "title": "Extended drought contributes to a famine " }
+          { "title": "Decreased local rainfall" },
+          { "title": "Extended drought contributes to a famine" }
         ]
       }
     },
@@ -150,11 +150,11 @@
           { "title": "Reduction of coral growth" }
         ],
         "output": [
-          { "title": "Dead or dying Coral Reefs" },
+          { "title": "Dead or dying coral reefs" },
           {
-            "title": "Amplified growth of tropical, fleshy macroalgae (mainly Caribbean corals)"
+            "title": "Amplified growth of macroalgae"
           },
-          { "title": "The loss of herbivorous fish" }
+          { "title": "Loss of herbivorous fish" }
         ]
       }
     },
@@ -171,7 +171,7 @@
         "input": [{ "title": "Decreased local Rainfall" }],
         "output": [
           { "title": "Dry state" },
-          { "title": "Negative effect on Agriculture" }
+          { "title": "Negative effect on agriculture" }
         ]
       }
     },
@@ -188,7 +188,7 @@
         "input": [{ "title": "Large-scale thawing" }],
         "output": [
           { "title": "Release of stored greenhouse gases" },
-          { "title": "increase of ocean acidification from Carbon" }
+          { "title": "Increase of ocean acidification from carbon" }
         ]
       }
     },

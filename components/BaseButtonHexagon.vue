@@ -1,7 +1,12 @@
 <template>
   <button class="button button-hexagon" @click="$emit('click')">
-    <div class="title is-strong">
-      <span>{{ title }}</span>
+    <div class="content">
+      <div class="title">
+        <span>{{ title }}</span>
+      </div>
+      <div class="desc">
+        <span> {{ desc }} {{ title }} </span>
+      </div>
     </div>
 
     <svg
@@ -23,7 +28,12 @@ export default {
   props: {
     title: {
       type: String,
-      default: ''
+      required: true
+    },
+
+    desc: {
+      type: String,
+      required: true
     },
 
     icon: {

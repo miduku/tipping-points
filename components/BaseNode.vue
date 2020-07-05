@@ -174,8 +174,17 @@ export default {
     &:hover,
     &.is-active {
       fill: rgba(#fff, 1);
-      stroke: rgba($node-color-active, 0.75);
+    }
+
+    &:hover,
+    &.is-active {
+      stroke: rgba($node-color-hover, 0.75);
       filter: url(#shadow);
+    }
+
+    &.is-active {
+      stroke: rgba($node-color-active, 0.75);
+      filter: url(#shadow-active);
     }
   }
 

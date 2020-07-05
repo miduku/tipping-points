@@ -9,6 +9,7 @@
         <li v-for="(impact, i) in impacts" :id="impact.id" :key="i">
           <ButtonHexagon
             :title="impact.title"
+            :desc="impact.title"
             :icon="impact.id"
             class="vuex-pan-to is-normal-case"
             @click="toggleImpactLinksGroup(impact.id)"

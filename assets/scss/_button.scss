@@ -67,9 +67,21 @@ $impacts: (
     &:hover {
       outline: none;
 
-      .title {
+      .content {
         opacity: 1;
         transform: translateX(0);
+        transition-delay: 0;
+
+        .title {
+          transform: translateY(-1.1rem);
+          transition-delay: 0.75s;
+        }
+
+        .desc {
+          opacity: 1;
+          transform: translateY(0.1rem);
+          transition-delay: 0.75s;
+        }
       }
 
       svg path {
@@ -82,6 +94,21 @@ $impacts: (
         > i.i-IMPACT-#{$IMP} {
           background: url(~assets/svg/i-#{$imp}-white.svg);
         }
+        /**/
+        // .content {
+        //   opacity: 1;
+        //   transform: translateX(0);
+
+        //   .title {
+        //     transform: translateY(-1.1rem);
+        //   }
+        //   .desc {
+        //     opacity: 1;
+        //     transform: translateY(0.1);
+        //   }
+        // }
+        /**/
+
         svg path {
           fill: $red;
         }
@@ -101,21 +128,47 @@ $impacts: (
       }
     }
 
-    .title {
+    .content {
       position: absolute;
       display: block;
-      width: $size * 10;
       left: $size * 1.25;
       text-align: left;
       pointer-events: none;
       opacity: 0;
       transform: translateX(-$size * 1.25);
-      transition: transform 0.33s $easeOutQuint, opacity 0.66s $easeOutQuint;
+      transition: transform 0.33s $easeOutQuint 0.2s,
+        opacity 0.33s $easeOutQuint 0.2s;
 
-      span {
-        background: rgba(#fff, 0.85);
-        padding: 0.1rem 0.25rem;
-        border-radius: 4px;
+      .title,
+      .desc {
+        position: absolute;
+        display: block;
+        transition: transform 0.5s $easeOutQuint 0s,
+          opacity 0.5s $easeOutQuint 0s;
+
+        span {
+          // display: block;
+          background: rgba(#fff, 0.85);
+          padding: 0.1rem 0.25rem;
+          border-radius: 4px;
+        }
+      }
+
+      .title {
+        transform: translateY(-0.5rem);
+      }
+
+      .desc {
+        font-weight: normal;
+        width: $size * 7.5;
+        display: block;
+        opacity: 0;
+        transform: translateY(1rem);
+        white-space: normal;
+
+        span {
+          display: inline-block;
+        }
       }
     }
 

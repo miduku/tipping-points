@@ -41,6 +41,10 @@
       <filter id="shadow">
         <feDropShadow dx="0" dy="0" stdDeviation="6" />
       </filter>
+
+      <filter id="shadow-active">
+        <feDropShadow dx="0" dy="0" stdDeviation="6" />
+      </filter>
     </defs>
 
     <image
@@ -90,6 +94,11 @@ svg {
 
   filter {
     &#shadow {
+      feDropShadow {
+        flood-color: rgba($node-color-hover, 0.5);
+      }
+    }
+    &#shadow-active {
       feDropShadow {
         flood-color: rgba($node-color-active, 0.5);
       }
