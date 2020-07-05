@@ -119,24 +119,37 @@ export default {
   }
 
   .node-child-node {
-    .circle,
+    /* .circle, */
     .pill {
-      stroke: $dark-grey;
+      stroke: rgba($node-color, 0.75);
       stroke-width: 1;
+      pointer-events: all;
+      cursor: pointer;
+      overflow: visible;
+      transition: stroke 0.5s $easeOutQuint, fill 0.5s $easeOutQuint;
+
+      &:hover {
+        stroke: $node-color-hover;
+        fill: rgba($light, 0.75);
+      }
+
+      &.is-active {
+        stroke: rgba($node-color-active, 0.75);
+      }
 
       &.is-main-output {
         stroke-width: 2;
       }
     }
 
-    .circle,
+    /* .circle, */
     .pill {
       fill: rgba(#fff, 0.75);
     }
-    .circle-dot {
+    /* .circle-dot {
       stroke: none;
       fill: $dark-grey;
-    }
+    } */
     .pill-border {
       fill: transparent;
     }

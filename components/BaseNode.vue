@@ -176,8 +176,7 @@ export default {
       fill: rgba(#fff, 1);
     }
 
-    &:hover,
-    &.is-active {
+    &:hover {
       stroke: rgba($node-color-hover, 0.75);
       filter: url(#shadow);
     }
