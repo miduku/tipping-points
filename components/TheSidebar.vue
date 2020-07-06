@@ -3,7 +3,6 @@
     <div class="sidebar-content-wrapper">
       <div>
         <component :is="textInstance" class="sidebar-content" />
-        <!-- <TheSidebarSources /> -->
       </div>
     </div>
 
@@ -12,12 +11,6 @@
         Close
       </Button>
     </div>
-
-    <!-- <div class="sources-toggle-wrapper">
-      <Button @click="vuexSetSidebar([false])">
-        Sources
-      </Button>
-    </div> -->
   </div>
 </template>
 
@@ -73,6 +66,7 @@ export default {
 .sidebar {
   background: white;
   transition: right 0.5s $easeOutQuint;
+  z-index: 10;
 
   &::before {
     content: '';
@@ -132,7 +126,7 @@ export default {
         display: block;
         height: inherit;
         opacity: 0;
-        transform: translateX(1rem);
+        /* transform: translateX(1rem); */
         animation: appear 0.5s $easeOutQuint 0.25s forwards;
 
         > :last-child {

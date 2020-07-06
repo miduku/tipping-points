@@ -24,6 +24,10 @@ export const state = () => ({
     isOpen: false,
     contentInstanceName: ''
   },
+  sidebarSources: {
+    isOpen: false,
+    toId: ''
+  },
   someNodeIsActive: false,
   impactLinksGroups: {}
 })
@@ -43,18 +47,23 @@ export const mutations = {
     state.viewSize.height = sizes[1]
   },
 
+  CREATE_IMPACT_LINKS_GROUPS(state, groups) {
+    state.impactLinksGroups = groups
+  },
+
   SET_MOUNTED(state, setArr) {
     state.isMounted[setArr[0]] = setArr[1]
   },
 
-  OPEN_SIDEBAR(state, openArr) {
+  SET_SIDEBAR(state, openArr) {
     state.sidebar.isOpen = openArr[0]
     // if (openArr[0] === true) state.sidebar.contentInstanceName = openArr[1]
     state.sidebar.contentInstanceName = openArr[1]
   },
 
-  CREATE_IMPACT_LINKS_GROUPS(state, groups) {
-    state.impactLinksGroups = groups
+  SET_SIDEBARSOURCES(state, openArr) {
+    state.sidebarSources.isOpen = openArr[0]
+    state.sidebarSources.toId = openArr[1]
   },
 
   SET_SOME_NODE(state, payload) {

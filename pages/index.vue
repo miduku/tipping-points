@@ -48,15 +48,11 @@
           </ThePanzoomSvg>
         </panZoom>
       </client-only>
-
-      <!-- delete this on prod -->
-      <!-- <div class="dot" /> -->
-      <!-- <div class="buttons">
-        <p>{{ panInstance.transform }}</p>
-      </div> -->
     </div>
 
     <TheSidebar id="content-sidebar" />
+
+    <TheSidebarSources id="content-sidebarsources" />
   </div>
 </template>
 
@@ -70,12 +66,14 @@ import ThePanzoomSvg from '~/components/ThePanzoomSvg.vue'
 import TheNodes from '~/components/TheNodes.vue'
 import TheLinks from '~/components/TheLinks.vue'
 import TheSidebar from '~/components/TheSidebar.vue'
+import TheSidebarSources from '~/components/TheSidebarSources.vue'
 
 import importNodesJson from '~/assets/json/nodes.json'
 import importLinksJson from '~/assets/json/links.json'
 
 export default {
   components: {
+    TheSidebarSources,
     TheSidebar,
     TheLinksImpact,
     ThePanzoomSvg,
@@ -242,14 +240,14 @@ $sidebar-width-desktop: 420px;
     /* overflow: hidden; */
   }
 
-  #content-sidebar {
+  #content-sidebar,
+  #content-sidebarsources {
     /* background: pink; */
     position: fixed;
     top: 0;
     right: 0;
     height: 100vh;
     width: $sidebar-width-mobile;
-    z-index: 10;
 
     @include tablet {
       width: $sidebar-width-tablet;
@@ -259,25 +257,6 @@ $sidebar-width-desktop: 420px;
       width: $sidebar-width-desktop;
     }
   }
-}
-
-.dot {
-  /**/
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: red;
-  left: 50%;
-  top: 50%;
-  z-index: 99999;
-}
-
-.buttons {
-  /**/
-  position: fixed;
-  background: yellow;
-  top: 0;
-  left: 0;
 }
 
 #PANZOOM {

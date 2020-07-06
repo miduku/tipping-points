@@ -1,5 +1,5 @@
 <template>
-  <div class="nav nav-main">
+  <div class="nav nav-main" :style="sidebarSourcesIsOpen ? 'z-index: 0' : ''">
     <div class="title">
       <h2>Tipping Points</h2>
     </div>
@@ -74,7 +74,8 @@ export default {
     ...mapState({
       panZoomCoords: (state) => state.panZoomCoords,
       impactLinksGroups: (state) => state.impactLinksGroups,
-      isMapVisible: (state) => state.isMapVisible
+      isMapVisible: (state) => state.isMapVisible,
+      sidebarSourcesIsOpen: (state) => state.sidebarSources.isOpen
     })
   },
 
@@ -144,13 +145,6 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   pointer-events: none;
-  /* background: pink; */
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
 
   &.nav-main {
     position: fixed;
@@ -158,33 +152,19 @@ export default {
     left: 0;
     height: 100vh;
     width: 0;
-    /* width: 11em; */
     z-index: 10;
     padding: $margin;
-    /* background: linear-gradient(
-      90deg,
-      #ffffff 50%,
-      rgba(255, 255, 255, 0.991353) 53.33%,
-      rgba(255, 255, 255, 0.96449) 56.67%,
-      rgba(255, 255, 255, 0.91834) 60%,
-      rgba(255, 255, 255, 0.852589) 63.33%,
-      rgba(255, 255, 255, 0.768225) 66.67%,
-      rgba(255, 255, 255, 0.668116) 70%,
-      rgba(255, 255, 255, 0.557309) 73.33%,
-      rgba(255, 255, 255, 0.442691) 76.67%,
-      rgba(255, 255, 255, 0.331884) 80%,
-      rgba(255, 255, 255, 0.231775) 83.33%,
-      rgba(255, 255, 255, 0.147411) 86.67%,
-      rgba(255, 255, 255, 0.0816599) 90%,
-      rgba(255, 255, 255, 0.03551) 93.33%,
-      rgba(255, 255, 255, 0.0086472) 96.67%,
-      rgba(255, 255, 255, 0) 100%
-    ); */
 
     > * {
       display: flex;
       height: calc(100vh / 3 - #{$margin});
     }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
   .title {
