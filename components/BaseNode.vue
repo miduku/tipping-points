@@ -162,8 +162,7 @@ export default {
     },
 
     isActive(value) {
-      if (!this.someNodeIsActive) {
-        console.log('isActive', value)
+      if (value && !this.someNodeIsActive) {
         this.$store.commit('SET_SOME_NODE', true)
       }
     }
