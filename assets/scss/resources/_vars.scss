@@ -11,12 +11,17 @@ $margin: 2 * $unit;
 $border-radius: $unit * 0.25;
 
 // Colors
-$red: #eb4747;
+$red: #cc372e;
 $dark: #171a1c;
 $dark-grey: #484d51;
 $light: #c9cccf;
 $shadow: #c9cfcd;
 $shadow-dark: #949e9b;
+$calypso: #307191;
+
+$node-color: $dark-grey;
+$node-color-hover: $dark;
+$node-color-active: $red;
 
 // Easing
 // $easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);

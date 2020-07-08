@@ -1,14 +1,16 @@
 <template>
-  <div class="nav nav-main">
+  <div class="nav nav-main" :style="sidebarSourcesIsOpen ? 'z-index: 0' : ''">
     <div class="title">
-      <h1>Tipping Points</h1>
+      <h2>Tipping Points</h2>
     </div>
 
-    <nav class="nav-main--impacts">
+    <nav :class="linksImpactsButtonsIsActive" class="nav-main--impacts">
       <ul>
         <li v-for="(impact, i) in impacts" :id="impact.id" :key="i">
           <ButtonHexagon
             :title="impact.title"
+            :desc="impact.desc"
+            :icon="impact.id"
             class="vuex-pan-to is-normal-case"
             @click="toggleImpactLinksGroup(impact.id)"
           />
@@ -17,12 +19,20 @@
     </nav>
 
     <nav class="nav-main--meta">
+      <ul class="map-controls">
+        <li>
+          <Button icon="eye-open" icon-position="right" @click="toggleMap">
+            Map
+          </Button>
+        </li>
+      </ul>
+
       <ul class="zoom-controls">
         <li>
-          <Button icon="minus" class="is-bordered" @click="zoomOut" />
+          <Button icon="minus" @click="zoomOut" />
         </li>
         <li>
-          <Button class="is-bordered" icon="plus" @click="zoomIn" />
+          <Button icon="plus" @click="zoomIn" />
         </li>
         <li>
           <span @click.prevent="vuexSmoothZoomAbs(1)">{{ zoomLevel }}</span>
@@ -40,6 +50,7 @@ import vuexSetSidebar from '~/mixins/vuexSetSidebar'
 import vuexSmoothZoomAbs from '~/mixins/vuexSmoothZoomAbs'
 
 import impactImpactsJson from '~/assets/json/impacts.json'
+
 import ButtonHexagon from '~/components/BaseButtonHexagon.vue'
 import Button from '~/components/BaseButton.vue'
 
@@ -58,20 +69,37 @@ export default {
   data() {
     return {
       impacts: {},
-      zoomLevel: '100%'
+      zoomLevel: '100%',
+      linksImpactsButtonsIsActive: ''
     }
   },
 
   computed: {
     ...mapState({
-      panZoomCoords: (state) => state.panZoomCoords
+      panZoomCoords: (state) => state.panZoomCoords,
+      impactLinksGroups: (state) => state.impactLinksGroups,
+      isMapVisible: (state) => state.isMapVisible,
+      sidebarSourcesIsOpen: (state) => state.sidebarSources.isOpen
     })
   },
 
   watch: {
     panZoomCoords(value) {
-      console.log('log')
       this.zoomLevel = Math.round(value[2] * 100) + '%'
+    },
+
+    impactLinksGroups: {
+      handler(value) {
+        let groupId = ''
+
+        for (const [id, bool] of Object.entries(value)) {
+          groupId += bool ? ' is-' + id : ''
+        }
+
+        // Get which impact links are visible
+        this.linksImpactsButtonsIsActive = groupId
+      },
+      deep: true
     }
   },
 
@@ -84,6 +112,14 @@ export default {
   },
 
   methods: {
+    toggleMap() {
+      if (this.isMapVisible) {
+        this.$store.commit('SET_MAP_VISIBLE', false)
+      } else {
+        this.$store.commit('SET_MAP_VISIBLE', true)
+      }
+    },
+
     toggleImpactLinksGroup(id) {
       let bool = false
 
@@ -112,15 +148,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* align-items: center; */
   pointer-events: none;
-  /* background: pink; */
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
 
   &.nav-main {
     position: fixed;
@@ -128,33 +156,19 @@ export default {
     left: 0;
     height: 100vh;
     width: 0;
-    /* width: 11em; */
     z-index: 10;
     padding: $margin;
-    /* background: linear-gradient(
-      90deg,
-      #ffffff 50%,
-      rgba(255, 255, 255, 0.991353) 53.33%,
-      rgba(255, 255, 255, 0.96449) 56.67%,
-      rgba(255, 255, 255, 0.91834) 60%,
-      rgba(255, 255, 255, 0.852589) 63.33%,
-      rgba(255, 255, 255, 0.768225) 66.67%,
-      rgba(255, 255, 255, 0.668116) 70%,
-      rgba(255, 255, 255, 0.557309) 73.33%,
-      rgba(255, 255, 255, 0.442691) 76.67%,
-      rgba(255, 255, 255, 0.331884) 80%,
-      rgba(255, 255, 255, 0.231775) 83.33%,
-      rgba(255, 255, 255, 0.147411) 86.67%,
-      rgba(255, 255, 255, 0.0816599) 90%,
-      rgba(255, 255, 255, 0.03551) 93.33%,
-      rgba(255, 255, 255, 0.0086472) 96.67%,
-      rgba(255, 255, 255, 0) 100%
-    ); */
 
     > * {
       display: flex;
       height: calc(100vh / 3 - #{$margin});
     }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
   .title {
@@ -171,9 +185,14 @@ export default {
   }
 
   .nav-main--meta {
-    align-items: flex-end;
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: column;
+    /* width: 100vw; */
 
     ul {
+      margin-top: $margin / 2;
+
       li {
         > * {
           pointer-events: all;

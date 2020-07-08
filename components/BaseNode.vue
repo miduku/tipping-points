@@ -1,5 +1,12 @@
 <template>
-  <g :id="nodeData.id" class="node">
+  <g
+    :id="nodeData.id"
+    class="node"
+    :class="{
+      'is-active':
+        nodeData.id === sidebarContentInstanceName && someNodeIsActive
+    }"
+  >
     <circle
       class="node-circle"
       :cx="nodeData.position[0]"
@@ -9,7 +16,7 @@
       @mouseup="onMouseUp"
     />
 
-    <g :style="`opacity: ${panZoomCoords[2] < 0.9 ? 0.2 : 1}`">
+    <g :style="`opacity: ${panZoomZ < 0.9 ? 0.2 : 1}`">
       <!-- Inner node links -->
       <g class="node-links">
         <Link
@@ -24,6 +31,7 @@
 
       <!-- Outer smaller nodes -->
       <NodeChildren
+        v-once
         direction="input"
         :data="{
           childrenData: nodeData.children,
@@ -34,6 +42,7 @@
       />
 
       <NodeChildren
+        v-once
         direction="output"
         :data="{
           childrenData: nodeData.children,
@@ -46,25 +55,47 @@
 
     <!-- Node title -->
     <foreignObject
-      :class="panZoomCoords[2] > 1.2 ? 'is-zoomed' : ''"
+      class="node-foreign"
+      :class="panZoomZ > 1.2 ? 'is-zoomed' : ''"
       :width="size * 3"
       :height="size * 3"
       :x="nodeData.position[0] - size - size / 2"
       :y="nodeData.position[1] - size - size / 2"
       :style="
         `
-        transform: scale(${
-          panZoomCoords[2] < 0.9 ? 0.9 / panZoomCoords[2] : 1
-        });
+        transform: scale(${panZoomZ < 0.9 ? 0.9 / panZoomZ : 1});
         transform-origin: ${nodeData.position[0]}px ${nodeData.position[1]}px;
         `
       "
-      class="node-foreign"
     >
       <div class="title-wrapper">
         <span class="title">
           {{ nodeData.title }}
         </span>
+      </div>
+    </foreignObject>
+
+    <foreignObject
+      class="node-foreign-button"
+      :width="size * 3"
+      :height="size * 3"
+      :x="nodeData.position[0] - size - size / 2"
+      :y="nodeData.position[1] - size - size / 2"
+    >
+      <div
+        class="button-wrapper"
+        :style="
+          `
+          bottom: ${
+            panZoomZ <= 1 ? -10 - panZoomZ * ((1 - panZoomZ) * 100) : -10
+          }%;
+          transform: scale(${panZoomZ < 0.9 ? 0.9 / panZoomZ : 1});
+          `
+        "
+      >
+        <Button icon="book" @click="vuexSetSidebar([true, nodeData.id])">
+          Read more
+        </Button>
       </div>
     </foreignObject>
   </g>
@@ -78,9 +109,11 @@ import vuexSetSidebar from '~/mixins/vuexSetSidebar'
 
 import Link from '~/components/BaseLink.vue'
 import NodeChildren from '~/components/BaseNodeChildren.vue'
+import Button from '~/components/BaseButton.vue'
 
 export default {
   components: {
+    Button,
     Link,
     NodeChildren
   },
@@ -101,15 +134,42 @@ export default {
 
   data() {
     return {
-      tempClickPanZoomCoords: Array
+      // tempClickPanZoomCoords: Array,
+      isMove: false,
+      isActive: false
     }
   },
 
   computed: {
     ...mapState({
-      panZoomCoords: (state) => state.panZoomCoords,
-      sidebarIsOpen: (state) => state.sidebar.isOpen
+      isPanning: (state) => state.isPanning,
+      panZoomZ: (state) => state.panZoomCoords[2],
+      sidebarIsOpen: (state) => state.sidebar.isOpen,
+      someNodeIsActive: (state) => state.someNodeIsActive,
+      sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName
     })
+  },
+
+  watch: {
+    isPanning(value, oldValue) {
+      if (!oldValue && value) {
+        this.isMove = true
+      }
+    },
+
+    sidebarContentInstanceName(value) {
+      if (value === this.nodeData.id) {
+        this.isActive = true
+      } else {
+        this.isActive = false
+      }
+    },
+
+    isActive(value) {
+      if (value && !this.someNodeIsActive) {
+        this.$store.commit('SET_SOME_NODE', true)
+      }
+    }
   },
 
   mounted() {
@@ -120,18 +180,31 @@ export default {
 
   methods: {
     onMouseDown() {
-      this.tempClickPanZoomCoords = this.panZoomCoords
+      this.isMove = false
     },
 
     onMouseUp() {
-      if (this.tempClickPanZoomCoords === this.panZoomCoords) {
-        console.log('not dragged')
+      if (!this.isMove) {
         if (this.sidebarIsOpen) {
-          console.log('dragged from node')
-          this.vuexPanTo(this.nodeData.id)
+          this.vuexSetSidebar([true, this.nodeData.id])
+        } else {
+          this.vuexSetSidebar([false, this.nodeData.id])
         }
 
-        this.vuexSetSidebar([true, this.nodeData.id])
+        if (this.nodeData.id === this.sidebarContentInstanceName) {
+          if (!this.isActive) {
+            this.isActive = true
+            this.vuexPanTo(this.nodeData.id)
+          } else {
+            this.isActive = false
+            this.$store.commit('SET_SOME_NODE', false)
+            this.vuexSetSidebar([false, ''])
+          }
+        } else {
+          this.isActive = false
+          this.$store.commit('SET_SOME_NODE', false)
+          this.vuexSetSidebar([false, ''])
+        }
       }
     }
   }
@@ -145,47 +218,89 @@ export default {
   }
 
   foreignObject {
+    overflow: visible;
+    position: relative;
     transition: opacity 0.5s $easeOutQuint, transform 0.5s $easeOutQuint 0.15s;
 
     &.is-zoomed {
       opacity: 0.1;
     }
   }
+}
 
-  .node-circle {
-    stroke: rgba($dark-grey, 0.15);
-    fill: rgba(#fff, 0.75);
-    pointer-events: all;
-    transition: stroke 0.5s $easeOutQuint;
-    cursor: pointer;
+.node-circle {
+  stroke: rgba($node-color, 0.15);
+  fill: rgba(#fff, 0.75);
+  pointer-events: all;
+  transition: stroke 0.5s $easeOutQuint, filter 0.5s $easeOutQuint;
+  cursor: pointer;
 
-    &:hover {
-      stroke: rgba($dark-grey, 0.75);
-    }
+  &:hover,
+  .is-active & {
+    fill: rgba(#fff, 1);
   }
 
-  .node-link {
-    opacity: 0.25;
+  &:hover {
+    stroke: rgba($node-color-hover, 0.75);
+    filter: url(#shadow);
   }
 
-  .node-foreign {
-    pointer-events: none;
+  .is-active & {
+    stroke: rgba($node-color-active, 0.75);
+    filter: url(#shadow-active);
   }
+}
 
-  .title-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: inherit;
+.node-link {
+  opacity: 0.25;
+}
 
-    .title {
-      position: absolute;
-      text-align: center;
-      word-break: keep-all;
-      width: 100%;
-      font-size: 1.5rem;
-      font-family: $serif;
-      font-weight: bold;
+.node-foreign {
+  pointer-events: none;
+}
+
+.title-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+
+  .title {
+    position: absolute;
+    text-align: center;
+    word-break: keep-all;
+    width: 100%;
+    font-size: 1.5rem;
+    font-family: $serif;
+    font-weight: bold;
+    line-height: 1.2em;
+    transform: translateY(-0.1em);
+  }
+}
+
+.button-wrapper {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  button {
+    transform: translateY(-25%);
+    opacity: 0;
+    transition: bottom 0.5s $easeOutQuint, opacity 0.3s $easeOutQuint,
+      transform 0.5s $easeOutQuint;
+
+    .is-active & {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+
+      .is-sidebar-open & {
+        transform: translateY(-25%);
+        opacity: 0;
+        pointer-events: none;
+      }
     }
   }
 }

@@ -4,7 +4,7 @@
     {
       "id": "AMZN",
       "title": "Amazon rainforest dieback",
-      "position": [1070, 1450],
+      "position": [1200, 1400],
       "links": [
         { "source": "AMZN-input-0", "target": "AMZN-output-4" },
         { "source": "AMZN-input-1", "target": "AMZN-output-4" },
@@ -26,7 +26,7 @@
           { "title": "Dying or dead Amazon Rainforest" },
           { "title": "Loss of of an important carbon sink" },
           { "title": "Shift of the climate to a drier state" },
-          { "title": "Less moisture is returned to the atmosphere " },
+          { "title": "Less moisture is returned to the atmosphere" },
           { "title": "Less fertile tropical soil" }
         ]
       }
@@ -34,8 +34,8 @@
 
     {
       "id": "AMOC",
-      "title": "Atlantic Meridional Overturning Circulation Breakdown",
-      "position": [1350, 950],
+      "title": "Atlantic Circulation Breakdown",
+      "position": [1350, 900],
       "links": [
         { "source": "AMOC-input-0", "target": "AMOC-output-1" },
         { "source": "AMOC-output-0", "target": "AMOC-output-2" },
@@ -57,7 +57,7 @@
     {
       "id": "BFS",
       "title": "Boreal Forest Shift",
-      "position": [650, 550],
+      "position": [850, 550],
       "links": [
         { "source": "BFS-input-0", "target": "BFS-output-4" },
         { "source": "BFS-input-1", "target": "BFS-output-3" },
@@ -83,8 +83,8 @@
 
     {
       "id": "GIS",
-      "title": "Greenand Ice Sheet Disintegration",
-      "position": [1500, 350],
+      "title": "Greenland Ice Sheet Disintegration",
+      "position": [1600, 350],
       "links": [
         { "source": "GIS-input-0", "target": "GIS-output-1" },
         { "source": "GIS-input-1", "target": "GIS-output-0" },
@@ -94,7 +94,7 @@
       "children": {
         "input": [
           {
-            "title": "The snowline migrates to higher elevations as the ice sheet warms"
+            "title": "Snowline migrates to higher elevations as the ice sheet warms"
           },
           { "title": "High global temperatures" }
         ],
@@ -108,8 +108,8 @@
 
     {
       "id": "WAM",
-      "title": "West African Monsoon Shift",
-      "position": [1950, 1200],
+      "title": "African Monsoon Shift",
+      "position": [2000, 1100],
       "links": [
         { "source": "WAM-input-0", "target": "WAM-output-0" },
         { "source": "WAM-output-0", "target": "WAM-output-1" },
@@ -124,8 +124,8 @@
           {
             "title": "Decrease in vegetation growth and increase in desertification"
           },
-          { "title": "Decreased  local rainfall" },
-          { "title": "Extended drought contributes to a famine " }
+          { "title": "Decreased local rainfall" },
+          { "title": "Extended drought contributes to a famine" }
         ]
       }
     },
@@ -133,7 +133,7 @@
     {
       "id": "CRD",
       "title": "Coral reef die-off",
-      "position": [3500, 2050],
+      "position": [3550, 1500],
       "links": [
         { "source": "CRD-input-0", "target": "CRD-output-0" },
         { "source": "CRD-input-0", "target": "CRD-output-2" },
@@ -150,11 +150,11 @@
           { "title": "Reduction of coral growth" }
         ],
         "output": [
-          { "title": "Dead or dying Coral Reefs" },
+          { "title": "Dead or dying coral reefs" },
           {
-            "title": "Amplified growth of tropical, fleshy macroalgae (mainly Caribbean corals)"
+            "title": "Amplified growth of macroalgae"
           },
-          { "title": "The loss of herbivorous fish" }
+          { "title": "Loss of herbivorous fish" }
         ]
       }
     },
@@ -162,16 +162,16 @@
     {
       "id": "IMS",
       "title": "Indian Monsoon Shift",
-      "position": [2800, 1050],
+      "position": [2750, 950],
       "links": [
         { "source": "IMS-input-0", "target": "IMS-output-0" },
         { "source": "IMS-output-0", "target": "IMS-output-1" }
       ],
       "children": {
-        "input": [{ "title": "Decreased locoal Rainfall" }],
+        "input": [{ "title": "Decreased local Rainfall" }],
         "output": [
           { "title": "Dry state" },
-          { "title": "Negative effect on Agriculture" }
+          { "title": "Negative effect on agriculture" }
         ]
       }
     },
@@ -179,7 +179,7 @@
     {
       "id": "PERM",
       "title": "Permafrost Loss",
-      "position": [2300, 460],
+      "position": [2300, 450],
       "links": [
         { "source": "PERM-input-0", "target": "PERM-output-0" },
         { "source": "PERM-output-0", "target": "PERM-output-1" }
@@ -188,15 +188,15 @@
         "input": [{ "title": "Large-scale thawing" }],
         "output": [
           { "title": "Release of stored greenhouse gases" },
-          { "title": "increase of ocean acidification from Carbon" }
+          { "title": "Increase of ocean acidification from carbon" }
         ]
       }
     },
 
     {
       "id": "WAIS",
-      "title": "West Atlantic Ice Sheet Disintegration",
-      "position": [1475, 2270],
+      "title": "Atlantic Ice Sheet Disintegration",
+      "position": [1475, 2200],
       "links": [
         { "source": "WAIS-input-0", "target": "WAIS-output-1" },
         { "source": "WAIS-input-1", "target": "WAIS-output-0" },

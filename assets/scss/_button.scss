@@ -1,3 +1,10 @@
+$impacts: (
+  'TEMP': 'temp',
+  'ALB': 'albedo',
+  'CO2': 'co2',
+  'SEA': 'sea'
+);
+
 .button {
   display: flex;
   justify-content: center;
@@ -16,12 +23,14 @@
   text-transform: uppercase;
   box-shadow: 0px 0px 10px rgba($shadow, 0.5);
   transition: all 0.33s $easeOutQuint;
+  border: 1px solid rgba($dark-grey, 0.25);
   cursor: pointer;
 
   &:focus,
   &:hover {
     box-shadow: 0px 0px 10px rgba($shadow-dark, 0.75);
     transform: translateY(-1px);
+    border-color: rgba($dark-grey, 1);
   }
 
   &:active {
@@ -31,18 +40,153 @@
     color: white;
   }
 
-  &.is-bordered {
-    border: 1px solid rgba($dark-grey, 0.25);
-
-    &:focus,
-    &:hover {
-      border-color: rgba($dark-grey, 1);
-    }
-  }
-
   &.is-normal-case {
     text-transform: none;
     letter-spacing: unset;
+  }
+
+  &.button-hexagon {
+    $size: $unit * 3;
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin: $unit/2 0;
+    padding: 0;
+    width: $size;
+    height: $size;
+    min-height: unset;
+    min-width: unset;
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    pointer-events: all;
+    box-shadow: none;
+
+    &:focus,
+    &:hover {
+      outline: none;
+
+      .content {
+        opacity: 1;
+        transform: translateX(0);
+        transition-delay: 0;
+
+        .title {
+          transform: translateY(-1.1rem);
+          transition-delay: 0.75s;
+        }
+
+        .desc {
+          opacity: 1;
+          transform: translateY(0.1rem);
+          transition-delay: 0.75s;
+        }
+      }
+
+      svg path {
+        fill: lighten($red, 25%);
+      }
+    }
+
+    @each $IMP, $imp in $impacts {
+      .is-IMPACT-#{$IMP} #IMPACT-#{$IMP} & {
+        > i.i-IMPACT-#{$IMP} {
+          background: url(~assets/svg/i-#{$imp}-white.svg?inline);
+        }
+        /**/
+        // .content {
+        //   opacity: 1;
+        //   transform: translateX(0);
+
+        //   .title {
+        //     transform: translateY(-1.1rem);
+        //   }
+        //   .desc {
+        //     opacity: 1;
+        //     transform: translateY(0.1);
+        //   }
+        // }
+        /**/
+
+        svg path {
+          fill: $red;
+        }
+      }
+    }
+
+    > i {
+      display: block;
+      width: 1.5rem;
+      height: 1.5rem;
+      position: absolute;
+
+      @each $IMP, $imp in $impacts {
+        &.i-IMPACT-#{$IMP} {
+          background: url(~assets/svg/i-#{$imp}.svg?inline);
+        }
+      }
+    }
+
+    .content {
+      position: absolute;
+      display: block;
+      left: $size * 1.25;
+      text-align: left;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateX(-$size * 1.25);
+      transition: transform 0.33s $easeOutQuint 0.2s,
+        opacity 0.33s $easeOutQuint 0.2s;
+
+      .title,
+      .desc {
+        position: absolute;
+        display: block;
+        transition: transform 0.5s $easeOutQuint 0s,
+          opacity 0.5s $easeOutQuint 0s;
+
+        span {
+          // display: block;
+          background: rgba(#fff, 0.85);
+          padding: 0.1rem 0.25rem;
+          border-radius: 4px;
+        }
+      }
+
+      .title {
+        transform: translateY(-0.5rem);
+      }
+
+      .desc {
+        font-weight: normal;
+        width: $size * 7.5;
+        display: block;
+        opacity: 0;
+        transform: translateY(1rem);
+        white-space: normal;
+
+        span {
+          display: inline-block;
+        }
+      }
+    }
+
+    svg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: visible;
+
+      path {
+        fill: #fff;
+        stroke: $red;
+        stroke-width: 1px;
+        transition: fill 0.33s $easeOutQuint;
+      }
+    }
   }
 
   .vuex-pan-to {
@@ -51,28 +195,33 @@
 }
 
 .button.icon {
-  padding: 0;
+  // padding: 0;
 
-  > i {
+  &.is-left {
+  }
+  > i,
+  > img {
     display: block;
     width: 1.5rem;
     height: 1.5rem;
+    fill: red;
+    position: absolute;
 
-    &.plus {
-      background: url(~assets/svg/plus.svg);
+    &.i-plus {
+      background: url(~assets/svg/i-plus.svg?inline);
     }
-    &.minus {
-      background: url(~assets/svg/minus.svg);
+    &.i-minus {
+      background: url(~assets/svg/i-minus.svg?inline);
     }
   }
 
   &:active {
     > i {
       &.plus {
-        background: url(~assets/svg/plus-white.svg);
+        background: url(~assets/svg/i-plus-white.svg?inline);
       }
       &.minus {
-        background: url(~assets/svg/minus-white.svg);
+        background: url(~assets/svg/i-minus-white.svg?inline);
       }
     }
   }

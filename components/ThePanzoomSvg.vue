@@ -37,6 +37,14 @@
           fill="none"
         />
       </marker>
+
+      <filter id="shadow">
+        <feDropShadow dx="0" dy="0" stdDeviation="6" />
+      </filter>
+
+      <filter id="shadow-active">
+        <feDropShadow dx="0" dy="0" stdDeviation="6" />
+      </filter>
     </defs>
 
     <image
@@ -44,7 +52,7 @@
       x="0"
       y="0"
       width="100%"
-      xlink:href="~assets/svg/world.svg#world"
+      xlink:href="~assets/svg/world.svg?inline#world"
     />
 
     <!-- Slot -->
@@ -61,8 +69,17 @@ svg {
   top: 0;
   pointer-events: none;
 
+  &.is-map-hidden {
+    #world-map {
+      opacity: 0;
+      transform: scale(0.975);
+    }
+  }
+
   #world-map {
-    opacity: 0.15;
+    opacity: 0.175;
+    transform-origin: center;
+    transition: opacity 0.66s $easeOutQuint, transform 1s $easeOutQuint;
   }
 
   marker {
@@ -72,6 +89,19 @@ svg {
 
     &#link-arrow-red path {
       stroke: $red;
+    }
+  }
+
+  filter {
+    &#shadow {
+      feDropShadow {
+        flood-color: rgba($node-color-hover, 0.5);
+      }
+    }
+    &#shadow-active {
+      feDropShadow {
+        flood-color: rgba($node-color-active, 0.5);
+      }
     }
   }
 }

@@ -1,22 +1,26 @@
 <template>
   <div class="sidebar" :class="sidebarIsOpen ? 'is-open' : 'is-closed'">
+    <div class="sidebar-content-wrapper">
+      <div>
+        <component :is="textInstance" class="sidebar-content" />
+      </div>
+    </div>
+
     <div class="sidebar-button-wrapper">
-      <Button class="is-bordered" @click="vuexSetSidebar([false])">
+      <Button @click="vuexSetSidebar([false, contentInstanceName])">
         Close
       </Button>
     </div>
-
-    <component :is="textInstance" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 
-import Button from '~/components/BaseButton.vue'
-
 import vuexPanTo from '~/mixins/vuexPanTo'
 import vuexSetSidebar from '~/mixins/vuexSetSidebar'
+
+import Button from '~/components/BaseButton.vue'
 
 export default {
   components: {
@@ -32,7 +36,7 @@ export default {
     }),
 
     textInstance() {
-      if (this.contentInstanceName.length > 0) {
+      if (this.contentInstanceName && this.contentInstanceName.length > 0) {
         return () =>
           import(
             `~/components/_dynamic/sidebar-texts/${this.contentInstanceName}`
@@ -60,11 +64,22 @@ export default {
 .sidebar {
   background: white;
   transition: right 0.5s $easeOutQuint;
+  z-index: 10;
+
+  &.is-open {
+    .sidebar-button-wrapper {
+      animation: appear 0.5s $easeOutQuint 0.75s forwards;
+    }
+  }
+
+  &.is-closed {
+    right: -50vw !important;
+  }
 
   &::before {
     content: '';
     position: absolute;
-    width: 15%;
+    width: 20%;
     height: inherit;
     background: blue;
     right: 100%;
@@ -90,38 +105,47 @@ export default {
     );
   }
 
-  &.is-open {
-    .sidebar-button-wrapper {
-      animation: appear 0.5s $easeOutQuint 0.75s forwards;
-    }
-  }
+  .sidebar-content-wrapper {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
 
-  &.is-closed {
-    right: -50vw !important;
-  }
+    > div {
+      /* transform: translateX(-50%); */
+      height: inherit;
+      display: flex;
+      flex-shrink: 0;
+      /* width: 200%; */
 
-  /deep/ section {
-    padding: 2rem;
-    overflow: auto;
-    display: block;
-    height: inherit;
-    opacity: 0;
-    transform: translateX(1rem);
-    animation: appear 0.5s $easeOutQuint 0.25s forwards;
+      /deep/ section {
+        width: 100%;
+        padding: 2rem;
+        overflow: auto;
+        display: block;
+        height: inherit;
+        opacity: 0;
+        /* transform: translateX(1rem); */
+        animation: appear 0.5s $easeOutQuint 0.25s forwards;
 
-    &::before {
-      content: '— tipping point';
-      font-variant: small-caps;
-      line-height: 1.5rem;
-    }
+        > :last-child {
+          margin-bottom: 3.5rem;
+        }
+      }
 
-    > :last-child {
-      margin-bottom: 3.5rem;
+      /deep/ .sidebar-content {
+        &::before {
+          content: '— tipping point';
+          font-variant: small-caps;
+          line-height: 1.5rem;
+        }
+      }
     }
   }
 
   .sidebar-button-wrapper {
     position: absolute;
+    display: flex;
     bottom: $margin;
     right: 100%;
     opacity: 0;

@@ -2,12 +2,13 @@
   <g
     class="link"
     :class="[
-      linkData.lock ? `link-lock-${linkData.lock}` : 'none',
-      `link-group-${linkData.group}`
+      linkData.lock ? `link-lock-${linkData.lock}` : '',
+      `link-group-${linkData.group}`,
+      `link-node-${linkData.node}`
     ]"
   >
     <path
-      :stroke-width="strokeWidth * differenceCoords[2]"
+      :stroke-width="strokeWidth /* * differenceCoords[2]*/"
       stroke-linecap="round"
       fill="none"
       :d="
@@ -37,7 +38,7 @@ export default {
 
     strokeWidth: {
       type: Number,
-      default: 1
+      default: 1.25
     },
 
     differenceCoords: {
@@ -124,12 +125,12 @@ export default {
       const sourceCoordsMovedFromCenter = this.changeCoordinatesByDegreeAndDistance(
         sourceCoordsCenter,
         sourceDegrees - INVERT_ANGLE + 15,
-        this.linkData.lock === 'source' ? 20 : 10
+        this.linkData.lock === 'source' ? 26 : 10
       )
       const targetCoordsMovedFromCenter = this.changeCoordinatesByDegreeAndDistance(
         targetCoordsCenter,
         targetDegrees - INVERT_ANGLE - 15,
-        this.linkData.lock === 'target' ? 20 : 10
+        this.linkData.lock === 'target' ? 26 : 10
       )
 
       // Move bezier handles for the curve
@@ -196,7 +197,7 @@ export default {
   }
 
   &.links-impact {
-    opacity: 0.1;
+    opacity: 0.075;
     transition: opacity 0.5s $easeOutQuint;
   }
 

@@ -1,6 +1,6 @@
 <template>
   <g id="nodes">
-    <Node v-for="(node, i) in data" :key="i" :node-data="node" />
+    <Node v-for="(node, i) in data" v-once :key="i" :node-data="node" />
   </g>
 </template>
 

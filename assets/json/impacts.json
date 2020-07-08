@@ -1,6 +1,22 @@
 [
-  { "id": "IMPACT-TEMP", "title": "Increase in global weather temperatures" },
-  { "id": "IMPACT-ALB", "title": "Albedo Impact" },
-  { "id": "IMPACT-CO2", "title": "Increase in global CO2 levels" },
-  { "id": "IMPACT-SEA", "title": "Increase in global sea levels" }
+  {
+    "id": "IMPACT-TEMP",
+    "title": "Increase in global weather temperatures",
+    "desc": "Since the Industrial Revolution the global temperature has been rising. Human activity is mainly responsible for this, as well as some natural variability. It is a major aspect of climate change."
+  },
+  {
+    "id": "IMPACT-ALB",
+    "title": "Albedo Impact",
+    "desc": "Measure of reflection of solar radiation on surfaces. Dark surfaces (ocean, forest, soil) have low albedo and absorb most of the light, whereas light surfaces (ice, snow) have a high albedo and reflect more (of it/light)."
+  },
+  {
+    "id": "IMPACT-CO2",
+    "title": "Increase in global CO2 levels",
+    "desc": "CO2 is a greenhouse gas that influences Earth’s surface temperature. Human activity has caused an unusually high concentration that fuels global warming."
+  },
+  {
+    "id": "IMPACT-SEA",
+    "title": "Increase in global sea levels",
+    "desc": "Rising sea levels are provoked by melting ice sheets or glaciers and thermal expansion of warming sea water. This climate change effect greatly influences coastal habitats."
+  }
 ]

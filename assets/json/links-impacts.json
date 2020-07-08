@@ -1,53 +1,62 @@
 [
   {
+    "node": "WAM",
     "source": "IMPACT-TEMP",
     "target": "WAM-input-0",
     "lock": "source",
     "group": "IMPACT-TEMP"
   },
   {
+    "node": "CRD",
     "source": "IMPACT-TEMP",
     "target": "CRD-input-1",
     "lock": "source",
     "group": "IMPACT-TEMP"
   },
   {
+    "node": "WAIS",
     "source": "IMPACT-TEMP",
     "target": "WAIS-input-0",
     "lock": "source",
     "group": "IMPACT-TEMP"
   },
   {
+    "node": "WAIS",
     "source": "IMPACT-TEMP",
     "target": "WAIS-input-1",
     "lock": "source",
     "group": "IMPACT-TEMP"
   },
   {
+    "node": "AMZN",
     "source": "IMPACT-TEMP",
     "target": "AMZN-input-0",
     "lock": "source",
     "group": "IMPACT-TEMP"
   },
   {
+    "node": "BFS",
     "source": "IMPACT-TEMP",
     "target": "BFS-input-0",
     "lock": "source",
     "group": "IMPACT-TEMP"
   },
   {
+    "node": "GIS",
     "source": "IMPACT-TEMP",
     "target": "GIS-input-1",
     "lock": "source",
     "group": "IMPACT-TEMP"
   },
   {
+    "node": "PERM",
     "source": "IMPACT-TEMP",
     "target": "PERM-input-0",
     "lock": "source",
     "group": "IMPACT-TEMP"
   },
   {
+    "node": "IMS",
     "source": "IMPACT-TEMP",
     "target": "IMS-input-0",
     "lock": "source",
@@ -55,66 +64,77 @@
   },
 
   {
+    "node": "AMOC",
     "source": "AMOC-output-0",
     "target": "IMPACT-TEMP",
     "lock": "target",
     "group": "IMPACT-TEMP"
   },
   {
+    "node": "WAM",
     "source": "WAM-output-1",
     "target": "IMPACT-TEMP",
     "lock": "target",
     "group": "IMPACT-TEMP"
   },
   {
+    "node": "AMZN",
     "source": "IMPACT-CO2",
     "target": "AMZN-input-2",
     "lock": "source",
     "group": "IMPACT-CO2"
   },
   {
+    "node": "AMZN",
     "source": "AMZN-output-1",
     "target": "IMPACT-CO2",
     "lock": "target",
     "group": "IMPACT-CO2"
   },
   {
+    "node": "BFS",
     "source": "BFS-output-3",
     "target": "IMPACT-CO2",
     "lock": "target",
     "group": "IMPACT-CO2"
   },
   {
+    "node": "PERM",
     "source": "PERM-output-0",
     "target": "IMPACT-CO2",
     "lock": "target",
     "group": "IMPACT-CO2"
   },
   {
+    "node": "AMZN",
     "source": "IMPACT-ALB",
     "target": "AMZN-input-2",
     "lock": "source",
     "group": "IMPACT-ALB"
   },
   {
+    "node": "GIS",
     "source": "GIS-output-0",
     "target": "IMPACT-ALB",
     "lock": "target",
     "group": "IMPACT-ALB"
   },
   {
+    "node": "BFS",
     "source": "BFS-output-2",
     "target": "IMPACT-ALB",
     "lock": "target",
     "group": "IMPACT-ALB"
   },
   {
+    "node": "WAIS",
     "source": "WAIS-output-0",
     "target": "IMPACT-SEA",
     "lock": "target",
     "group": "IMPACT-SEA"
   },
   {
+    "node": "GIS",
     "source": "GIS-output-2",
     "target": "IMPACT-SEA",
     "lock": "target",

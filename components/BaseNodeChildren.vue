@@ -18,6 +18,7 @@
       "
     >
       <NodeChildNode
+        v-once
         :data="{
           i,
           childData,

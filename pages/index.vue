@@ -14,12 +14,16 @@
           id="PANZOOM"
           ref="PANZOOM"
           class="pan-zoom"
+          :class="{ 'is-ready': isMounted.theNodes }"
           :options="options"
           @transform="onTransform"
+          @panstart="onPanStart"
+          @panend="onPanEnd"
         >
           <ThePanzoomSvg
             ref="OWNER"
             class="owner"
+            :class="{ 'is-map-hidden': !isMap }"
             :view-box.camel="
               `
               0
@@ -40,19 +44,15 @@
               :data="importLinksJson"
             />
 
-            <TheNodes :data="importNodesJson.nodes" />
+            <TheNodes v-once :data="importNodesJson.nodes" />
           </ThePanzoomSvg>
         </panZoom>
       </client-only>
-
-      <!-- delete this on prod -->
-      <!-- <div class="dot" /> -->
-      <!-- <div class="buttons">
-        <p>{{ panInstance.transform }}</p>
-      </div> -->
     </div>
 
     <TheSidebar id="content-sidebar" />
+
+    <TheSidebarSources id="content-sidebarsources" />
   </div>
 </template>
 
@@ -66,12 +66,14 @@ import ThePanzoomSvg from '~/components/ThePanzoomSvg.vue'
 import TheNodes from '~/components/TheNodes.vue'
 import TheLinks from '~/components/TheLinks.vue'
 import TheSidebar from '~/components/TheSidebar.vue'
+import TheSidebarSources from '~/components/TheSidebarSources.vue'
 
 import importNodesJson from '~/assets/json/nodes.json'
 import importLinksJson from '~/assets/json/links.json'
 
 export default {
   components: {
+    TheSidebarSources,
     TheSidebar,
     TheLinksImpact,
     ThePanzoomSvg,
@@ -88,14 +90,13 @@ export default {
       isPanning: false,
       isZooming: false,
       options: {
-        // transformOrigin: { x: 0.5, y: 0.5 },
         minZoom: 0.25,
         maxZoom: 2.25
-        // autocenter: true
       },
       panInstance: {
         transform: ''
-      }
+      },
+      isMap: true
     }
   },
 
@@ -107,11 +108,16 @@ export default {
       viewSize: (state) => state.viewSize,
       isSidebarOpen: (state) => state.sidebar.isOpen,
       newZoomLevel: (state) => state.newZoomLevel.level,
-      newZoomLevelTimeStamp: (state) => state.newZoomLevel.timeStamp
+      newZoomLevelTimeStamp: (state) => state.newZoomLevel.timeStamp,
+      isMapVisible: (state) => state.isMapVisible
     })
   },
 
   watch: {
+    isMapVisible(value) {
+      this.isMap = value
+    },
+
     panToNodeTimeStamp(value, oldValue) {
       if (value !== oldValue) {
         this.panTo(this.panToNodeId)
@@ -163,7 +169,7 @@ export default {
     },
 
     onTransform: _throttle(function() {
-      console.log('onTransform')
+      // console.log('onTransform')
       const pan = this.$refs.PANZOOM.$panZoomInstance
       const getTransform = pan.getTransform()
 
@@ -189,7 +195,14 @@ export default {
         ROOT_EL.clientWidth,
         ROOT_EL.clientHeight
       ])
-    }, 250)
+    }, 250),
+
+    onPanStart() {
+      this.$store.commit('SET_PANNING', true)
+    },
+    onPanEnd() {
+      this.$store.commit('SET_PANNING', false)
+    }
   }
 }
 </script>
@@ -208,6 +221,8 @@ $sidebar-width-desktop: 420px;
   display: block;
   margin-right: 0;
   transition: margin-right 0.6s $easeOutQuint;
+  /* opacity: 0; */
+  animation: init 1s $easeOutQuint forwards;
 
   &.is-sidebar-open {
     margin-right: $sidebar-width-mobile;
@@ -225,14 +240,14 @@ $sidebar-width-desktop: 420px;
     /* overflow: hidden; */
   }
 
-  #content-sidebar {
+  #content-sidebar,
+  #content-sidebarsources {
     /* background: pink; */
     position: fixed;
     top: 0;
     right: 0;
     height: 100vh;
     width: $sidebar-width-mobile;
-    z-index: 10;
 
     @include tablet {
       width: $sidebar-width-tablet;
@@ -244,30 +259,16 @@ $sidebar-width-desktop: 420px;
   }
 }
 
-.dot {
-  /**/
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: red;
-  left: 50%;
-  top: 50%;
-  z-index: 99999;
-}
-
-.buttons {
-  /**/
-  position: fixed;
-  background: yellow;
-  top: 0;
-  left: 0;
-}
-
-.pan-zoom {
+#PANZOOM {
   overflow: hidden;
   background: transparent;
   width: 100%;
   height: 100vh;
+  opacity: 0;
+
+  &.is-ready {
+    animation: init 1s $easeOutQuint forwards;
+  }
 
   /deep/ .vue-pan-zoom-scene {
     overflow: hidden;

@@ -14,6 +14,8 @@ export const state = () => ({
     width: 0,
     height: 0
   },
+  isMapVisible: true,
+  isPanning: false,
   isMounted: {
     theNavMain: false,
     theNodes: false
@@ -22,6 +24,11 @@ export const state = () => ({
     isOpen: false,
     contentInstanceName: ''
   },
+  sidebarSources: {
+    isOpen: false,
+    toId: ''
+  },
+  someNodeIsActive: false,
   impactLinksGroups: {}
 })
 
@@ -40,17 +47,27 @@ export const mutations = {
     state.viewSize.height = sizes[1]
   },
 
+  CREATE_IMPACT_LINKS_GROUPS(state, groups) {
+    state.impactLinksGroups = groups
+  },
+
   SET_MOUNTED(state, setArr) {
     state.isMounted[setArr[0]] = setArr[1]
   },
 
-  OPEN_SIDEBAR(state, openArr) {
+  SET_SIDEBAR(state, openArr) {
     state.sidebar.isOpen = openArr[0]
-    if (openArr[0] === true) state.sidebar.contentInstanceName = openArr[1]
+    // if (openArr[0] === true) state.sidebar.contentInstanceName = openArr[1]
+    state.sidebar.contentInstanceName = openArr[1]
   },
 
-  CREATE_IMPACT_LINKS_GROUPS(state, groups) {
-    state.impactLinksGroups = groups
+  SET_SIDEBARSOURCES(state, openArr) {
+    state.sidebarSources.isOpen = openArr[0]
+    state.sidebarSources.toId = openArr[1]
+  },
+
+  SET_SOME_NODE(state, payload) {
+    state.someNodeIsActive = payload
   },
 
   SET_IMPACT_LINKS_GROUPS(state, setArr) {
@@ -60,5 +77,13 @@ export const mutations = {
   SET_NEW_ZOOM_LEVEL(state, payload) {
     state.newZoomLevel.level = payload
     state.newZoomLevel.timeStamp = Date.now()
+  },
+
+  SET_PANNING(state, payload) {
+    state.isPanning = payload
+  },
+
+  SET_MAP_VISIBLE(state, payload) {
+    state.isMapVisible = payload
   }
 }
