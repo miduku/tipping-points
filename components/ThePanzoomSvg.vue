@@ -52,7 +52,7 @@
       x="0"
       y="0"
       width="100%"
-      xlink:href="~assets/svg/world.svg#world"
+      xlink:href="~assets/svg/world.svg?inline#world"
     />
 
     <!-- Slot -->

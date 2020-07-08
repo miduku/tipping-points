@@ -5,7 +5,7 @@
         <span>{{ title }}</span>
       </div>
       <div class="desc">
-        <span> {{ desc }} {{ title }} </span>
+        <span> {{ desc }} </span>
       </div>
     </div>
 

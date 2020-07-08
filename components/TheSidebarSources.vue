@@ -1,5 +1,8 @@
 <template>
-  <div class="sidebarsources">
+  <div
+    class="sidebarsources"
+    :class="sidebarSourcesIsOpen ? 'is-open' : 'is-closed'"
+  >
     <div class="overlay" />
 
     <div class="sidebar-content-wrapper">
@@ -9,8 +12,9 @@
           <ul class="sources">
             <li
               v-for="(source, i) in sourcesJson"
-              :key="i"
               :id="`source-${i + 1}`"
+              :key="i"
+              :class="{ 'is-highlighted': highlightThisId === i + 1 }"
             >
               <span class="title" :data-number="i + 1">{{ source.title }}</span>
               <span class="url">
@@ -22,21 +26,58 @@
       </div>
     </div>
 
-    <div class="sidebar-button-wrapper"></div>
+    <div class="sidebar-button-wrapper">
+      <Button @click="$store.commit('SET_SIDEBARSOURCES', [false, 0])">
+        Close Sources
+      </Button>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import importSourcesJson from '~/assets/json/sources.json'
 
+import Button from '~/components/BaseButton.vue'
+
 export default {
+  components: {
+    Button
+  },
+
   asyncData({ params }) {
     return { importSourcesJson }
   },
 
   data() {
     return {
-      sourcesJson: []
+      sourcesJson: [],
+      highlightThisId: Number
+    }
+  },
+
+  computed: {
+    ...mapState({
+      sidebarSourcesIsOpen: (state) => state.sidebarSources.isOpen,
+      sidebarSourcesToId: (state) => state.sidebarSources.toId
+    })
+  },
+
+  watch: {
+    sidebarSourcesToId(value) {
+      this.highlightThisId = value
+    },
+
+    sidebarSourcesIsOpen(value) {
+      console.log(value, this.sidebarSourcesToId)
+      if (value && this.sidebarSourcesToId > 0) {
+        this.$scrollTo(`#source-${this.sidebarSourcesToId}`, 1500, {
+          easing: [0.23, 1, 0.32, 1],
+          container: '.sidebarsources .sidebar-content-wrapper section',
+          offset: -24
+        })
+      }
     }
   },
 
@@ -52,13 +93,30 @@ export default {
   transition: right 0.5s $easeOutQuint;
   z-index: 9999;
 
+  &.is-open {
+    .sidebar-button-wrapper {
+      animation: appear 0.5s $easeOutQuint 0.75s forwards;
+    }
+  }
+
+  &.is-closed {
+    right: -50vw !important;
+
+    .overlay {
+      pointer-events: none;
+      opacity: 0;
+    }
+  }
+
   .overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: pink;
+    opacity: 0.5;
+    transition: opacity 0.5s $easeOutQuint;
+    background: #fff;
   }
 
   &::before {
@@ -96,7 +154,6 @@ export default {
     overflow: hidden;
     position: relative;
     background: #fff;
-    z-index: 1;
 
     > div {
       /* transform: translateX(-50%); */
@@ -125,25 +182,58 @@ export default {
           list-style: none;
 
           li {
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem 0.75rem 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid transparent;
+            transition: border 0.5s $easeOutQuint, background 0.5s $easeOutQuint;
+
+            &.is-highlighted {
+              background: rgba($red, 0.05);
+              border-color: rgba($red, 0.2);
+            }
 
             .title {
               font-weight: bold;
               position: relative;
+              display: block;
 
               &:before {
                 content: attr(data-number) ') ';
                 position: absolute;
                 top: 0;
-                right: 100%;
+                right: calc(100% + 0.75rem);
                 transform: translateX(-0.5rem);
                 opacity: 0.5;
               }
+            }
+
+            .url {
+              word-break: break-word;
+              display: block;
             }
           }
         }
       }
     }
+  }
+
+  .sidebar-button-wrapper {
+    position: absolute;
+    display: flex;
+    bottom: $margin;
+    right: 100%;
+    opacity: 0;
+    transform: translateX(1rem);
+    transition: opacity 0.5s ease;
+    z-index: 1;
+  }
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 </style>

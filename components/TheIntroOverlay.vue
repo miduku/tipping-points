@@ -24,7 +24,7 @@
             }"
             href="#intro-2"
           >
-            <img src="~/assets/svg/i-arrow-down.svg" alt="Arrow Down" />
+            <img src="~/assets/svg/i-arrow-down.svg?inline" alt="Arrow Down" />
           </a>
         </div>
       </div>

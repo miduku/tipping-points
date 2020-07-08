@@ -92,7 +92,7 @@ $impacts: (
     @each $IMP, $imp in $impacts {
       .is-IMPACT-#{$IMP} #IMPACT-#{$IMP} & {
         > i.i-IMPACT-#{$IMP} {
-          background: url(~assets/svg/i-#{$imp}-white.svg);
+          background: url(~assets/svg/i-#{$imp}-white.svg?inline);
         }
         /**/
         // .content {
@@ -123,7 +123,7 @@ $impacts: (
 
       @each $IMP, $imp in $impacts {
         &.i-IMPACT-#{$IMP} {
-          background: url(~assets/svg/i-#{$imp}.svg);
+          background: url(~assets/svg/i-#{$imp}.svg?inline);
         }
       }
     }
@@ -195,28 +195,33 @@ $impacts: (
 }
 
 .button.icon {
-  padding: 0;
+  // padding: 0;
 
-  > i {
+  &.is-left {
+  }
+  > i,
+  > img {
     display: block;
     width: 1.5rem;
     height: 1.5rem;
+    fill: red;
+    position: absolute;
 
     &.i-plus {
-      background: url(~assets/svg/i-plus.svg);
+      background: url(~assets/svg/i-plus.svg?inline);
     }
     &.i-minus {
-      background: url(~assets/svg/i-minus.svg);
+      background: url(~assets/svg/i-minus.svg?inline);
     }
   }
 
   &:active {
     > i {
       &.plus {
-        background: url(~assets/svg/i-plus-white.svg);
+        background: url(~assets/svg/i-plus-white.svg?inline);
       }
       &.minus {
-        background: url(~assets/svg/i-minus-white.svg);
+        background: url(~assets/svg/i-minus-white.svg?inline);
       }
     }
   }

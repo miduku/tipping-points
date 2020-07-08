@@ -9,7 +9,7 @@
         <li v-for="(impact, i) in impacts" :id="impact.id" :key="i">
           <ButtonHexagon
             :title="impact.title"
-            :desc="impact.title"
+            :desc="impact.desc"
             :icon="impact.id"
             class="vuex-pan-to is-normal-case"
             @click="toggleImpactLinksGroup(impact.id)"
@@ -20,7 +20,11 @@
 
     <nav class="nav-main--meta">
       <ul class="map-controls">
-        <li><Button @click="toggleMap">Map</Button></li>
+        <li>
+          <Button icon="eye-open" icon-position="right" @click="toggleMap">
+            Map
+          </Button>
+        </li>
       </ul>
 
       <ul class="zoom-controls">

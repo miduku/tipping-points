@@ -21,11 +21,9 @@ import vuexPanTo from '~/mixins/vuexPanTo'
 import vuexSetSidebar from '~/mixins/vuexSetSidebar'
 
 import Button from '~/components/BaseButton.vue'
-// import TheSidebarSources from '~/components/TheSidebarSources.vue'
 
 export default {
   components: {
-    // TheSidebarSources,
     Button
   },
 
@@ -68,6 +66,16 @@ export default {
   transition: right 0.5s $easeOutQuint;
   z-index: 10;
 
+  &.is-open {
+    .sidebar-button-wrapper {
+      animation: appear 0.5s $easeOutQuint 0.75s forwards;
+    }
+  }
+
+  &.is-closed {
+    right: -50vw !important;
+  }
+
   &::before {
     content: '';
     position: absolute;
@@ -97,20 +105,11 @@ export default {
     );
   }
 
-  &.is-open {
-    .sidebar-button-wrapper {
-      animation: appear 0.5s $easeOutQuint 0.75s forwards;
-    }
-  }
-
-  &.is-closed {
-    right: -50vw !important;
-  }
-
   .sidebar-content-wrapper {
     height: 100vh;
     overflow: hidden;
     position: relative;
+    background: #fff;
 
     > div {
       /* transform: translateX(-50%); */
@@ -141,21 +140,6 @@ export default {
           line-height: 1.5rem;
         }
       }
-    }
-  }
-
-  .sources-toggle-wrapper {
-    position: absolute;
-    display: flex;
-    bottom: $margin;
-    padding: 0 $margin;
-    width: 100%;
-    transition: transform 0.5s $easeOutQuint;
-    transform: translateX(calc(50% + #{$margin}));
-    pointer-events: none;
-
-    button {
-      pointer-events: all;
     }
   }
 

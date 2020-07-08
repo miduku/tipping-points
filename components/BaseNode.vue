@@ -86,12 +86,16 @@
         class="button-wrapper"
         :style="
           `
-          bottom: ${panZoomZ < 0.9 ? -25 - 0.9 / panZoomZ : -10}%;
+          bottom: ${
+            panZoomZ <= 1 ? -10 - panZoomZ * ((1 - panZoomZ) * 100) : -10
+          }%;
           transform: scale(${panZoomZ < 0.9 ? 0.9 / panZoomZ : 1});
           `
         "
       >
-        <Button @click="vuexSetSidebar([true, nodeData.id])">Read more</Button>
+        <Button icon="book" @click="vuexSetSidebar([true, nodeData.id])">
+          Read more
+        </Button>
       </div>
     </foreignObject>
   </g>
