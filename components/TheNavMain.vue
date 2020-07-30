@@ -19,20 +19,25 @@
     </nav>
 
     <nav class="nav-main--meta">
-      <ul class="map-controls">
+      <ul class="meta-bar"></ul>
+
+      <ul class="nav-controls">
         <li>
-          <Button icon="eye-open" icon-position="right" @click="toggleMap">
+          <Button
+            :icon="isMapEyeOpen ? 'eye-open' : 'eye-close'"
+            class="bu-map-toggle"
+            icon-position="left"
+            @click="toggleMap"
+          >
             Map
           </Button>
         </li>
-      </ul>
 
-      <ul class="zoom-controls">
         <li>
-          <Button icon="minus" @click="zoomOut" />
+          <Button icon="minus" only-icon @click="zoomOut" />
         </li>
         <li>
-          <Button icon="plus" @click="zoomIn" />
+          <Button icon="plus" only-icon @click="zoomIn" />
         </li>
         <li>
           <span @click.prevent="vuexSmoothZoomAbs(1)">{{ zoomLevel }}</span>
@@ -70,7 +75,8 @@ export default {
     return {
       impacts: {},
       zoomLevel: '100%',
-      linksImpactsButtonsIsActive: ''
+      linksImpactsButtonsIsActive: '',
+      isMapEyeOpen: true
     }
   },
 
@@ -115,8 +121,10 @@ export default {
     toggleMap() {
       if (this.isMapVisible) {
         this.$store.commit('SET_MAP_VISIBLE', false)
+        this.isMapEyeOpen = false
       } else {
         this.$store.commit('SET_MAP_VISIBLE', true)
+        this.isMapEyeOpen = true
       }
     },
 
@@ -197,10 +205,14 @@ export default {
         > * {
           pointer-events: all;
         }
+
+        .bu-map-toggle {
+          margin-right: 1rem;
+        }
       }
     }
 
-    ul.zoom-controls {
+    ul.nav-controls {
       display: flex;
       flex-direction: row;
       align-items: center;

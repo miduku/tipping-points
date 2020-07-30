@@ -196,9 +196,25 @@ $impacts: (
 
 .button.icon {
   // padding: 0;
+  position: relative;
 
   &.is-left {
+    > i {
+      left: 1rem;
+    }
+    > span {
+      padding-left: 2rem;
+    }
   }
+  &.is-right {
+    > i {
+      right: 1rem;
+    }
+    > span {
+      padding-right: 2rem;
+    }
+  }
+
   > i,
   > img {
     display: block;
@@ -212,6 +228,17 @@ $impacts: (
     }
     &.i-minus {
       background: url(~assets/svg/i-minus.svg?inline);
+    }
+
+    &.i-eye-open {
+      background: url(~assets/svg/i-eye-open.svg?inline);
+    }
+    &.i-eye-close {
+      background: url(~assets/svg/i-eye-close.svg?inline);
+    }
+
+    &.i-book {
+      background: url(~assets/svg/i-book.svg?inline);
     }
   }
 

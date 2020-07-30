@@ -1,6 +1,6 @@
 <template>
   <button
-    :class="[{ icon: icon }, onlyIcon ? `is-${iconPosition}` : '']"
+    :class="[{ icon: icon }, !onlyIcon ? `is-${iconPosition}` : '']"
     class="button"
     @click="$emit('click')"
   >
