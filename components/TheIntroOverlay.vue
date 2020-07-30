@@ -36,6 +36,7 @@
           But what is a tipping point? The climate has been warming up
           persistently, entailing severe changes in CO2 levels in the
           atmosphere, ocean heat content and global sea level rise. Due to their
+          <SourceAnchorLink toId="1" />
           impact, especially when combined, they hold the power to alter our
           planet. These so-called “tipping points” are thresholds that are able
           to push a system into an entirely new state, even with mere changes.
@@ -76,10 +77,12 @@
 
 <script>
 import Button from '~/components/BaseButton.vue'
+import SourceAnchorLink from '~/components/BaseSourceAnchorLink.vue'
 
 export default {
   components: {
-    Button
+    Button,
+    SourceAnchorLink
   },
 
   data() {

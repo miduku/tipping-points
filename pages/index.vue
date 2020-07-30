@@ -49,10 +49,6 @@
         </panZoom>
       </client-only>
     </div>
-
-    <TheSidebar id="content-sidebar" />
-
-    <TheSidebarSources id="content-sidebarsources" />
   </div>
 </template>
 
@@ -65,16 +61,12 @@ import TheLinksImpact from '~/components/TheLinksImpact.vue'
 import ThePanzoomSvg from '~/components/ThePanzoomSvg.vue'
 import TheNodes from '~/components/TheNodes.vue'
 import TheLinks from '~/components/TheLinks.vue'
-import TheSidebar from '~/components/TheSidebar.vue'
-import TheSidebarSources from '~/components/TheSidebarSources.vue'
 
 import importNodesJson from '~/assets/json/nodes.json'
 import importLinksJson from '~/assets/json/links.json'
 
 export default {
   components: {
-    TheSidebarSources,
-    TheSidebar,
     TheLinksImpact,
     ThePanzoomSvg,
     TheNodes,
@@ -208,14 +200,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$sidebar-width-mobile: 100vw;
-$sidebar-width-tablet: 50vw;
-$sidebar-width-desktop: 420px;
-
-/* @include desktop {
-  $sidebar-width: 50vw;
-} */
-
 #content-main-wrapper {
   position: relative;
   display: block;
@@ -240,9 +224,8 @@ $sidebar-width-desktop: 420px;
     /* overflow: hidden; */
   }
 
-  #content-sidebar,
-  #content-sidebarsources {
-    /* background: pink; */
+  #content-sidebar/* ,
+  #content-sidebarsources */ {
     position: fixed;
     top: 0;
     right: 0;

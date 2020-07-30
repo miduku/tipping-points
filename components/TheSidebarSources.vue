@@ -17,6 +17,7 @@
               :class="{ 'is-highlighted': highlightThisId === i + 1 }"
             >
               <span class="title" :data-number="i + 1">{{ source.title }}</span>
+
               <span class="url">
                 <a :href="source.url" target="_blank">{{ source.url }}</a>
               </span>
@@ -91,7 +92,7 @@ export default {
 .sidebarsources {
   background: white;
   transition: right 0.5s $easeOutQuint;
-  z-index: 9999;
+  z-index: 99999;
 
   &.is-open {
     .sidebar-button-wrapper {
