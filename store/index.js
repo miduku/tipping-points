@@ -1,5 +1,4 @@
 export const state = () => ({
-  timeStamp: '',
   panToNodeId: '',
   panToNode: {
     id: '',
@@ -9,10 +8,6 @@ export const state = () => ({
   newZoomLevel: {
     level: 1,
     timeStamp: ''
-  },
-  viewSize: {
-    width: 0,
-    height: 0
   },
   isMapVisible: true,
   isPanning: false,
@@ -29,10 +24,18 @@ export const state = () => ({
     toId: ''
   },
   someNodeIsActive: false,
-  impactLinksGroups: {}
+  impactLinksGroups: {},
+  mode: {
+    isInit: true,
+    isTutorial: false
+  }
 })
 
 export const mutations = {
+  SET_MODE(state, payloadArr) {
+    state.mode[payloadArr[0]] = payloadArr[1]
+  },
+
   TO_NODE_ID(state, nodeId) {
     state.panToNode.id = nodeId
     state.panToNode.timeStamp = Date.now()
@@ -40,11 +43,6 @@ export const mutations = {
 
   GET_PANZOOM_COORDS(state, coords) {
     state.panZoomCoords = coords
-  },
-
-  GET_VIEW_SIZE(state, sizes) {
-    state.viewSize.width = sizes[0]
-    state.viewSize.height = sizes[1]
   },
 
   CREATE_IMPACT_LINKS_GROUPS(state, groups) {

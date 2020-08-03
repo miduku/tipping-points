@@ -6,7 +6,7 @@
     <div id="content-main" ref="CONTENTMAIN" v-resize="getviewSize">
       <TheLinksImpact
         v-if="isMounted.theNodes && isMounted.theNavMain"
-        :size="[viewSize.width, viewSize.height]"
+        :size="[viewSize[0], viewSize[1]]"
       />
 
       <client-only>
@@ -88,7 +88,8 @@ export default {
       panInstance: {
         transform: ''
       },
-      isMap: true
+      isMap: true,
+      viewSize: Array
     }
   },
 
@@ -97,7 +98,6 @@ export default {
       panToNodeTimeStamp: (state) => state.panToNode.timeStamp,
       panToNodeId: (state) => state.panToNode.id,
       isMounted: (state) => state.isMounted,
-      viewSize: (state) => state.viewSize,
       isSidebarOpen: (state) => state.sidebar.isOpen,
       newZoomLevel: (state) => state.newZoomLevel.level,
       newZoomLevelTimeStamp: (state) => state.newZoomLevel.timeStamp,
@@ -180,13 +180,9 @@ export default {
     }, 120),
 
     getviewSize: _throttle(function() {
-      console.log('getviewSize')
       const ROOT_EL = this.$refs.CONTENTMAIN
 
-      this.$store.commit('GET_VIEW_SIZE', [
-        ROOT_EL.clientWidth,
-        ROOT_EL.clientHeight
-      ])
+      this.viewSize = [ROOT_EL.clientWidth, ROOT_EL.clientHeight]
     }, 250),
 
     onPanStart() {

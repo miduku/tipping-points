@@ -1,5 +1,5 @@
 <template>
-  <div id="intro" :class="{ 'is-closed': isClosed }">
+  <div id="intro" :class="{ 'is-closed': !modeIsInit }">
     <section id="intro-1">
       <header>
         <h1>Tipping Points</h1>
@@ -36,7 +36,7 @@
           But what is a tipping point? The climate has been warming up
           persistently, entailing severe changes in CO2 levels in the
           atmosphere, ocean heat content and global sea level rise. Due to their
-          <SourceAnchorLink toId="1" />
+          <SourceAnchorLink to-id="1" />
           impact, especially when combined, they hold the power to alter our
           planet. These so-called “tipping points” are thresholds that are able
           to push a system into an entirely new state, even with mere changes.
@@ -76,6 +76,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import Button from '~/components/BaseButton.vue'
 import SourceAnchorLink from '~/components/BaseSourceAnchorLink.vue'
 
@@ -91,9 +93,15 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState({
+      modeIsInit: (state) => state.mode.isInit
+    })
+  },
+
   methods: {
     closeIntro() {
-      this.isClosed = true
+      this.$store.commit('SET_MODE', ['isInit', false])
     }
   }
 }

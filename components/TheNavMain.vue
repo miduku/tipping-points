@@ -1,8 +1,11 @@
 <template>
   <div class="nav nav-main" :style="sidebarSourcesIsOpen ? 'z-index: 0' : ''">
-    <div class="title">
-      <h2>Tipping Points</h2>
-    </div>
+    <header class="title">
+      <div @click="openIntro">
+        <h2>Tipping Points</h2>
+        <p>And how they affect us</p>
+      </div>
+    </header>
 
     <nav :class="linksImpactsButtonsIsActive" class="nav-main--impacts">
       <ul>
@@ -19,7 +22,13 @@
     </nav>
 
     <nav class="nav-main--meta">
-      <ul class="meta-bar"></ul>
+      <ul class="meta-bar">
+        <li>
+          <nuxt-link to="/legal-privacy" target="_blank"
+            >Legal & Privacy</nuxt-link
+          >
+        </li>
+      </ul>
 
       <ul class="nav-controls">
         <li>
@@ -40,7 +49,7 @@
           <Button icon="plus" only-icon @click="zoomIn" />
         </li>
         <li>
-          <span @click.prevent="vuexSmoothZoomAbs(1)">{{ zoomLevel }}</span>
+          <span @click.prevent="smoothZoomAbs(1)">{{ zoomLevel }}</span>
         </li>
       </ul>
     </nav>
@@ -52,7 +61,6 @@ import { mapState } from 'vuex'
 
 import vuexPanTo from '~/mixins/vuexPanTo'
 import vuexSetSidebar from '~/mixins/vuexSetSidebar'
-import vuexSmoothZoomAbs from '~/mixins/vuexSmoothZoomAbs'
 
 import impactImpactsJson from '~/assets/json/impacts.json'
 
@@ -65,7 +73,7 @@ export default {
     ButtonHexagon
   },
 
-  mixins: [vuexPanTo, vuexSetSidebar, vuexSmoothZoomAbs],
+  mixins: [vuexPanTo, vuexSetSidebar],
 
   asyncData({ params }) {
     return { impactImpactsJson }
@@ -140,12 +148,20 @@ export default {
 
     zoomIn() {
       const newZoomLevel = this.panZoomCoords[2] + 0.5
-      this.vuexSmoothZoomAbs(newZoomLevel)
+      this.smoothZoomAbs(newZoomLevel)
     },
 
     zoomOut() {
       const newZoomLevel = this.panZoomCoords[2] - 0.5
-      this.vuexSmoothZoomAbs(newZoomLevel)
+      this.smoothZoomAbs(newZoomLevel)
+    },
+
+    smoothZoomAbs(newZoomLevel) {
+      this.$store.commit('SET_NEW_ZOOM_LEVEL', newZoomLevel)
+    },
+
+    openIntro() {
+      this.$store.commit('SET_MODE', ['isInit', true])
     }
   }
 }
@@ -181,10 +197,36 @@ export default {
 
   .title {
     position: relative;
-    width: 50vw;
+    display: block;
 
-    h1 {
-      position: absolute;
+    > div {
+      width: max-content;
+      pointer-events: all;
+
+      &:focus,
+      &:hover {
+        cursor: pointer;
+
+        h2,
+        p {
+          transform: translateY(-0.25rem);
+        }
+      }
+
+      h2,
+      p {
+        transition: transform 0.5s $easeOutQuint;
+      }
+
+      h2 {
+        margin-bottom: 0.45rem;
+      }
+
+      p {
+        font-size: 1.25rem;
+        color: $dark-grey;
+        padding-left: 0.25rem;
+      }
     }
   }
 
@@ -200,6 +242,7 @@ export default {
 
     ul {
       margin-top: $margin / 2;
+      width: max-content;
 
       li {
         > * {
@@ -208,6 +251,19 @@ export default {
 
         .bu-map-toggle {
           margin-right: 1rem;
+        }
+      }
+    }
+
+    ul.meta-bar {
+      padding-left: 0.25rem;
+
+      a {
+        opacity: 0.5;
+
+        &:focus,
+        &:hover {
+          opacity: 1;
         }
       }
     }
