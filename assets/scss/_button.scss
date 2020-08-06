@@ -94,20 +94,6 @@ $impacts: (
         > i.i-IMPACT-#{$IMP} {
           background: url(~assets/svg/i-#{$imp}-white.svg?inline);
         }
-        /**/
-        // .content {
-        //   opacity: 1;
-        //   transform: translateX(0);
-
-        //   .title {
-        //     transform: translateY(-1.1rem);
-        //   }
-        //   .desc {
-        //     opacity: 1;
-        //     transform: translateY(0.1);
-        //   }
-        // }
-        /**/
 
         svg path {
           fill: $red;
