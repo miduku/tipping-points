@@ -47,7 +47,7 @@ export const mutations = {
     state.panZoomCoords = coords
   },
 
-  CREATE_LINKS_IMPACT_GROUPS(state, groups) {
+  GENERATE_LINKS_IMPACT_GROUPS(state, groups) {
     state.links.impactGroups = groups
   },
 

@@ -1,7 +1,12 @@
 <template>
   <div
     id="content-main-wrapper"
-    :class="isSidebarOpen ? 'is-sidebar-open' : ''"
+    :class="[
+      isSidebarOpen ? 'is-sidebar-open' : '',
+
+      someNodeIsActive ? 'some-node-is-active' : '',
+      linksImpactsClassesIsVisible
+    ]"
   >
     <div id="content-main" ref="CONTENTMAIN" v-resize="getviewSize">
       <TheLinksImpact
@@ -89,7 +94,8 @@ export default {
         transform: ''
       },
       isMap: true,
-      viewSize: Array
+      viewSize: Array,
+      linksImpactsClassesIsVisible: ''
     }
   },
 
@@ -101,11 +107,27 @@ export default {
       isSidebarOpen: (state) => state.sidebar.isOpen,
       newZoomLevel: (state) => state.newZoomLevel.level,
       newZoomLevelTimeStamp: (state) => state.newZoomLevel.timeStamp,
-      isMapVisible: (state) => state.isMapVisible
+      someNodeIsActive: (state) => state.someNodeIsActive,
+      isMapVisible: (state) => state.isMapVisible,
+      linksImpactGroups: (state) => state.links.impactGroups
     })
   },
 
   watch: {
+    linksImpactGroups: {
+      handler(value) {
+        let linksImpactGroupId = ''
+
+        for (const [id, bool] of Object.entries(value)) {
+          linksImpactGroupId += bool ? ' is-' + id : ''
+        }
+
+        // Set which impact links are visible
+        this.linksImpactsClassesIsVisible = linksImpactGroupId
+      },
+      deep: true
+    },
+
     isMapVisible(value) {
       this.isMap = value
     },
