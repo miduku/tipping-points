@@ -91,7 +91,7 @@ export default {
   computed: {
     ...mapState({
       panZoomCoords: (state) => state.panZoomCoords,
-      impactLinksGroups: (state) => state.impactLinksGroups,
+      linksImpactGroups: (state) => state.links.impactGroups,
       isMapVisible: (state) => state.isMapVisible,
       sidebarSourcesIsOpen: (state) => state.sidebarSources.isOpen
     })
@@ -102,16 +102,16 @@ export default {
       this.zoomLevel = Math.round(value[2] * 100) + '%'
     },
 
-    impactLinksGroups: {
+    linksImpactGroups: {
       handler(value) {
-        let groupId = ''
+        let linksImpactGroupId = ''
 
         for (const [id, bool] of Object.entries(value)) {
-          groupId += bool ? ' is-' + id : ''
+          linksImpactGroupId += bool ? ' is-' + id : ''
         }
 
-        // Get which impact links are visible
-        this.linksImpactsButtonsIsActive = groupId
+        // Set which impact links are visible
+        this.linksImpactsButtonsIsActive = linksImpactGroupId
       },
       deep: true
     }
@@ -139,11 +139,11 @@ export default {
     toggleImpactLinksGroup(id) {
       let bool = false
 
-      this.$store.state.impactLinksGroups[id] === true
+      this.$store.state.links.impactGroups[id] === true
         ? (bool = false)
         : (bool = true)
 
-      this.$store.commit('SET_IMPACT_LINKS_GROUPS', [id, bool])
+      this.$store.commit('SET_LINKS_IMPACT_GROUPS', [id, bool])
     },
 
     zoomIn() {
@@ -238,7 +238,6 @@ export default {
     justify-content: flex-end;
     display: flex;
     flex-direction: column;
-    /* width: 100vw; */
 
     ul {
       margin-top: $margin / 2;

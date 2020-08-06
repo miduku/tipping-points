@@ -1,5 +1,5 @@
 <template>
-  <g id="outer-links">
+  <g id="LINKS_OUTER">
     <Link v-for="(link, i) in data" :key="i" :link-data="link" class="links" />
   </g>
 </template>

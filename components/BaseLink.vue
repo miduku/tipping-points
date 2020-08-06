@@ -3,8 +3,8 @@
     class="link"
     :class="[
       linkData.lock ? `link-lock-${linkData.lock}` : '',
-      `link-group-${linkData.group}`,
-      `link-node-${linkData.node}`
+      `link-group-${linkData.group || linkData.source}`,
+      `link-node-${linkData.node || linkData.target}`
     ]"
   >
     <path

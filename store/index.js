@@ -24,7 +24,9 @@ export const state = () => ({
     toId: ''
   },
   someNodeIsActive: false,
-  impactLinksGroups: {},
+  links: {
+    impactGroups: {}
+  },
   mode: {
     isInit: true,
     isTutorial: false
@@ -45,8 +47,12 @@ export const mutations = {
     state.panZoomCoords = coords
   },
 
-  CREATE_IMPACT_LINKS_GROUPS(state, groups) {
-    state.impactLinksGroups = groups
+  CREATE_LINKS_IMPACT_GROUPS(state, groups) {
+    state.links.impactGroups = groups
+  },
+
+  SET_LINKS_IMPACT_GROUPS(state, setArr) {
+    state.links.impactGroups[setArr[0]] = setArr[1]
   },
 
   SET_MOUNTED(state, setArr) {
@@ -66,10 +72,6 @@ export const mutations = {
 
   SET_SOME_NODE(state, payload) {
     state.someNodeIsActive = payload
-  },
-
-  SET_IMPACT_LINKS_GROUPS(state, setArr) {
-    state.impactLinksGroups[setArr[0]] = setArr[1]
   },
 
   SET_NEW_ZOOM_LEVEL(state, payload) {

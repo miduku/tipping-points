@@ -1,6 +1,6 @@
 <template>
   <svg
-    id="IMPACT_LINKS"
+    id="LINKS_IMPACTS"
     :width="size[0]"
     :height="size[1]"
     :view-box.camel="`0 0 ${size[0]} ${size[1]}`"
@@ -61,7 +61,7 @@ export default {
   computed: {
     ...mapState({
       panZoomCoords: (state) => state.panZoomCoords,
-      impactLinksGroups: (state) => state.impactLinksGroups,
+      linksImpactGroups: (state) => state.links.impactGroups,
       sidebarIsOpen: (state) => state.sidebar.isOpen,
       someNodeIsActive: (state) => state.someNodeIsActive,
       sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName
@@ -69,16 +69,16 @@ export default {
   },
 
   watch: {
-    impactLinksGroups: {
+    linksImpactGroups: {
       handler(value) {
-        let groupId = ''
+        let linksImpactGroupId = ''
 
         for (const [id, bool] of Object.entries(value)) {
-          groupId += bool ? ' is-' + id : ''
+          linksImpactGroupId += bool ? ' is-' + id : ''
         }
 
-        // Get which impact links are visible
-        this.linksImpactsClassesIsVisible = groupId
+        // Set which impact links are visible
+        this.linksImpactsClassesIsVisible = linksImpactGroupId
       },
       deep: true
     },
@@ -106,7 +106,7 @@ export default {
       // Get only the groups of impact links,
       // put them into an array and commit them into vuex
       this.$store.commit(
-        'CREATE_IMPACT_LINKS_GROUPS',
+        'CREATE_LINKS_IMPACT_GROUPS',
         this.linksImpactsJson.reduce((r, a) => {
           r[a.group] = false
           return r
@@ -121,7 +121,7 @@ export default {
 $impacts: 'IMPACT-TEMP', 'IMPACT-ALB', 'IMPACT-CO2', 'IMPACT-SEA';
 $nodes: 'AMZN', 'AMOC', 'BFS', 'GIS', 'WAM', 'CRD', 'IMS', 'PERM', 'WAIS';
 
-#IMPACT_LINKS {
+#LINKS_IMPACTS {
   transform: translateZ(0);
   will-change: transform;
   position: fixed;
