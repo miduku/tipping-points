@@ -21,6 +21,7 @@
         v-once
         :data="{
           i,
+          parentId: data.parentId,
           childData,
           direction,
           position: data.position,
