@@ -118,38 +118,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$impacts: 'IMPACT-TEMP', 'IMPACT-ALB', 'IMPACT-CO2', 'IMPACT-SEA';
-$nodes: 'AMZN', 'AMOC', 'BFS', 'GIS', 'WAM', 'CRD', 'IMS', 'PERM', 'WAIS';
-
 #LINKS_IMPACTS {
   transform: translateZ(0);
   will-change: transform;
   position: fixed;
   pointer-events: none;
-  animation: init 1s $easeOutQuint forwards;
-
-  @each $impact in $impacts {
-    &.is-#{$impact} {
-      /deep/ .link-group-#{$impact} {
-        opacity: 1;
-      }
-    }
-
-    &.is-#{$impact}.some-node-is-active {
-      /deep/ .link-group-#{$impact} {
-        opacity: 0.35;
-      }
-    }
-  }
-
-  &.some-node-is-active {
-    @each $node in $nodes {
-      &.active-node-#{$node} {
-        /deep/ .link-node-#{$node} {
-          opacity: 1;
-        }
-      }
-    }
-  }
+  /* animation: init 1s $easeOutQuint forwards; */
 }
 </style>
