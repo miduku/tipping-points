@@ -18,7 +18,7 @@
     "lodash": "^4.17.19",
     "nuxt": "^2.0.0",
     "nuxt-svg-loader": "^1.2.0",
-    "vue-panzoom": "^1.1.1",
+    "vue-panzoom": "github:miduku/vue-panzoom",
     "vue-resize-directive": "^1.2.0",
     "vue-scrollto": "^2.18.1"
   },
