@@ -9,12 +9,14 @@ export const state = () => ({
     level: 1,
     timeStamp: ''
   },
+
   isMapVisible: true,
   isPanning: false,
   isMounted: {
     theNavMain: false,
     theNodes: false
   },
+
   sidebar: {
     isOpen: false,
     contentInstanceName: ''
@@ -23,10 +25,20 @@ export const state = () => ({
     isOpen: false,
     toId: ''
   },
-  someNodeIsActive: false,
+
+  someNode: {
+    isActive: false
+  },
+  someChildNode: {
+    isActive: false,
+    direction: '',
+    i: ''
+  },
+
   links: {
     impactGroups: {}
   },
+
   mode: {
     isInit: true,
     isTutorial: false
@@ -71,7 +83,11 @@ export const mutations = {
   },
 
   SET_SOME_NODE(state, payload) {
-    state.someNodeIsActive = payload
+    state.someNode = payload
+  },
+
+  SET_SOME_CHILDNODE(state, payload) {
+    state.someChildNode = payload
   },
 
   SET_NEW_ZOOM_LEVEL(state, payload) {

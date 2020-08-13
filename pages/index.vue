@@ -107,7 +107,7 @@ export default {
       isSidebarOpen: (state) => state.sidebar.isOpen,
       newZoomLevel: (state) => state.newZoomLevel.level,
       newZoomLevelTimeStamp: (state) => state.newZoomLevel.timeStamp,
-      someNodeIsActive: (state) => state.someNodeIsActive,
+      someNodeIsActive: (state) => state.someNode.isActive,
       isMapVisible: (state) => state.isMapVisible,
       linksImpactGroups: (state) => state.links.impactGroups
     })
@@ -194,11 +194,11 @@ export default {
       ])
 
       // delete this on prod
-      this.panInstance.transform = `
-        x: ${getTransform.x},
-        y: ${getTransform.y},
-        scale: ${getTransform.scale}
-      `
+      // this.panInstance.transform = `
+      //   x: ${getTransform.x},
+      //   y: ${getTransform.y},
+      //   scale: ${getTransform.scale}
+      // `
     }, 120),
 
     getviewSize: _throttle(function() {
