@@ -242,8 +242,8 @@ export default {
     /* overflow: hidden; */
   }
 
-  #content-sidebar/* ,
-  #content-sidebarsources */ {
+  #sidebar-main/* ,
+  #sidebar-sources */ {
     position: fixed;
     top: 0;
     right: 0;

@@ -8,9 +8,9 @@
       <nuxt />
     </div>
 
-    <TheSidebar id="content-sidebar" />
+    <TheSidebar id="sidebar-main" />
 
-    <TheSidebarSources id="content-sidebarsources" />
+    <TheSidebarSources id="sidebar-sources" />
   </div>
 </template>
 
@@ -35,8 +35,8 @@ export default {
   position: relative;
 }
 
-#content-sidebar,
-#content-sidebarsources {
+#sidebar-main,
+#sidebar-sources {
   position: fixed;
   top: 0;
   right: 0;
