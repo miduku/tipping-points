@@ -184,8 +184,13 @@ export default {
 
     onMouseUp() {
       if (!this.isMove) {
-        console.log(this.data)
+        // this is a click
         this.vuexSetSidebar([this.sidebarIsOpen, this.data.id])
+        this.$store.commit('SET_SOME_CHILDNODE', {
+          i: '',
+          direction: '',
+          isActive: false
+        })
 
         if (this.data.id === this.sidebarContentInstanceName) {
           if (!this.isActive) {

@@ -30,6 +30,7 @@ export const state = () => ({
     isActive: false
   },
   someChildNode: {
+    timeStamp: '',
     isActive: false,
     direction: '',
     i: ''
@@ -88,6 +89,7 @@ export const mutations = {
 
   SET_SOME_CHILDNODE(state, payload) {
     state.someChildNode = payload
+    state.someChildNode.timeStamp = Date.now()
   },
 
   SET_NEW_ZOOM_LEVEL(state, payload) {

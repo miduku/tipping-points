@@ -83,113 +83,57 @@ export default {
 
   data() {
     return {
-      // isActive: false
+      isActive: false
     }
   },
 
   computed: {
     ...mapState({
       sidebarIsOpen: (state) => state.sidebar.isOpen,
-      someNodeIsActive: (state) => state.someNode.isActive,
-      someChildNode: (state) => state.someChildNode,
+      // someNodeIsActive: (state) => state.someNode.isActive,
+      someChildNodeTimeStamp: (state) => state.someChildNode.timeStamp,
+      someChildNodeIsActive: (state) => state.someChildNode.isActive,
+      someChildNodeI: (state) => state.someChildNode.i,
+      someChildNodeDirection: (state) => state.someChildNode.direction,
       sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName
-    }),
-
-    isActive() {
-      if (
-        this.sidebarContentInstanceName === this.data.parentId &&
-        this.someChildNode.i === this.data.i &&
-        this.someChildNode.direction === this.data.direction &&
-        this.someNodeIsActive &&
-        this.someChildNode.isActive
-      ) {
-        return true
-      }
-      return false
-    }
+    })
   },
 
   watch: {
-    // TODO: states while changing main nodes isn't working correctly
-    someNodeIsActive(value) {
-      if (value === false) {
-        this.$store.commit('SET_SOME_CHILDNODE', {
-          i: '',
-          direction: '',
-          isActive: false
-        })
-      }
-    },
-    sidebarContentInstanceName(value, oldValue) {
+    someChildNodeTimeStamp(value, oldValue) {
       if (value !== oldValue) {
-        this.$store.commit('SET_SOME_CHILDNODE', {
-          i: '',
-          direction: '',
-          isActive: false
-        })
+        if (this.someChildNodeIsActive) {
+          if (this.isCurrentItem()) {
+            this.isActive = true
+          } else {
+            this.isActive = false
+          }
+        } else {
+          this.isActive = false
+        }
       }
     }
-    // sidebarContentInstanceName(value) {
-    //   console.log(this.someChildNode.i)
-    //   // console.log(value, this.data.parentId)
-    //   if (
-    //     value === this.data.parentId &&
-    //     this.someChildNode.i === this.data.i
-    //   ) {
-    //     this.isActive = true
-    //   } else {
-    //     this.isActive = false
-    //   }
-    // }
-    // isActive(value) {
-    //   console.log(value)
-    //   if (value === false) {
-    //     this.$store.commit('SET_SOME_CHILDNODE', {
-    //       i: '',
-    //       direction: '',
-    //       isActive: false
-    //     })
-    //   }
-    // }
   },
 
   methods: {
     onClick() {
-      console.log(this.data)
       this.vuexPanTo(this.data.parentId)
       this.vuexSetSidebar([this.sidebarIsOpen, this.data.parentId])
       this.$store.commit('SET_SOME_CHILDNODE', {
         i: this.data.i,
         direction: this.data.direction,
-        isActive: true
+        isActive: !(this.isActive && this.isCurrentItem())
       })
-      // }  else {
-      //   this.vuexSetSidebar([false, this.data.parentId])
-      // }
+    },
 
-      // if (this.data.parentId === this.sidebarContentInstanceName) {
-      //   if (!this.isActive) {
-      //     this.isActive = true
-      //     this.vuexPanTo(this.data.parentId)
-      //   } else {
-      //     this.isActive = false
-      //     this.$store.commit('SET_SOME_NODE', false)
-      //     this.vuexSetSidebar([false, ''])
-      //   }
-      // } else {
-      //   this.isActive = false
-      //   this.$store.commit('SET_SOME_NODE', false)
-      //   this.vuexSetSidebar([false, ''])
-      // }
+    isCurrentItem() {
+      return (
+        this.sidebarContentInstanceName === this.data.parentId &&
+        this.someChildNodeI === this.data.i &&
+        this.someChildNodeDirection === this.data.direction
+      )
     }
   }
-
-  // mounted() {
-  //   // console.log(this.data)
-  //   this.$nextTick(function() {
-  //     // console.log('BaseNodeChildNode pups')
-  //   })
-  // }
 }
 </script>
 
