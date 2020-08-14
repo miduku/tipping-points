@@ -9,3 +9,19 @@
 
   Regarding how these negative impacts majorly affect India’s agriculture (the aspect of food security among other things) and economy, a prediction of changes is crucial. Thankfully according to IPCC “there is low confidence regarding changes in monsoons” with global warming of 1,5°C or 2°C.
 </template>
+
+<script>
+import SourceAnchorLink from '~/components/BaseSourceAnchorLink.vue'
+
+export default {
+  components: {
+    SourceAnchorLink
+  },
+
+  mounted() {
+    this.$nextTick(function() {
+      this.$emit('isReady')
+    })
+  }
+}
+</script>

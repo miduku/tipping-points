@@ -13,9 +13,10 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/markdownit": "^1.2.9",
+    "@nuxtjs/markdownit": "^1.2.10",
     "@nuxtjs/style-resources": "^1.0.0",
     "lodash": "^4.17.19",
+    "markdown-it-div": "^1.1.0",
     "nuxt": "^2.0.0",
     "nuxt-svg-loader": "^1.2.0",
     "vue-panzoom": "github:miduku/vue-panzoom",

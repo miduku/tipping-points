@@ -11,3 +11,19 @@
 
   Many studies consider global warming of 4°C to be needed for most Amazonian regions to turn into savannahs. But research ”[…] shows that even severe cuts in deforestation and carbon emissions will fail to save the emblematic South American jungle […]” and that “[…] the destruction of large parts of the forest is "irreversible"”.
 </template>
+
+<script>
+import SourceAnchorLink from '~/components/BaseSourceAnchorLink.vue'
+
+export default {
+  components: {
+    SourceAnchorLink
+  },
+
+  mounted() {
+    this.$nextTick(function() {
+      this.$emit('isReady')
+    })
+  }
+}
+</script>

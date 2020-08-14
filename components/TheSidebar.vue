@@ -2,7 +2,11 @@
   <div class="sidebar" :class="sidebarIsOpen ? 'is-open' : 'is-closed'">
     <div class="sidebar-content-wrapper">
       <div>
-        <component :is="textInstance" class="sidebar-content" />
+        <component
+          :is="textInstance"
+          class="sidebar-content"
+          @isReady="isSidebarContentReady"
+        />
       </div>
     </div>
 
@@ -29,9 +33,21 @@ export default {
 
   mixins: [vuexPanTo, vuexSetSidebar],
 
+  data() {
+    return {
+      someOldChildNodeI: '',
+      someOldChildNodeDirection: '',
+      contentOldInstanceName: ''
+    }
+  },
+
   computed: {
     ...mapState({
       sidebarIsOpen: (state) => state.sidebar.isOpen,
+      someChildNodeTimeStamp: (state) => state.someChildNode.timeStamp,
+      someChildNodeIsActive: (state) => state.someChildNode.isActive,
+      someChildNodeI: (state) => state.someChildNode.i,
+      someChildNodeDirection: (state) => state.someChildNode.direction,
       contentInstanceName: (state) => state.sidebar.contentInstanceName
     }),
 
@@ -53,7 +69,45 @@ export default {
         setTimeout(() => {
           console.log('dragged from sidebar')
           this.vuexPanTo(this.contentInstanceName)
+          this.isSidebarContentReady()
         }, 500)
+      }
+    },
+
+    someChildNodeTimeStamp(value, oldValue) {
+      if (value !== oldValue && this.sidebarIsOpen) {
+        this.isSidebarContentReady()
+      }
+    }
+  },
+
+  methods: {
+    isSidebarContentReady() {
+      if (this.someChildNodeIsActive && this.sidebarIsOpen) {
+        console.log('isReady')
+        const SIDEBAR_CONTENT = this.$el.querySelector('.sidebar-content')
+        const SIDEBAR_CONTENT_HIGHLIGHT = SIDEBAR_CONTENT.querySelector(
+          `#${this.contentInstanceName}-${this.someChildNodeI}-${this.someChildNodeDirection}`
+        )
+        const SIDEBAR_CONTENT_HIGHLIGHTS_OLD = SIDEBAR_CONTENT.querySelectorAll(
+          `.is-highlightable`
+        )
+
+        if (SIDEBAR_CONTENT_HIGHLIGHTS_OLD) {
+          SIDEBAR_CONTENT_HIGHLIGHTS_OLD.forEach((element) => {
+            element.classList.remove('is-highlighted')
+          })
+        }
+
+        if (SIDEBAR_CONTENT_HIGHLIGHT) {
+          SIDEBAR_CONTENT_HIGHLIGHT.classList.add('is-highlighted')
+        }
+
+        this.$scrollTo(SIDEBAR_CONTENT_HIGHLIGHT, 1500, {
+          easing: [0.23, 1, 0.32, 1],
+          container: SIDEBAR_CONTENT,
+          offset: -24
+        })
       }
     }
   }
@@ -138,6 +192,12 @@ export default {
           content: '— tipping point';
           font-variant: small-caps;
           line-height: 1.5rem;
+        }
+
+        span {
+          &.is-highlighted {
+            background: rgba($red, 0.1);
+          }
         }
       }
     }

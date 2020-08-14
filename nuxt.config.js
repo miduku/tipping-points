@@ -79,11 +79,14 @@ export default {
   markdownit: {
     preset: 'default',
     linkify: true,
-    breaks: true
-    // use: [
-    //   'markdown-it-div',
-    //   'markdown-it-attrs'
-    // ],
+    breaks: true,
+    // html: true,
+    typographer: true,
+    quotes: '“”‘’',
+    use: [
+      'markdown-it-div'
+      // 'markdown-it-attrs'
+    ]
   },
   /*
    ** Axios module configuration

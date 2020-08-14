@@ -9,3 +9,19 @@
 
   It is assumed that substantial global warming of 3°C or 4°C is needed to trigger a shutdown of the AMOC and after passing a tipping point its decline will take several hundred years. But “[i]t is very likely that the AMOC will weaken over the 21st century.”
 </template>
+
+<script>
+import SourceAnchorLink from '~/components/BaseSourceAnchorLink.vue'
+
+export default {
+  components: {
+    SourceAnchorLink
+  },
+
+  mounted() {
+    this.$nextTick(function() {
+      this.$emit('isReady')
+    })
+  }
+}
+</script>

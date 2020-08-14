@@ -9,3 +9,19 @@
 
   In Antarctica the Amundsen sea sector glaciers contribute the most to global sea levels. And although ice loss will take centuries to complete, it is suspected that the West Antarctic Ice Sheet currently is in the early stages of marine ice sheet instability and it’s proven that in the last quarter century the ice loss rate has tripled.
 </template>
+
+<script>
+import SourceAnchorLink from '~/components/BaseSourceAnchorLink.vue'
+
+export default {
+  components: {
+    SourceAnchorLink
+  },
+
+  mounted() {
+    this.$nextTick(function() {
+      this.$emit('isReady')
+    })
+  }
+}
+</script>
