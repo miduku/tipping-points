@@ -4,7 +4,7 @@
   “The Greenland Ice Sheet is the second largest mass of ice on Earth”<SourceAnchorLink toId="1" />. As it is one of the major contributors to global-sea-level rise<SourceAnchorLink toId="5" /> it could add up to 7,2 meters once completely melted.<SourceAnchorLink toId="1" /> There is very high confidence that the past two decades ice has been lost and high confidence that the mass loss rate has accelerated.<SourceAnchorLink toId="6" />
 
   But why is it melting?
-  <span id="GIS-1-input" class="is-highlightable">Higher global temperatures mostly influence the surfaces of Greenland Ice Sheets.</span> <span id="GIS-1-output" class="is-highlightable">This initiates a self-reinforcing process where melting causes lower ice sheets, shifting them to lower and warmer altitudes.</span> Therefore resulting in further melting.
+  <span id="h-GIS-input-1" class="is-highlightable">Higher global temperatures mostly influence the surfaces of Greenland Ice Sheets.</span> <span id="h-GIS-output-1" class="is-highlightable">This initiates a self-reinforcing process where melting causes lower ice sheets, shifting them to lower and warmer altitudes.</span> Therefore resulting in further melting.
   Linked to the surface ice decline is the darkening of it through various impacts. This contributes to the albedo reduction. Thanks to the albedo effect, more sun energy can be reflected back by white snow.<SourceAnchorLink toId="1" />
   Meaning darker ice surfaces absorb more solar radiation and retain less meltwater which, besides yet more melting, leads to water running off into the ocean.<SourceAnchorLink toId="7" />
 

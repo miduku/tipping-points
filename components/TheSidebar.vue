@@ -33,14 +33,6 @@ export default {
 
   mixins: [vuexPanTo, vuexSetSidebar],
 
-  data() {
-    return {
-      someOldChildNodeI: '',
-      someOldChildNodeDirection: '',
-      contentOldInstanceName: ''
-    }
-  },
-
   computed: {
     ...mapState({
       sidebarIsOpen: (state) => state.sidebar.isOpen,
@@ -87,7 +79,7 @@ export default {
         console.log('isReady')
         const SIDEBAR_CONTENT = this.$el.querySelector('.sidebar-content')
         const SIDEBAR_CONTENT_HIGHLIGHT = SIDEBAR_CONTENT.querySelector(
-          `#${this.contentInstanceName}-${this.someChildNodeI}-${this.someChildNodeDirection}`
+          `#h-${this.contentInstanceName}-${this.someChildNodeDirection}-${this.someChildNodeI}`
         )
         const SIDEBAR_CONTENT_HIGHLIGHTS_OLD = SIDEBAR_CONTENT.querySelectorAll(
           `.is-highlightable`
@@ -195,8 +187,10 @@ export default {
         }
 
         span {
+          transition: background 0.5s $easeOutQuint 0.25s;
+
           &.is-highlighted {
-            background: rgba($red, 0.1);
+            background: rgba($red, 0.2);
           }
         }
       }
