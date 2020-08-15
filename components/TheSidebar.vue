@@ -76,17 +76,16 @@ export default {
   methods: {
     isSidebarContentReady() {
       if (this.someChildNodeIsActive && this.sidebarIsOpen) {
-        console.log('isReady')
         const SIDEBAR_CONTENT = this.$el.querySelector('.sidebar-content')
         const SIDEBAR_CONTENT_HIGHLIGHT = SIDEBAR_CONTENT.querySelector(
           `#h-${this.contentInstanceName}-${this.someChildNodeDirection}-${this.someChildNodeI}`
         )
-        const SIDEBAR_CONTENT_HIGHLIGHTS_OLD = SIDEBAR_CONTENT.querySelectorAll(
+        const SIDEBAR_CONTENT_HIGHLIGHTS_ALL = SIDEBAR_CONTENT.querySelectorAll(
           `.is-highlightable`
         )
 
-        if (SIDEBAR_CONTENT_HIGHLIGHTS_OLD) {
-          SIDEBAR_CONTENT_HIGHLIGHTS_OLD.forEach((element) => {
+        if (SIDEBAR_CONTENT_HIGHLIGHTS_ALL) {
+          SIDEBAR_CONTENT_HIGHLIGHTS_ALL.forEach((element) => {
             element.classList.remove('is-highlighted')
           })
         }
