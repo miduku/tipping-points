@@ -2,7 +2,8 @@ export const state = () => ({
   panToNodeId: '',
   panToNode: {
     id: '',
-    timeStamp: ''
+    timeStamp: '',
+    zoomLevel: 1
   },
   panZoomCoords: [0, 0, 1],
   newZoomLevel: {
@@ -51,8 +52,9 @@ export const mutations = {
     state.mode[payloadArr[0]] = payloadArr[1]
   },
 
-  TO_NODE_ID(state, nodeId) {
-    state.panToNode.id = nodeId
+  TO_NODE_ID(state, payloadArr) {
+    state.panToNode.id = payloadArr[0]
+    state.panToNode.zoomLevel = payloadArr[1] || 1
     state.panToNode.timeStamp = Date.now()
   },
 

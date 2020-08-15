@@ -36,11 +36,13 @@ export default {
   computed: {
     ...mapState({
       sidebarIsOpen: (state) => state.sidebar.isOpen,
+      contentInstanceName: (state) => state.sidebar.contentInstanceName,
+      // panToNodeZoomLevel: (state) => state.panToNode.zoomLevel,
+
       someChildNodeTimeStamp: (state) => state.someChildNode.timeStamp,
       someChildNodeIsActive: (state) => state.someChildNode.isActive,
       someChildNodeI: (state) => state.someChildNode.i,
-      someChildNodeDirection: (state) => state.someChildNode.direction,
-      contentInstanceName: (state) => state.sidebar.contentInstanceName
+      someChildNodeDirection: (state) => state.someChildNode.direction
     }),
 
     textInstance() {
@@ -60,7 +62,10 @@ export default {
       if (value !== oldValue && value) {
         setTimeout(() => {
           console.log('dragged from sidebar')
-          this.vuexPanTo(this.contentInstanceName)
+          this.vuexPanTo(
+            this.contentInstanceName,
+            this.someChildNodeIsActive ? 1.5 : 1
+          )
           this.isSidebarContentReady()
         }, 500)
       }
@@ -92,13 +97,13 @@ export default {
 
         if (SIDEBAR_CONTENT_HIGHLIGHT) {
           SIDEBAR_CONTENT_HIGHLIGHT.classList.add('is-highlighted')
-        }
 
-        this.$scrollTo(SIDEBAR_CONTENT_HIGHLIGHT, 1500, {
-          easing: [0.23, 1, 0.32, 1],
-          container: SIDEBAR_CONTENT,
-          offset: -24
-        })
+          this.$scrollTo(SIDEBAR_CONTENT_HIGHLIGHT, 1500, {
+            easing: [0.23, 1, 0.32, 1],
+            container: SIDEBAR_CONTENT,
+            offset: -24
+          })
+        }
       }
     }
   }

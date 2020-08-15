@@ -101,15 +101,19 @@ export default {
 
   computed: {
     ...mapState({
+      isMounted: (state) => state.isMounted,
+
+      isSidebarOpen: (state) => state.sidebar.isOpen,
+      isMapVisible: (state) => state.isMapVisible,
+      someNodeIsActive: (state) => state.someNode.isActive,
+      linksImpactGroups: (state) => state.links.impactGroups,
+
       panToNodeTimeStamp: (state) => state.panToNode.timeStamp,
       panToNodeId: (state) => state.panToNode.id,
-      isMounted: (state) => state.isMounted,
-      isSidebarOpen: (state) => state.sidebar.isOpen,
-      newZoomLevel: (state) => state.newZoomLevel.level,
+      panToNodeZoomLevel: (state) => state.panToNode.zoomLevel,
+
       newZoomLevelTimeStamp: (state) => state.newZoomLevel.timeStamp,
-      someNodeIsActive: (state) => state.someNode.isActive,
-      isMapVisible: (state) => state.isMapVisible,
-      linksImpactGroups: (state) => state.links.impactGroups
+      newZoomLevel: (state) => state.newZoomLevel.level
     })
   },
 
@@ -134,7 +138,7 @@ export default {
 
     panToNodeTimeStamp(value, oldValue) {
       if (value !== oldValue) {
-        this.panTo(this.panToNodeId)
+        this.panTo(this.panToNodeId, this.panToNodeZoomLevel)
       }
     },
 

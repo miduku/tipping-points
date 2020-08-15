@@ -118,7 +118,9 @@ export default {
 
   methods: {
     onClick() {
-      this.vuexPanTo(this.data.parentId)
+      if (!this.isActive) {
+        this.vuexPanTo(this.data.parentId, 1.5)
+      }
       this.vuexSetSidebar([this.sidebarIsOpen, this.data.parentId])
       this.$store.commit('SET_SOME_CHILDNODE', {
         i: this.data.i,
