@@ -80,7 +80,7 @@ export default {
     preset: 'default',
     linkify: true,
     breaks: true,
-    // html: true,
+    html: true,
     typographer: true,
     quotes: '“”‘’',
     use: [
