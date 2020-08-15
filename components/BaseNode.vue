@@ -143,9 +143,15 @@ export default {
     ...mapState({
       isPanning: (state) => state.isPanning,
       panZoomZ: (state) => state.panZoomCoords[2],
+
       sidebarIsOpen: (state) => state.sidebar.isOpen,
+      sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName,
       someNodeIsActive: (state) => state.someNode.isActive,
-      sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName
+
+      someChildNodeTimeStamp: (state) => state.someChildNode.timeStamp,
+      someChildNodeIsActive: (state) => state.someChildNode.isActive,
+      someChildNodeI: (state) => state.someChildNode.i,
+      someChildNodeDirection: (state) => state.someChildNode.direction
     })
   },
 
@@ -167,6 +173,39 @@ export default {
     isActive(value) {
       if (value === true && !this.someNodeIsActive) {
         this.$store.commit('SET_SOME_NODE', { isActive: true })
+      }
+    },
+
+    someChildNodeTimeStamp(value, oldValue) {
+      // look for classes e.g.: link-group-BFS-output-1
+      if (value !== oldValue) {
+        const NODE_LINKS = this.$el.querySelector(
+          `#${this.data.id} .node-links`
+        )
+        const NODE_LINKS_HIGHLIGHTS =
+          this.data.id === this.sidebarContentInstanceName
+            ? NODE_LINKS.querySelectorAll(
+                `.link-group-${this.data.id}-${this.someChildNodeDirection}-${this.someChildNodeI}`
+              )
+            : null
+        const NODE_LINKS_HIGHLIGHTS_ALL = NODE_LINKS.querySelectorAll(
+          `.node-link`
+        )
+
+        if (
+          NODE_LINKS_HIGHLIGHTS_ALL ||
+          (NODE_LINKS_HIGHLIGHTS_ALL && !this.someChildNodeIsActive)
+        ) {
+          NODE_LINKS_HIGHLIGHTS_ALL.forEach((element) => {
+            element.classList.remove('is-highlighted')
+          })
+        }
+
+        if (NODE_LINKS_HIGHLIGHTS && this.someChildNodeIsActive) {
+          NODE_LINKS_HIGHLIGHTS.forEach((element) => {
+            element.classList.add('is-highlighted')
+          })
+        }
       }
     }
   },
