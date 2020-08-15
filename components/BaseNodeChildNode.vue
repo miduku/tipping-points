@@ -90,12 +90,13 @@ export default {
   computed: {
     ...mapState({
       sidebarIsOpen: (state) => state.sidebar.isOpen,
+      sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName,
       // someNodeIsActive: (state) => state.someNode.isActive,
+
       someChildNodeTimeStamp: (state) => state.someChildNode.timeStamp,
       someChildNodeIsActive: (state) => state.someChildNode.isActive,
       someChildNodeI: (state) => state.someChildNode.i,
-      someChildNodeDirection: (state) => state.someChildNode.direction,
-      sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName
+      someChildNodeDirection: (state) => state.someChildNode.direction
     })
   },
 
@@ -171,8 +172,7 @@ export default {
       }
 
       &.is-active {
-        /* stroke: rgba($node-color-active, 0.75); */
-        stroke: rgba(hotpink, 0.75);
+        stroke: rgba($node-color-active, 0.75);
       }
 
       &.is-main-output {
