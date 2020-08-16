@@ -2,6 +2,7 @@
   <div id="tutorial">
     <section>
       <div id="tutorial-texts">
+        <!-- TUTORIALS -->
         <section id="text-0">
           <p>
             This is a tipping element
@@ -14,18 +15,26 @@
 
         <section id="text-1">
           <p>
-            This is a tipping element hhfh
-          </p>
-          <p class="small">
-            It is one of many and each one has major influence on the climatic
-            Earth system
+            See what happens when this tipping element passes a certain tipping
+            point
           </p>
         </section>
+        <!-- TUTORIALS END -->
       </div>
 
-      <div class="buttons">
-        <Button icon="minus" only-icon @click="goToTutorialStep('prev')" />
-        <Button icon="plus" only-icon @click="goToTutorialStep('next')" />
+      <div v-if="tutorialStep !== null" class="buttons">
+        <Button
+          :class="{ 'is-visible': tutorialStep > 0 }"
+          icon="minus"
+          only-icon
+          @click="goToTutorialStep('prev')"
+        />
+        <Button
+          :class="{ 'is-visible': tutorialStep < lastStep }"
+          icon="plus"
+          only-icon
+          @click="goToTutorialStep('next')"
+        />
       </div>
       <div class="skipper">
         <p class="like-link" @click.prevent="skipTutorial">Skip Tutorial</p>
@@ -49,6 +58,12 @@ export default {
 
   mixins: [vuexPanTo, vuexSetSidebar],
 
+  data() {
+    return {
+      lastStep: 1
+    }
+  },
+
   computed: {
     ...mapState({
       tutorialStep: (state) => state.tutorialStep
@@ -57,20 +72,26 @@ export default {
 
   watch: {
     tutorialStep: {
-      immediate: false,
+      immediate: true,
       handler(value) {
-        console.log('step', value)
-
-        const TEXTS = this.$el
-        console.log(TEXTS)
-
         switch (value) {
           case 0:
             this.vuexPanTo('GIS')
+            this.vuexSetSidebar([false, 'GIS'])
             break
 
-          default:
+          case 1:
+            this.vuexPanTo('AMZN')
             break
+
+          case null:
+          default:
+            this.$store.commit('SET_TUTORIALSTEP', 0)
+            break
+        }
+
+        if (value !== null) {
+          this.showText(value)
         }
       }
     }
@@ -85,16 +106,28 @@ export default {
           : this.tutorialStep - 1
       )
     },
+
     skipTutorial() {
       this.$store.commit('SET_MODE', ['isTutorial', false])
     },
 
-    mounted() {
-      this.$nextTick(function() {
-        // TODO
-        this.$store.commit('SET_TUTORIALSTEP', 0)
+    showText(id) {
+      const TEXTS = this.$el.querySelector('#tutorial-texts')
+      const TEXT = TEXTS.querySelector(`#text-${id}`)
+      const TEXT_ALL = TEXTS.querySelectorAll(`section`)
+      TEXT_ALL.forEach((element) => {
+        element.classList.remove('is-active')
       })
+      TEXT.classList.add('is-active')
+      console.log(TEXT)
     }
+
+    // mounted() {
+    //   this.$nextTick(function() {
+    //     // TODO
+    //     this.$store.commit('SET_TUTORIALSTEP', 0)
+    //   })
+    // }
   }
 }
 </script>
@@ -116,12 +149,6 @@ export default {
   > section {
     max-width: 400px;
     width: 100%;
-    opacity: 0;
-    transition: opacity 0.5s $easeOutQuint;
-
-    &.is-active {
-      opacity: 1;
-    }
 
     > div {
       display: flex;
@@ -149,6 +176,12 @@ export default {
         bottom: 0;
         left: 0;
         width: 100%;
+        opacity: 0;
+        transition: opacity 0.5s $easeOutQuint;
+
+        &.is-active {
+          opacity: 1;
+        }
 
         p {
           margin-bottom: 0.5rem;
@@ -166,9 +199,19 @@ export default {
 
     .buttons {
       .button {
-        border: none;
-        background: transparent;
+        /* border: none;
+        background: transparent; */
         box-shadow: unset;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.5s $easeOutQuint;
+
+        &.is-visible {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: all;
+        }
 
         &:last-child {
           margin-left: 3rem;

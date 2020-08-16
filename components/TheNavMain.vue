@@ -230,14 +230,57 @@ export default {
     }
   }
 
+  &.is-visible--impacts .nav-main--impacts {
+    opacity: 1;
+    visibility: visible;
+
+    ul {
+      li {
+        button {
+          pointer-events: all;
+        }
+      }
+    }
+  }
+
   .nav-main--impacts {
     align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s $easeOutQuint;
+    pointer-events: none;
+
+    ul {
+      li {
+        button {
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  &.is-visible--meta .nav-main--meta {
+    opacity: 1;
+    visibility: visible;
+
+    ul {
+      li {
+        > * {
+          pointer-events: all;
+        }
+      }
+    }
   }
 
   .nav-main--meta {
     justify-content: flex-end;
     display: flex;
     flex-direction: column;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s $easeOutQuint;
+    pointer-events: none;
 
     ul {
       margin-top: $margin / 2;
@@ -245,7 +288,7 @@ export default {
 
       li {
         > * {
-          pointer-events: all;
+          pointer-events: none;
         }
 
         .bu-map-toggle {
