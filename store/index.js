@@ -46,7 +46,7 @@ export const state = () => ({
     isTutorial: false
   },
 
-  tutorialStep: 0
+  tutorialStep: null
 })
 
 export const mutations = {
