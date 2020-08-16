@@ -203,7 +203,7 @@ export default {
       //   y: ${getTransform.y},
       //   scale: ${getTransform.scale}
       // `
-    }, 120),
+    }, 200),
 
     getviewSize: _throttle(function() {
       const ROOT_EL = this.$refs.CONTENTMAIN
@@ -270,6 +270,10 @@ export default {
   width: 100%;
   height: 100vh;
   opacity: 0;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform;
 
   &.is-ready {
     animation: init 1s $easeOutQuint forwards;
@@ -280,13 +284,14 @@ export default {
     width: 100%;
     height: 100vh;
   }
-  /*
+
   /deep/ .owner {
+    /* add hardware accelaration */
     transform: translateZ(0);
     backface-visibility: hidden;
     perspective: 1000px;
     will-change: transform;
-  } */
+  }
 }
 
 .has-transition {
