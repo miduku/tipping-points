@@ -44,14 +44,12 @@ export const state = () => ({
   mode: {
     isInit: true,
     isTutorial: false
-  }
+  },
+
+  tutorialStep: 0
 })
 
 export const mutations = {
-  SET_MODE(state, payloadArr) {
-    state.mode[payloadArr[0]] = payloadArr[1]
-  },
-
   TO_NODE_ID(state, payloadArr) {
     state.panToNode.id = payloadArr[0]
     state.panToNode.zoomLevel = payloadArr[1] || 1
@@ -64,6 +62,14 @@ export const mutations = {
 
   GENERATE_LINKS_IMPACT_GROUPS(state, groups) {
     state.links.impactGroups = groups
+  },
+
+  SET_MODE(state, payloadArr) {
+    state.mode[payloadArr[0]] = payloadArr[1]
+  },
+
+  SET_TUTORIALSTEP(state, payload) {
+    state.tutorialStep = payload
   },
 
   SET_LINKS_IMPACT_GROUPS(state, setArr) {

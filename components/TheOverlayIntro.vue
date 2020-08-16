@@ -85,6 +85,8 @@
 <script>
 import { mapState } from 'vuex'
 
+import vuexPanTo from '~/mixins/vuexPanTo'
+
 import Button from '~/components/BaseButton.vue'
 import SourceAnchorLink from '~/components/BaseSourceAnchorLink.vue'
 
@@ -93,6 +95,8 @@ export default {
     Button,
     SourceAnchorLink
   },
+
+  mixins: [vuexPanTo],
 
   data() {
     return {
@@ -109,6 +113,10 @@ export default {
   methods: {
     closeIntro() {
       this.$store.commit('SET_MODE', ['isInit', false])
+
+      setTimeout(() => {
+        this.$store.commit('SET_MODE', ['isTutorial', true])
+      }, 500)
     }
   }
 }

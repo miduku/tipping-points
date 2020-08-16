@@ -1,8 +1,11 @@
 <template>
-  <div class="root">
+  <div class="root" :class="'tut-' + tutorialStep">
     <div class="root-content">
       <nuxt />
     </div>
+
+    <TheOverlayTutorial v-if="modeIsTutorial" />
+
     <TheNavMain />
 
     <TheSidebar id="sidebar-main" />
@@ -14,7 +17,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import TheOverlayIntro from '~/components/TheOverlayIntro.vue'
+import TheOverlayTutorial from '~/components/TheOverlayTutorial.vue'
 import TheNavMain from '~/components/TheNavMain.vue'
 import TheSidebar from '~/components/TheSidebar.vue'
 import TheSidebarSources from '~/components/TheSidebarSources.vue'
@@ -22,9 +28,17 @@ import TheSidebarSources from '~/components/TheSidebarSources.vue'
 export default {
   components: {
     TheOverlayIntro,
+    TheOverlayTutorial,
     TheNavMain,
     TheSidebar,
     TheSidebarSources
+  },
+
+  computed: {
+    ...mapState({
+      tutorialStep: (state) => state.tutorialStep,
+      modeIsTutorial: (state) => state.mode.isTutorial
+    })
   }
 }
 </script>
