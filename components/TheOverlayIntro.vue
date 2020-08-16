@@ -122,8 +122,10 @@ export default {
   min-height: 100vh;
   height: 100%;
   background: rgba(#fff, 0.95);
-  z-index: 9999;
+  /* z-index: 9999; */
   overflow: auto;
+  top: 0;
+  left: 0;
   transition: opacity 0.6s $easeInOutQuint, transform 0.75s $easeInOutQuint;
 
   &.is-closed {

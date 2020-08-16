@@ -180,7 +180,7 @@ export default {
     left: 0;
     height: 100vh;
     width: 0;
-    z-index: 10;
+    /* z-index: 10; */
     padding: $margin;
 
     > * {

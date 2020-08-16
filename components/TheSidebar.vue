@@ -114,7 +114,7 @@ export default {
 .sidebar {
   background: white;
   transition: right 0.5s $easeOutQuint;
-  z-index: 10;
+  /* z-index: 10; */
 
   &.is-open {
     .sidebar-button-wrapper {

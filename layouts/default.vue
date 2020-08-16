@@ -1,28 +1,27 @@
 <template>
   <div class="root">
-    <TheIntroOverlay />
-
-    <TheNavMain />
-
     <div class="root-content">
       <nuxt />
     </div>
+    <TheNavMain />
 
     <TheSidebar id="sidebar-main" />
+
+    <TheOverlayIntro />
 
     <TheSidebarSources id="sidebar-sources" />
   </div>
 </template>
 
 <script>
-import TheIntroOverlay from '~/components/TheIntroOverlay.vue'
+import TheOverlayIntro from '~/components/TheOverlayIntro.vue'
 import TheNavMain from '~/components/TheNavMain.vue'
 import TheSidebar from '~/components/TheSidebar.vue'
 import TheSidebarSources from '~/components/TheSidebarSources.vue'
 
 export default {
   components: {
-    TheIntroOverlay,
+    TheOverlayIntro,
     TheNavMain,
     TheSidebar,
     TheSidebarSources
