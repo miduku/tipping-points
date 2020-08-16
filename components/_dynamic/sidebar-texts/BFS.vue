@@ -9,3 +9,19 @@
 
   An estimated tipping point of the boreal ecosystem between 3°C and 4° C is assumed. Due to the complexity and various dependencies such as feedback processes, this assumption remains rather vague.
 </template>
+
+<script>
+import SourceAnchorLink from '~/components/BaseSourceAnchorLink.vue'
+
+export default {
+  components: {
+    SourceAnchorLink
+  },
+
+  mounted() {
+    this.$nextTick(function() {
+      this.$emit('isReady')
+    })
+  }
+}
+</script>

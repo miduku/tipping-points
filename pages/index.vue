@@ -1,7 +1,12 @@
 <template>
   <div
     id="content-main-wrapper"
-    :class="isSidebarOpen ? 'is-sidebar-open' : ''"
+    :class="[
+      isSidebarOpen ? 'is-sidebar-open' : '',
+
+      someNodeIsActive ? 'some-node-is-active' : '',
+      linksImpactsClassesIsVisible
+    ]"
   >
     <div id="content-main" ref="CONTENTMAIN" v-resize="getviewSize">
       <TheLinksImpact
@@ -89,30 +94,51 @@ export default {
         transform: ''
       },
       isMap: true,
-      viewSize: Array
+      viewSize: Array,
+      linksImpactsClassesIsVisible: ''
     }
   },
 
   computed: {
     ...mapState({
+      isMounted: (state) => state.isMounted,
+
+      isSidebarOpen: (state) => state.sidebar.isOpen,
+      isMapVisible: (state) => state.isMapVisible,
+      someNodeIsActive: (state) => state.someNode.isActive,
+      linksImpactGroups: (state) => state.links.impactGroups,
+
       panToNodeTimeStamp: (state) => state.panToNode.timeStamp,
       panToNodeId: (state) => state.panToNode.id,
-      isMounted: (state) => state.isMounted,
-      isSidebarOpen: (state) => state.sidebar.isOpen,
-      newZoomLevel: (state) => state.newZoomLevel.level,
+      panToNodeZoomLevel: (state) => state.panToNode.zoomLevel,
+
       newZoomLevelTimeStamp: (state) => state.newZoomLevel.timeStamp,
-      isMapVisible: (state) => state.isMapVisible
+      newZoomLevel: (state) => state.newZoomLevel.level
     })
   },
 
   watch: {
+    linksImpactGroups: {
+      handler(value) {
+        let linksImpactGroupId = ''
+
+        for (const [id, bool] of Object.entries(value)) {
+          linksImpactGroupId += bool ? ' is-' + id : ''
+        }
+
+        // Set which impact links are visible
+        this.linksImpactsClassesIsVisible = linksImpactGroupId
+      },
+      deep: true
+    },
+
     isMapVisible(value) {
       this.isMap = value
     },
 
     panToNodeTimeStamp(value, oldValue) {
       if (value !== oldValue) {
-        this.panTo(this.panToNodeId)
+        this.panTo(this.panToNodeId, this.panToNodeZoomLevel)
       }
     },
 
@@ -172,11 +198,11 @@ export default {
       ])
 
       // delete this on prod
-      this.panInstance.transform = `
-        x: ${getTransform.x},
-        y: ${getTransform.y},
-        scale: ${getTransform.scale}
-      `
+      // this.panInstance.transform = `
+      //   x: ${getTransform.x},
+      //   y: ${getTransform.y},
+      //   scale: ${getTransform.scale}
+      // `
     }, 120),
 
     getviewSize: _throttle(function() {
@@ -220,8 +246,8 @@ export default {
     /* overflow: hidden; */
   }
 
-  #content-sidebar/* ,
-  #content-sidebarsources */ {
+  #sidebar-main/* ,
+  #sidebar-sources */ {
     position: fixed;
     top: 0;
     right: 0;

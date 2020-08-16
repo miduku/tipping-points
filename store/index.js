@@ -2,19 +2,22 @@ export const state = () => ({
   panToNodeId: '',
   panToNode: {
     id: '',
-    timeStamp: ''
+    timeStamp: '',
+    zoomLevel: 1
   },
   panZoomCoords: [0, 0, 1],
   newZoomLevel: {
     level: 1,
     timeStamp: ''
   },
+
   isMapVisible: true,
   isPanning: false,
   isMounted: {
     theNavMain: false,
     theNodes: false
   },
+
   sidebar: {
     isOpen: false,
     contentInstanceName: ''
@@ -23,10 +26,21 @@ export const state = () => ({
     isOpen: false,
     toId: ''
   },
-  someNodeIsActive: false,
+
+  someNode: {
+    isActive: false
+  },
+  someChildNode: {
+    timeStamp: '',
+    isActive: false,
+    direction: '',
+    i: ''
+  },
+
   links: {
     impactGroups: {}
   },
+
   mode: {
     isInit: true,
     isTutorial: false
@@ -38,8 +52,9 @@ export const mutations = {
     state.mode[payloadArr[0]] = payloadArr[1]
   },
 
-  TO_NODE_ID(state, nodeId) {
-    state.panToNode.id = nodeId
+  TO_NODE_ID(state, payloadArr) {
+    state.panToNode.id = payloadArr[0]
+    state.panToNode.zoomLevel = payloadArr[1] || 1
     state.panToNode.timeStamp = Date.now()
   },
 
@@ -47,7 +62,7 @@ export const mutations = {
     state.panZoomCoords = coords
   },
 
-  CREATE_LINKS_IMPACT_GROUPS(state, groups) {
+  GENERATE_LINKS_IMPACT_GROUPS(state, groups) {
     state.links.impactGroups = groups
   },
 
@@ -71,7 +86,12 @@ export const mutations = {
   },
 
   SET_SOME_NODE(state, payload) {
-    state.someNodeIsActive = payload
+    state.someNode = payload
+  },
+
+  SET_SOME_CHILDNODE(state, payload) {
+    state.someChildNode = payload
+    state.someChildNode.timeStamp = Date.now()
   },
 
   SET_NEW_ZOOM_LEVEL(state, payload) {

@@ -13,3 +13,19 @@
 
   Another significant threat poses the increasing CO2 concentration on the atmosphere, as oceans absorb circa a quarter of man-made CO2 emissions yearly. Hence the ocean acidity has increased by 30% since the industrial revolution and is assumed to additionally rise by 40% above current levels until the end of this century. Coral and reef growth will slow down or stop entirely due to ocean acidification and “[t]he large-scale loss of functionally diverse corals is a harbinger of further radical shifts in the condition and dynamics of all ecosystems”.
 </template>
+
+<script>
+import SourceAnchorLink from '~/components/BaseSourceAnchorLink.vue'
+
+export default {
+  components: {
+    SourceAnchorLink
+  },
+
+  mounted() {
+    this.$nextTick(function() {
+      this.$emit('isReady')
+    })
+  }
+}
+</script>

@@ -84,9 +84,9 @@
       being hosted on their Servers. These are the corresponding links to their
       <a href="https://www.fh-potsdam.de/impressum/" target="_blank">legal</a> &
       <a href="https://www.fh-potsdam.de/datenschutzhinweis/" target="_blank">
-        privacy
+        privacy pages
       </a>
-      pages.
+      .
     </p>
   </div>
 </template>

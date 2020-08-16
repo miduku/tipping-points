@@ -177,6 +177,19 @@ export default {
 
 <style lang="scss" scoped>
 .link {
+  &.is-highlighted {
+    opacity: 0.75;
+    transition: opacity 0.5s $easeOutQuint;
+
+    path {
+      stroke: $red;
+      transition: stroke 0.5s $easeOutQuint;
+      marker-end: url(#link-arrow-red);
+      animation: impact-dash-animation 1s linear reverse infinite;
+      stroke-dasharray: 4 10;
+    }
+  }
+
   &.links {
     path {
       stroke: $dark-grey;

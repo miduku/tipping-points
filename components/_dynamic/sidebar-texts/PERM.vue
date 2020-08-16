@@ -9,3 +9,19 @@ With global temperatures rising large scale thawning will cause the release of s
 
 Besides increasing global temperatures impacts that enhance and trigger permafrost thaw are fire, abrupt drying events, soil subsidence and erosion. The permafrost loss induced carbon dioxide release also entails an increase of ocean acidification as atmospheric CO2 reacts with seawater.
 </template>
+
+<script>
+import SourceAnchorLink from '~/components/BaseSourceAnchorLink.vue'
+
+export default {
+  components: {
+    SourceAnchorLink
+  },
+
+  mounted() {
+    this.$nextTick(function() {
+      this.$emit('isReady')
+    })
+  }
+}
+</script>

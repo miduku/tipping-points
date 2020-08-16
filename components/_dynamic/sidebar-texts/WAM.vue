@@ -9,3 +9,19 @@
 
   Global warming of 1,5 °C entails more severe droughts and declining crop yields but “[u]nder global warming of more than 2°C, the western Sahel might experience the strongest drying and experience serious food security issues.”
 </template>
+
+<script>
+import SourceAnchorLink from '~/components/BaseSourceAnchorLink.vue'
+
+export default {
+  components: {
+    SourceAnchorLink
+  },
+
+  mounted() {
+    this.$nextTick(function() {
+      this.$emit('isReady')
+    })
+  }
+}
+</script>

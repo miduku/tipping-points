@@ -1,16 +1,15 @@
 <template>
   <g
-    :id="nodeData.id"
+    :id="data.id"
     class="node"
     :class="{
-      'is-active':
-        nodeData.id === sidebarContentInstanceName && someNodeIsActive
+      'is-active': data.id === sidebarContentInstanceName && someNodeIsActive
     }"
   >
     <circle
       class="node-circle"
-      :cx="nodeData.position[0]"
-      :cy="nodeData.position[1]"
+      :cx="data.position[0]"
+      :cy="data.position[1]"
       :r="size"
       @mousedown="onMouseDown"
       @mouseup="onMouseUp"
@@ -20,7 +19,7 @@
       <!-- Inner node links -->
       <g class="node-links">
         <Link
-          v-for="(nodeLink, j) in nodeData.links"
+          v-for="(nodeLink, j) in data.links"
           :key="j"
           :link-data="nodeLink"
           :distance="size * 1.15"
@@ -34,9 +33,9 @@
         v-once
         direction="input"
         :data="{
-          childrenData: nodeData.children,
-          position: nodeData.position,
-          parentId: nodeData.id,
+          childrenData: data.children,
+          position: data.position,
+          parentId: data.id,
           size
         }"
       />
@@ -45,9 +44,9 @@
         v-once
         direction="output"
         :data="{
-          childrenData: nodeData.children,
-          position: nodeData.position,
-          parentId: nodeData.id,
+          childrenData: data.children,
+          position: data.position,
+          parentId: data.id,
           size
         }"
       />
@@ -59,18 +58,18 @@
       :class="panZoomZ > 1.2 ? 'is-zoomed' : ''"
       :width="size * 3"
       :height="size * 3"
-      :x="nodeData.position[0] - size - size / 2"
-      :y="nodeData.position[1] - size - size / 2"
+      :x="data.position[0] - size - size / 2"
+      :y="data.position[1] - size - size / 2"
       :style="
         `
         transform: scale(${panZoomZ < 0.9 ? 0.9 / panZoomZ : 1});
-        transform-origin: ${nodeData.position[0]}px ${nodeData.position[1]}px;
+        transform-origin: ${data.position[0]}px ${data.position[1]}px;
         `
       "
     >
       <div class="title-wrapper">
         <span class="title">
-          {{ nodeData.title }}
+          {{ data.title }}
         </span>
       </div>
     </foreignObject>
@@ -79,8 +78,8 @@
       class="node-foreign-button"
       :width="size * 3"
       :height="size * 3"
-      :x="nodeData.position[0] - size - size / 2"
-      :y="nodeData.position[1] - size - size / 2"
+      :x="data.position[0] - size - size / 2"
+      :y="data.position[1] - size - size / 2"
     >
       <div
         class="button-wrapper"
@@ -93,7 +92,7 @@
           `
         "
       >
-        <Button icon="book" @click="vuexSetSidebar([true, nodeData.id])">
+        <Button icon="book" @click="vuexSetSidebar([true, data.id])">
           Read more
         </Button>
       </div>
@@ -121,7 +120,7 @@ export default {
   mixins: [vuexPanTo, vuexSetSidebar],
 
   props: {
-    nodeData: {
+    data: {
       type: Object,
       required: true
     },
@@ -144,9 +143,15 @@ export default {
     ...mapState({
       isPanning: (state) => state.isPanning,
       panZoomZ: (state) => state.panZoomCoords[2],
+
       sidebarIsOpen: (state) => state.sidebar.isOpen,
-      someNodeIsActive: (state) => state.someNodeIsActive,
-      sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName
+      sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName,
+      someNodeIsActive: (state) => state.someNode.isActive,
+
+      someChildNodeTimeStamp: (state) => state.someChildNode.timeStamp,
+      someChildNodeIsActive: (state) => state.someChildNode.isActive,
+      someChildNodeI: (state) => state.someChildNode.i,
+      someChildNodeDirection: (state) => state.someChildNode.direction
     })
   },
 
@@ -158,7 +163,7 @@ export default {
     },
 
     sidebarContentInstanceName(value) {
-      if (value === this.nodeData.id) {
+      if (value === this.data.id) {
         this.isActive = true
       } else {
         this.isActive = false
@@ -166,8 +171,41 @@ export default {
     },
 
     isActive(value) {
-      if (value && !this.someNodeIsActive) {
-        this.$store.commit('SET_SOME_NODE', true)
+      if (value === true && !this.someNodeIsActive) {
+        this.$store.commit('SET_SOME_NODE', { isActive: true })
+      }
+    },
+
+    someChildNodeTimeStamp(value, oldValue) {
+      // look for classes e.g.: link-group-BFS-output-1
+      if (value !== oldValue) {
+        const NODE_LINKS = this.$el.querySelector(
+          `#${this.data.id} .node-links`
+        )
+        const NODE_LINKS_HIGHLIGHTS =
+          this.data.id === this.sidebarContentInstanceName
+            ? NODE_LINKS.querySelectorAll(
+                `.link-group-${this.data.id}-${this.someChildNodeDirection}-${this.someChildNodeI}`
+              )
+            : null
+        const NODE_LINKS_HIGHLIGHTS_ALL = NODE_LINKS.querySelectorAll(
+          `.node-link`
+        )
+
+        if (
+          NODE_LINKS_HIGHLIGHTS_ALL ||
+          (NODE_LINKS_HIGHLIGHTS_ALL && !this.someChildNodeIsActive)
+        ) {
+          NODE_LINKS_HIGHLIGHTS_ALL.forEach((element) => {
+            element.classList.remove('is-highlighted')
+          })
+        }
+
+        if (NODE_LINKS_HIGHLIGHTS && this.someChildNodeIsActive) {
+          NODE_LINKS_HIGHLIGHTS.forEach((element) => {
+            element.classList.add('is-highlighted')
+          })
+        }
       }
     }
   },
@@ -185,24 +223,26 @@ export default {
 
     onMouseUp() {
       if (!this.isMove) {
-        if (this.sidebarIsOpen) {
-          this.vuexSetSidebar([true, this.nodeData.id])
-        } else {
-          this.vuexSetSidebar([false, this.nodeData.id])
-        }
+        // this is a click
+        this.vuexSetSidebar([this.sidebarIsOpen, this.data.id])
+        this.$store.commit('SET_SOME_CHILDNODE', {
+          i: '',
+          direction: '',
+          isActive: false
+        })
 
-        if (this.nodeData.id === this.sidebarContentInstanceName) {
+        if (this.data.id === this.sidebarContentInstanceName) {
           if (!this.isActive) {
             this.isActive = true
-            this.vuexPanTo(this.nodeData.id)
+            this.vuexPanTo(this.data.id)
           } else {
             this.isActive = false
-            this.$store.commit('SET_SOME_NODE', false)
+            this.$store.commit('SET_SOME_NODE', { isActive: false })
             this.vuexSetSidebar([false, ''])
           }
         } else {
           this.isActive = false
-          this.$store.commit('SET_SOME_NODE', false)
+          this.$store.commit('SET_SOME_NODE', { isActive: false })
           this.vuexSetSidebar([false, ''])
         }
       }

@@ -9,25 +9,6 @@
         `
       "
     >
-      <!-- <g
-        v-if="data.i === 0 && data.direction === 'output'"
-        class="node-child-node vuex-pan-to"
-        :data-degrees="data.degrees"
-      >
-        <circle
-          class="circle"
-          :r="size"
-          :cx="data.position[0]"
-          :cy="data.position[1]"
-        />
-        <circle
-          class="circle-dot"
-          :r="2"
-          :cx="data.position[0]"
-          :cy="data.position[1]"
-        />
-      </g> -->
-
       <g class="node-child-node vuex-pan-to" :data-degrees="data.degrees">
         <rect
           class="pill-border"
@@ -38,14 +19,16 @@
         />
         <rect
           class="pill"
-          :class="
-            data.i === 0 && data.direction === 'output' ? 'is-main-output' : ''
-          "
+          :class="[
+            data.i === 0 && data.direction === 'output' ? 'is-main-output' : '',
+            isActive ? 'is-active' : ''
+          ]"
           :x="data.position[0] - size"
           :y="data.position[1] - (size + size / 4) / 2"
           :width="size * 2"
           :height="size + size / 4"
           :rx="(size + size / 4) / 2"
+          @click="onClick"
         />
       </g>
     </g>
@@ -77,7 +60,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
+import vuexPanTo from '~/mixins/vuexPanTo'
+import vuexSetSidebar from '~/mixins/vuexSetSidebar'
+
 export default {
+  mixins: [vuexPanTo, vuexSetSidebar],
+
   props: {
     data: {
       type: Object,
@@ -91,11 +81,61 @@ export default {
     }
   },
 
-  mounted() {
-    // console.log(this.data)
-    this.$nextTick(function() {
-      // console.log('BaseNodeChildNode pups')
+  data() {
+    return {
+      isActive: false
+    }
+  },
+
+  computed: {
+    ...mapState({
+      sidebarIsOpen: (state) => state.sidebar.isOpen,
+      sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName,
+      // someNodeIsActive: (state) => state.someNode.isActive,
+
+      someChildNodeTimeStamp: (state) => state.someChildNode.timeStamp,
+      someChildNodeIsActive: (state) => state.someChildNode.isActive,
+      someChildNodeI: (state) => state.someChildNode.i,
+      someChildNodeDirection: (state) => state.someChildNode.direction
     })
+  },
+
+  watch: {
+    someChildNodeTimeStamp(value, oldValue) {
+      if (value !== oldValue) {
+        if (this.someChildNodeIsActive) {
+          if (this.isCurrentItem()) {
+            this.isActive = true
+          } else {
+            this.isActive = false
+          }
+        } else {
+          this.isActive = false
+        }
+      }
+    }
+  },
+
+  methods: {
+    onClick() {
+      if (!this.isActive) {
+        this.vuexPanTo(this.data.parentId, 1.5)
+      }
+      this.vuexSetSidebar([this.sidebarIsOpen, this.data.parentId])
+      this.$store.commit('SET_SOME_CHILDNODE', {
+        i: this.data.i,
+        direction: this.data.direction,
+        isActive: !(this.isActive && this.isCurrentItem())
+      })
+    },
+
+    isCurrentItem() {
+      return (
+        this.sidebarContentInstanceName === this.data.parentId &&
+        this.someChildNodeI === this.data.i &&
+        this.someChildNodeDirection === this.data.direction
+      )
+    }
   }
 }
 </script>
