@@ -7,10 +7,7 @@
     <TheOverlayTutorial v-if="modeIsTutorial" />
 
     <TheNavMain
-      :class="[
-        { 'is-visible--impacts': tutorialStep > 0 || !modeIsTutorial },
-        { 'is-visible--meta': tutorialStep > 0 || !modeIsTutorial }
-      ]"
+      :class="[{ 'is-visible--impacts': tutorialStep >= 6 || !modeIsTutorial }]"
     />
 
     <TheSidebar id="sidebar-main" />

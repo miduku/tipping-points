@@ -6,7 +6,14 @@
     :view-box.camel="`0 0 ${size[0]} ${size[1]}`"
     :class="[currentActiveNode]"
   >
-    <g :class="currentActiveNode">
+    <g
+      :class="currentActiveNode"
+      :style="
+        `opacity: ${
+          (modeIsTutorial && tutorialStep >= 6) || !modeIsTutorial ? 1 : 0
+        }`
+      "
+    >
       <Link
         v-for="(link, i) in linksImpactsJson"
         :key="i"
@@ -56,7 +63,10 @@ export default {
     ...mapState({
       panZoomCoords: (state) => state.panZoomCoords,
       sidebarIsOpen: (state) => state.sidebar.isOpen,
-      sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName
+      sidebarContentInstanceName: (state) => state.sidebar.contentInstanceName,
+
+      tutorialStep: (state) => state.tutorialStep,
+      modeIsTutorial: (state) => state.mode.isTutorial
     })
   },
 
@@ -88,3 +98,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+#LINKS_IMPACTS > g {
+  transition: opacity 0.5s $easeOutQuint;
+}
+</style>

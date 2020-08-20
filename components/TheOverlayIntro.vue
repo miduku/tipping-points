@@ -73,9 +73,12 @@
         </div>
 
         <div class="start-button">
-          <Button class="button" @click="closeIntro">
-            Start Exploring
-          </Button>
+          <div>
+            <Button class="button" @click="closeIntro">
+              Start Exploring
+            </Button>
+            <p class="like-link" @click="closeIntro(false)">Skip Tutorial</p>
+          </div>
         </div>
       </div>
     </section>
@@ -111,12 +114,15 @@ export default {
   },
 
   methods: {
-    closeIntro() {
+    closeIntro(startTutorial = true) {
       this.$store.commit('SET_MODE', ['isInit', false])
 
-      setTimeout(() => {
-        this.$store.commit('SET_MODE', ['isTutorial', true])
-      }, 500)
+      if (startTutorial) {
+        this.$store.commit('SET_TUTORIALSTEP', null)
+        setTimeout(() => {
+          this.$store.commit('SET_MODE', ['isTutorial', true])
+        }, 500)
+      }
     }
   }
 }
@@ -225,9 +231,23 @@ export default {
 
       .start-button {
         margin-top: 3.25rem;
-        width: 100%;
+        /* width: 100%; */
         display: flex;
         justify-content: center;
+        /* flex-direction: column; */
+
+        > div {
+          display: block;
+          text-align: center;
+
+          .button {
+            margin-bottom: 0.5rem;
+          }
+
+          p {
+            opacity: 0.5;
+          }
+        }
       }
     }
   }

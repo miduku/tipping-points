@@ -2,7 +2,7 @@
   <div
     id="content-main-wrapper"
     :class="[
-      isSidebarOpen ? 'is-sidebar-open' : '',
+      sidebarIsOpen ? 'sidebar-is-open' : '',
 
       someNodeIsActive ? 'some-node-is-active' : '',
       linksImpactsClassesIsVisible
@@ -103,7 +103,7 @@ export default {
     ...mapState({
       isMounted: (state) => state.isMounted,
 
-      isSidebarOpen: (state) => state.sidebar.isOpen,
+      sidebarIsOpen: (state) => state.sidebar.isOpen,
       isMapVisible: (state) => state.isMapVisible,
       someNodeIsActive: (state) => state.someNode.isActive,
       linksImpactGroups: (state) => state.links.impactGroups,
@@ -161,29 +161,44 @@ export default {
       const OWNER = this.$refs.OWNER.$el
       const PANZOOM = this.$refs.PANZOOM.$panZoomInstance
 
-      const nodeElement = OWNER.querySelector('#' + nodeId)
-      const nodeElementCircle = nodeElement.querySelector('.node-circle')
+      if (nodeId === 'CENTER') {
+        // pan to center AND zoom out
+        OWNER.classList.add('has-transition')
+        PANZOOM.moveToCenterOfBounds(OWNER.getBoundingClientRect())
 
-      OWNER.classList.add('has-transition')
-      PANZOOM.moveToCenterOfElement(nodeElementCircle, 0, 0)
+        setTimeout(() => {
+          OWNER.classList.remove('has-transition')
+          this.setZoomLevelFromCenter(0.25, OWNER, PANZOOM)
+        }, 250)
+      } else {
+        const nodeElement = OWNER.querySelector('#' + nodeId)
+        const nodeElementCircle = nodeElement.querySelector('.node-circle')
 
-      setTimeout(() => {
-        OWNER.classList.remove('has-transition')
+        OWNER.classList.add('has-transition')
+        PANZOOM.moveToCenterOfElement(nodeElementCircle, 0, 0)
 
-        this.setZoomLevelFromCenter(toNewZoomLevel, OWNER, PANZOOM)
-      }, 250)
+        setTimeout(() => {
+          OWNER.classList.remove('has-transition')
+          this.setZoomLevelFromCenter(toNewZoomLevel, OWNER, PANZOOM)
+        }, 250)
+      }
     },
 
     setZoomLevelFromCenter(zoomLevel, owner, panzoom) {
       const OWNER = owner || this.$refs.OWNER.$el
       const PANZOOM = panzoom || this.$refs.PANZOOM.$panZoomInstance
-      const OWNER_PARENT_BOUNDS = OWNER.parentElement.getBoundingClientRect()
+      const OWNER_PARENT_BOUNDS = [...this.getCenterOfView(OWNER)]
 
       PANZOOM.smoothZoomAbs(
-        OWNER_PARENT_BOUNDS.width / 2,
-        OWNER_PARENT_BOUNDS.height / 2,
+        OWNER_PARENT_BOUNDS[0] / 2,
+        OWNER_PARENT_BOUNDS[1] / 2,
         zoomLevel
       )
+    },
+
+    getCenterOfView(owner) {
+      const bounds = owner.parentElement.getBoundingClientRect()
+      return [bounds.width, bounds.height]
     },
 
     onTransform: _throttle(function() {
@@ -191,7 +206,7 @@ export default {
       const pan = this.$refs.PANZOOM.$panZoomInstance
       const getTransform = pan.getTransform()
 
-      this.$store.commit('GET_PANZOOM_COORDS', [
+      this.$store.commit('SET_PANZOOM_COORDS', [
         getTransform.x,
         getTransform.y,
         getTransform.scale
@@ -226,11 +241,11 @@ export default {
   position: relative;
   display: block;
   margin-right: 0;
-  transition: margin-right 0.6s $easeOutQuint;
   /* opacity: 0; */
   animation: init 1s $easeOutQuint forwards;
+  transition: margin-right 0.6s $easeOutQuint;
 
-  &.is-sidebar-open {
+  &.sidebar-is-open {
     margin-right: $sidebar-width-mobile;
 
     @include tablet {

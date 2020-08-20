@@ -2,9 +2,14 @@
   <g
     :id="data.id"
     class="node"
-    :class="{
-      'is-active': data.id === sidebarContentInstanceName && someNodeIsActive
-    }"
+    :class="[
+      {
+        'is-active': data.id === sidebarContentInstanceName && someNodeIsActive
+      },
+      {
+        'is-hidden': isHidden
+      }
+    ]"
   >
     <circle
       class="node-circle"
@@ -80,6 +85,13 @@
       :height="size * 3"
       :x="data.position[0] - size - size / 2"
       :y="data.position[1] - size - size / 2"
+      :style="
+        `
+        opacity: ${
+          (modeIsTutorial && tutorialStep > 3) || !modeIsTutorial ? 1 : 0
+        };
+        `
+      "
     >
       <div
         class="button-wrapper"
@@ -135,7 +147,8 @@ export default {
     return {
       // tempClickPanZoomCoords: Array,
       isMove: false,
-      isActive: false
+      isActive: false,
+      isHidden: false
     }
   },
 
@@ -151,11 +164,63 @@ export default {
       someChildNodeTimeStamp: (state) => state.someChildNode.timeStamp,
       someChildNodeIsActive: (state) => state.someChildNode.isActive,
       someChildNodeI: (state) => state.someChildNode.i,
-      someChildNodeDirection: (state) => state.someChildNode.direction
+      someChildNodeDirection: (state) => state.someChildNode.direction,
+
+      tutorialStep: (state) => state.tutorialStep,
+      modeIsTutorial: (state) => state.mode.isTutorial
     })
   },
 
   watch: {
+    modeIsTutorial(value) {
+      this.isHidden = value
+    },
+
+    tutorialStep(value) {
+      if (this.modeIsTutorial) {
+        switch (value) {
+          case 0:
+          case 1:
+            if (this.data.id !== 'GIS') {
+              this.isHidden = true
+            } else {
+              this.isHidden = false
+            }
+            break
+
+          case 2:
+            if (
+              this.data.id !== 'GIS' &&
+              this.data.id !== 'CRD' &&
+              this.data.id !== 'AMOC'
+            ) {
+              this.isHidden = true
+            } else {
+              this.isHidden = false
+            }
+            break
+
+          case 3:
+          case 4:
+          case 5:
+            if (this.data.id !== 'GIS') {
+              this.isHidden = true
+            } else {
+              this.isHidden = false
+            }
+            break
+
+          case 6:
+          case 7:
+            // default:
+            this.isHidden = false
+            break
+        }
+      } else {
+        this.isHidden = false
+      }
+    },
+
     isPanning(value, oldValue) {
       if (!oldValue && value) {
         this.isMove = true
@@ -253,6 +318,12 @@ export default {
 
 <style lang="scss" scoped>
 .node {
+  transition: opacity 0.5s $easeOutQuint;
+
+  &.is-hidden {
+    opacity: 0;
+  }
+
   > g {
     transition: opacity 0.5s $easeOutQuint;
   }
@@ -318,6 +389,10 @@ export default {
   }
 }
 
+.node-foreign-button {
+  transition: opacity 0.5s $easeOutQuint;
+}
+
 .button-wrapper {
   position: absolute;
   display: flex;
@@ -336,7 +411,7 @@ export default {
       opacity: 1;
       pointer-events: all;
 
-      .is-sidebar-open & {
+      .sidebar-is-open & {
         transform: translateY(-25%);
         opacity: 0;
         pointer-events: none;

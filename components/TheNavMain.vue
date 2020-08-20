@@ -259,27 +259,10 @@ export default {
     }
   }
 
-  &.is-visible--meta .nav-main--meta {
-    opacity: 1;
-    visibility: visible;
-
-    ul {
-      li {
-        > * {
-          pointer-events: all;
-        }
-      }
-    }
-  }
-
   .nav-main--meta {
     justify-content: flex-end;
     display: flex;
     flex-direction: column;
-    pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s $easeOutQuint;
     pointer-events: none;
 
     ul {
@@ -288,7 +271,7 @@ export default {
 
       li {
         > * {
-          pointer-events: none;
+          pointer-events: all;
         }
 
         .bu-map-toggle {

@@ -1,5 +1,4 @@
 export const state = () => ({
-  panToNodeId: '',
   panToNode: {
     id: '',
     timeStamp: '',
@@ -56,12 +55,12 @@ export const mutations = {
     state.panToNode.timeStamp = Date.now()
   },
 
-  GET_PANZOOM_COORDS(state, coords) {
-    state.panZoomCoords = coords
-  },
-
   GENERATE_LINKS_IMPACT_GROUPS(state, groups) {
     state.links.impactGroups = groups
+  },
+
+  SET_PANZOOM_COORDS(state, coords) {
+    state.panZoomCoords = coords
   },
 
   SET_MODE(state, payloadArr) {

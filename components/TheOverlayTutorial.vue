@@ -1,5 +1,5 @@
 <template>
-  <div id="tutorial">
+  <div id="tutorial" :class="{ 'sidebar-is-open': sidebarIsOpen }">
     <section>
       <div id="tutorial-texts">
         <!-- TUTORIALS -->
@@ -76,15 +76,19 @@
           only-icon
           @click="goToTutorialStep('prev')"
         />
+
         <Button
-          :class="{ 'is-visible': tutorialStep < lastStep }"
-          class="button-next"
-          icon="arrow-down"
-          only-icon
-          @click="goToTutorialStep('next')"
-        />
+          class="button-next is-visible"
+          :icon="tutorialStep < lastStep ? 'arrow-down' : ''"
+          :only-icon="tutorialStep < lastStep ? true : false"
+          @click="
+            tutorialStep < lastStep ? goToTutorialStep('next') : skipTutorial()
+          "
+        >
+          Start Exploring
+        </Button>
       </div>
-      <div class="skipper">
+      <div :class="{ 'is-visible': tutorialStep < lastStep }" class="skipper">
         <p class="like-link" @click.prevent="skipTutorial">Skip Tutorial</p>
       </div>
     </section>
@@ -114,7 +118,8 @@ export default {
 
   computed: {
     ...mapState({
-      tutorialStep: (state) => state.tutorialStep
+      tutorialStep: (state) => state.tutorialStep,
+      sidebarIsOpen: (state) => state.sidebar.isOpen
     })
   },
 
@@ -124,26 +129,41 @@ export default {
       switch (value) {
         case 0:
           this.vuexPanTo('GIS')
-          this.vuexSetSidebar([false, 'GIS'])
+          setTimeout(() => {
+            this.vuexSetSidebar([false, 'GIS'])
+          }, 500)
           break
 
         case 1:
-          this.vuexPanTo([4000, 2600])
           break
 
         case 2:
+          this.vuexPanTo('CENTER')
           break
 
         case 3:
+          this.vuexPanTo('GIS', 1.5)
+          // this.vuexSetSidebar([false, 'GIS'])
           break
 
         case 4:
+          this.vuexPanTo('GIS')
+          setTimeout(() => {
+            this.vuexSetSidebar([false, 'GIS'])
+          }, 500)
           break
 
         case 5:
+          this.vuexSetSidebar([true, 'GIS'])
+          // TODO Highlight a pill
           break
 
         case 6:
+          this.vuexSetSidebar([false, 'GIS'])
+          this.$store.commit('SET_SOME_NODE', false)
+          setTimeout(() => {
+            this.vuexPanTo('CENTER')
+          }, 500)
           break
 
         case 7:
@@ -210,8 +230,21 @@ export default {
   background: transparent;
   top: 0;
   left: 0;
-  padding-bottom: 2rem;
+  padding-bottom: 4rem;
   animation: init 1s $easeOutQuint forwards;
+  transition: padding-right 0.6s $easeOutQuint;
+
+  &.sidebar-is-open {
+    padding-right: $sidebar-width-mobile;
+
+    @include tablet {
+      padding-right: $sidebar-width-tablet;
+    }
+
+    @include desktop {
+      padding-right: $sidebar-width-desktop;
+    }
+  }
 
   > section {
     max-width: 400px;
@@ -294,6 +327,17 @@ export default {
     }
 
     .skipper {
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s $easeOutQuint;
+
+      &.is-visible {
+        pointer-events: all;
+        opacity: 1;
+        visibility: visible;
+      }
+
       p {
         text-align: center;
       }
