@@ -226,6 +226,10 @@ $impacts: (
     &.i-book {
       background: url(~assets/svg/i-book.svg?inline);
     }
+
+    &.i-arrow-down {
+      background: url(~assets/svg/i-arrow-down.svg?inline);
+    }
   }
 
   &:active {
@@ -236,6 +240,13 @@ $impacts: (
       &.minus {
         background: url(~assets/svg/i-minus-white.svg?inline);
       }
+    }
+  }
+
+  &:focus,
+  &:hover {
+    > i {
+      fill: pink;
     }
   }
 }

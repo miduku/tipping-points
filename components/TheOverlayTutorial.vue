@@ -9,14 +9,60 @@
           </p>
           <p class="small">
             It is one of many and each one has major influence on the climatic
-            Earth system
+            Earth system.
           </p>
         </section>
 
         <section id="text-1">
           <p>
             See what happens when this tipping element passes a certain tipping
-            point
+            point.
+          </p>
+        </section>
+
+        <section id="text-2">
+          <p>
+            When the Greenland Ice Sheet Disintegration reaches its tipping
+            point it has direct influence on two more tipping elements.
+          </p>
+        </section>
+
+        <section id="text-3">
+          <p>
+            Every tipping element has indivdual effects that are occasionally
+            linked to each other.
+          </p>
+        </section>
+
+        <section id="text-4">
+          <p>
+            There is more information to read about on each tipping element and
+            their tipping point.
+          </p>
+        </section>
+
+        <section id="text-5">
+          <p>
+            Clicking on a specific tipping element effect highlights it in the
+            text.
+          </p>
+        </section>
+
+        <section id="text-6">
+          <p>
+            On the left-hand side you can find four main global impacts that
+            influence tipping points and are reinfoced by them at the same time.
+          </p>
+        </section>
+
+        <section id="text-7">
+          <p>
+            By clicking on a tipping element you can see causual connections
+            between them and the global impacts.
+          </p>
+          <p class="small">
+            Toggle the global impacts to see all casual connections between them
+            and tipping elements.
           </p>
         </section>
         <!-- TUTORIALS END -->
@@ -25,13 +71,15 @@
       <div v-if="tutorialStep !== null" class="buttons">
         <Button
           :class="{ 'is-visible': tutorialStep > 0 }"
-          icon="minus"
+          class="button-prev"
+          icon="arrow-down"
           only-icon
           @click="goToTutorialStep('prev')"
         />
         <Button
           :class="{ 'is-visible': tutorialStep < lastStep }"
-          icon="plus"
+          class="button-next"
+          icon="arrow-down"
           only-icon
           @click="goToTutorialStep('next')"
         />
@@ -60,7 +108,7 @@ export default {
 
   data() {
     return {
-      lastStep: 1
+      lastStep: Number
     }
   },
 
@@ -71,30 +119,56 @@ export default {
   },
 
   watch: {
-    tutorialStep: {
-      immediate: true,
-      handler(value) {
-        switch (value) {
-          case 0:
-            this.vuexPanTo('GIS')
-            this.vuexSetSidebar([false, 'GIS'])
-            break
+    tutorialStep(value) {
+      console.log('tutorialStep', value)
+      switch (value) {
+        case 0:
+          this.vuexPanTo('GIS')
+          this.vuexSetSidebar([false, 'GIS'])
+          break
 
-          case 1:
-            this.vuexPanTo('AMZN')
-            break
+        case 1:
+          this.vuexPanTo([4000, 2600])
+          break
 
-          case null:
-          default:
-            this.$store.commit('SET_TUTORIALSTEP', 0)
-            break
-        }
+        case 2:
+          break
 
-        if (value !== null) {
-          this.showText(value)
-        }
+        case 3:
+          break
+
+        case 4:
+          break
+
+        case 5:
+          break
+
+        case 6:
+          break
+
+        case 7:
+          break
+
+        case null:
+          // default:
+          this.$store.commit('SET_TUTORIALSTEP', 0)
+          break
+      }
+
+      if (value !== null) {
+        this.showText(value)
       }
     }
+  },
+
+  mounted() {
+    this.$nextTick(function() {
+      // set maximum steps
+      const MAX_STEPS = this.$el.querySelectorAll('#tutorial-texts > section')
+
+      this.lastStep = MAX_STEPS.length - 1
+      this.$store.commit('SET_TUTORIALSTEP', 0)
+    })
   },
 
   methods: {
@@ -115,19 +189,12 @@ export default {
       const TEXTS = this.$el.querySelector('#tutorial-texts')
       const TEXT = TEXTS.querySelector(`#text-${id}`)
       const TEXT_ALL = TEXTS.querySelectorAll(`section`)
+
       TEXT_ALL.forEach((element) => {
         element.classList.remove('is-active')
       })
       TEXT.classList.add('is-active')
-      console.log(TEXT)
     }
-
-    // mounted() {
-    //   this.$nextTick(function() {
-    //     // TODO
-    //     this.$store.commit('SET_TUTORIALSTEP', 0)
-    //   })
-    // }
   }
 }
 </script>
@@ -143,7 +210,7 @@ export default {
   background: transparent;
   top: 0;
   left: 0;
-  padding-bottom: 4rem;
+  padding-bottom: 2rem;
   animation: init 1s $easeOutQuint forwards;
 
   > section {
@@ -206,6 +273,13 @@ export default {
         visibility: hidden;
         pointer-events: none;
         transition: opacity 0.5s $easeOutQuint;
+
+        &.button-next /deep/ > i {
+          transform: rotate(-90deg);
+        }
+        &.button-prev /deep/ > i {
+          transform: rotate(90deg);
+        }
 
         &.is-visible {
           opacity: 1;
