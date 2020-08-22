@@ -88,6 +88,7 @@
           Start Exploring
         </Button>
       </div>
+
       <div :class="{ 'is-visible': tutorialStep < lastStep }" class="skipper">
         <p class="like-link" @click.prevent="skipTutorial">Skip Tutorial</p>
       </div>
@@ -232,7 +233,7 @@ export default {
   left: 0;
   padding-bottom: 4rem;
   animation: init 1s $easeOutQuint forwards;
-  transition: padding-right 0.6s $easeOutQuint;
+  transition: padding-right 0.5s $easeOutQuint;
 
   &.sidebar-is-open {
     padding-right: $sidebar-width-mobile;
@@ -270,7 +271,7 @@ export default {
         display: flex;
         justify-content: center;
         flex-direction: column;
-        background: rgba(#fff, 0.75);
+        background: rgba(#fff, 0.9);
         border-radius: 0.5rem;
         padding: 0.5rem;
         bottom: 0;

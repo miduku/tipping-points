@@ -8,7 +8,6 @@
     ]"
   >
     <path
-      :stroke-width="strokeWidth /* * differenceCoords[2]*/"
       stroke-linecap="round"
       fill="none"
       :d="
@@ -36,10 +35,10 @@ export default {
       required: true
     },
 
-    strokeWidth: {
-      type: Number,
-      default: 1.25
-    },
+    // strokeWidth: {
+    //   type: Number,
+    //   default: 1.25
+    // },
 
     differenceCoords: {
       type: Array,
@@ -215,9 +214,11 @@ export default {
   }
 
   path {
-    transition: d $easeOutQuint;
+    transition: d 0.25s $easeOutQuint, opacity 0.5s $easeOutQuint,
+      stroke-width 0.5s $easeOutQuint;
     stroke: $dark-grey;
     marker-end: url(#link-arrow);
+    stroke-width: 1.25px;
   }
 }
 
