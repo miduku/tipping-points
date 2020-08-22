@@ -1,5 +1,5 @@
 <template>
-  <div class="root" :class="'tut-' + tutorialStep">
+  <div class="root">
     <div class="root-content">
       <nuxt />
     </div>
