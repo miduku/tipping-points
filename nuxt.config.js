@@ -65,7 +65,8 @@ export default {
     'vue-scrollto/nuxt',
     // '@nuxtjs/axios',
     '@nuxtjs/markdownit',
-    'nuxt-svg-loader'
+    'nuxt-svg-loader',
+    'nuxt-user-agent'
   ],
   styleResources: {
     scss: [

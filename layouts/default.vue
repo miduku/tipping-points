@@ -1,20 +1,31 @@
 <template>
   <div class="root">
-    <div class="root-content">
-      <nuxt />
+    <div v-if="isUnsupportedDevice()">
+      <component :is="unsupportedDeviceText" />
+
+      <TheNavMain :is-unsupported-device="isUnsupportedDevice()" />
     </div>
 
-    <TheOverlayTutorial v-if="modeIsTutorial" />
+    <div v-else>
+      <div class="root-content">
+        {{ deviceType }}, {{ browser }}, {{ isUnsupportedDevice() }}
+        <nuxt />
+      </div>
 
-    <TheNavMain
-      :class="[{ 'is-visible--impacts': tutorialStep >= 6 || !modeIsTutorial }]"
-    />
+      <TheOverlayTutorial v-if="modeIsTutorial" />
 
-    <TheSidebar id="sidebar-main" />
+      <TheNavMain
+        :class="[
+          { 'is-visible--impacts': tutorialStep >= 6 || !modeIsTutorial }
+        ]"
+      />
 
-    <TheOverlayIntro />
+      <TheSidebar id="sidebar-main" />
 
-    <TheSidebarSources id="sidebar-sources" />
+      <TheOverlayIntro />
+
+      <TheSidebarSources id="sidebar-sources" />
+    </div>
   </div>
 </template>
 
@@ -36,11 +47,61 @@ export default {
     TheSidebarSources
   },
 
+  data() {
+    return {
+      deviceType: String,
+      browser: String
+    }
+  },
+
   computed: {
     ...mapState({
       tutorialStep: (state) => state.tutorialStep,
       modeIsTutorial: (state) => state.mode.isTutorial
+    }),
+
+    unsupportedDeviceText() {
+      if (this.isUnsupportedDevice()) {
+        return () => import(`~/components/_dynamic/TheUnsupportedDeviceText`)
+      }
+
+      return null
+    }
+  },
+
+  mounted() {
+    this.$nextTick(function() {
+      this.detectDevice()
+      this.detectBrowser()
     })
+  },
+
+  methods: {
+    detectBrowser() {
+      const browser = this.$ua.browser()
+      this.browser = browser
+    },
+
+    detectDevice() {
+      const deviceType = this.$ua.deviceType()
+      this.deviceType = deviceType
+    },
+
+    isUnsupportedDevice() {
+      const detect =
+        this.$ua.isFromSmartphone() ||
+        this.$ua.isFromMobilephone() ||
+        this.$ua.isFromTablet() ||
+        this.$ua.isFromWindowsPhone() ||
+        this.$ua.isFromAndroidMobile() ||
+        this.$ua.isFromIphone()
+
+      if (detect) {
+        return true
+      }
+
+      return true
+    }
   }
 }
 </script>

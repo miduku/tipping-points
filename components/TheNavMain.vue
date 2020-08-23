@@ -1,13 +1,23 @@
 <template>
-  <div class="nav nav-main" :style="sidebarSourcesIsOpen ? 'z-index: 0' : ''">
-    <header class="title">
+  <div
+    class="nav nav-main"
+    :style="
+      (sidebarSourcesIsOpen ? 'z-index: 0' : '',
+      isUnsupportedDevice ? 'justify-content: flex-end' : '')
+    "
+  >
+    <header v-if="!isUnsupportedDevice" class="title">
       <div @click="openIntro">
         <h2>Tipping Points</h2>
         <p>And how they affect us</p>
       </div>
     </header>
 
-    <nav :class="linksImpactsButtonsIsActive" class="nav-main--impacts">
+    <nav
+      v-if="!isUnsupportedDevice"
+      :class="linksImpactsButtonsIsActive"
+      class="nav-main--impacts"
+    >
       <ul>
         <li v-for="(impact, i) in impacts" :id="impact.id" :key="i">
           <ButtonHexagon
@@ -30,7 +40,7 @@
         </li>
       </ul>
 
-      <ul class="nav-controls">
+      <ul v-if="!isUnsupportedDevice" class="nav-controls">
         <li>
           <Button
             :icon="isMapEyeOpen ? 'eye-open' : 'eye-close'"
@@ -71,6 +81,12 @@ export default {
   components: {
     Button,
     ButtonHexagon
+  },
+  props: {
+    isUnsupportedDevice: {
+      type: Boolean,
+      default: false
+    }
   },
 
   mixins: [vuexPanTo, vuexSetSidebar],
