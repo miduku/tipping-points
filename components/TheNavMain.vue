@@ -82,14 +82,15 @@ export default {
     Button,
     ButtonHexagon
   },
+
+  mixins: [vuexPanTo, vuexSetSidebar],
+
   props: {
     isUnsupportedDevice: {
       type: Boolean,
       default: false
     }
   },
-
-  mixins: [vuexPanTo, vuexSetSidebar],
 
   asyncData({ params }) {
     return { impactImpactsJson }
