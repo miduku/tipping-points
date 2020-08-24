@@ -73,6 +73,8 @@ export default {
     this.$nextTick(function() {
       this.detectDevice()
       this.detectBrowser()
+
+      this.isClientTooNarrow()
     })
   },
 
@@ -101,6 +103,16 @@ export default {
       }
 
       return true
+    },
+
+    isClientTooNarrow() {
+      const clientTooNarrow = this.$el.clientWidth <= 800
+      console.log(clientTooNarrow)
+      // if (clientWidth >= 800) {
+      //   return false
+      // }
+
+      // return false
     }
   }
 }
