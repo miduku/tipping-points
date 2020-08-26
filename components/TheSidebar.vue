@@ -123,7 +123,11 @@ export default {
   }
 
   &.is-closed {
-    right: -50vw !important;
+    right: -100vw !important;
+
+    &::before {
+      transform: translateX(100%);
+    }
   }
 
   &::before {
@@ -134,6 +138,8 @@ export default {
     background: blue;
     right: 100%;
     pointer-events: none;
+    transform: translateX(0);
+    transition: transform 0.5s $easeOutQuint;
     background: linear-gradient(
       -90deg,
       #ffffff 50%,
@@ -185,9 +191,11 @@ export default {
 
       /deep/ .sidebar-content {
         &::before {
-          content: '— tipping point';
+          content: '— Tipping Point';
           font-variant: small-caps;
           line-height: 1.5rem;
+          display: block;
+          margin-bottom: 0.5rem;
         }
 
         span {

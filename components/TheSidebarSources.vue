@@ -101,23 +101,16 @@ export default {
   }
 
   &.is-closed {
-    right: -50vw !important;
+    right: -100vw !important;
+
+    &::before {
+      transform: translateX(100%);
+    }
 
     .overlay {
       pointer-events: none;
       opacity: 0;
     }
-  }
-
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    opacity: 0.5;
-    transition: opacity 0.5s $easeOutQuint;
-    background: #fff;
   }
 
   &::before {
@@ -129,6 +122,8 @@ export default {
     right: 100%;
     pointer-events: none;
     z-index: 1;
+    transform: translateX(0);
+    transition: transform 0.5s $easeOutQuint;
     background: linear-gradient(
       -90deg,
       #ffffff 50%,
@@ -148,6 +143,17 @@ export default {
       rgba(255, 255, 255, 0.0086472) 96.67%,
       rgba(255, 255, 255, 0) 100%
     );
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.5;
+    transition: opacity 0.5s $easeOutQuint;
+    background: #fff;
   }
 
   .sidebar-content-wrapper {
