@@ -8,7 +8,7 @@
 
     <div v-else>
       <div class="root-content">
-        {{ deviceType }}, {{ browser }}, {{ isUnsupportedDevice() }}
+        <!-- {{ deviceType }}, {{ browser }}, {{ isUnsupportedDevice() }} -->
         <nuxt />
       </div>
 
@@ -102,7 +102,7 @@ export default {
         return true
       }
 
-      return true
+      return false
     },
 
     isClientTooNarrow() {
