@@ -9,7 +9,7 @@
       <div class="container">
         <p>
           <strong>
-            This project will illustrate nine tipping points across the globe.
+            This project will illustrate nine tipping points across the globe —
             Visualizing their complexity, interrelations and impacts.
           </strong>
         </p>
@@ -35,34 +35,30 @@
         <div class="split">
           <div>
             <p>
-              But what is a tipping point? The climate has been warming up
-              persistently, entailing severe changes in CO2 levels in the
-              atmosphere, ocean heat content and global sea level rise. Due to
-              their
-              <SourceAnchorLink to-id="1" />
-              impact, especially when combined, they hold the power to alter our
-              planet. These so-called “tipping points” are thresholds that are
-              able to push a system into an entirely new state, even with mere
-              changes. Exceeding this threshold could trigger a self-reinforcing
-              process and cause irreversible damage.
-            </p>
-
-            <p>
-              Tipping points can be found in every part of the world, whether it
-              is the Greenland Ice Sheet far north or Coral Reefs in the
-              Southern Pacific. As they are all directly or indirectly linked to
-              each other, passing one may fuel others and lead to a cascade.
+              You may ask yourself: “What is a tipping point?” There are
+              so-called tipping elements all around our planet and each one has
+              a certain tipping point. These tipping points are thresholds that,
+              once crossed, push a system into an entirely new state. Sometimes
+              only mere changes are needed. In the past decades rising CO2
+              levels have been persistently warming up the climate and affecting
+              tipping elements, as well as tipping points. Tipping elements are
+              all directly or indirectly linked to each other. Passing one of
+              their critical values may fuel others and lead to a
+              cascade.<SourceAnchorLink to-id="2" /> Exceeding a tipping point
+              could trigger a self-reinforcing process and cause irreversible
+              damage.<SourceAnchorLink to-id="1" />
             </p>
           </div>
 
           <div>
             <p>
-              They can be caused by natural fluctuations but since man-made
+              Tipping points can be caused by natural fluctuations. But man-made
               greenhouse gas levels keep on rising and the climate has already
-              heated by 1°C, tipping points may occur in unexpected ways, more
-              promptly and with graver consequences. There is no doubt about the
-              urgency of taking immediate international action and keeping
-              global temperatures as low as possible.
+              heated by 1°C. So they may occur in unexpected ways, more promptly
+              and with graver consequences. As they hold the power to alter our
+              planet there is no doubt about the urgency of taking immediate
+              international action and keeping global temperatures as low as
+              possible.<SourceAnchorLink to-id="3" />
             </p>
 
             <p>
@@ -75,7 +71,7 @@
         <div class="start-button">
           <div>
             <Button class="button" @click="closeIntro">
-              Start Exploring
+              Find out more
             </Button>
             <p class="like-link" @click="closeIntro(false)">Skip Tutorial</p>
           </div>
@@ -135,7 +131,7 @@ export default {
   width: 100%;
   min-height: 100vh;
   height: 100%;
-  background: rgba(#fff, 0.95);
+  background: #fff;
   /* z-index: 9999; */
   overflow: auto;
   top: 0;
