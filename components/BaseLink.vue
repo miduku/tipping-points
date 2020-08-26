@@ -209,7 +209,7 @@ export default {
   }
 
   &.links-impact {
-    opacity: 0.075;
+    opacity: 0;
     transition: opacity 0.5s $easeOutQuint;
   }
 
