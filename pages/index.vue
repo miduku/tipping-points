@@ -300,13 +300,13 @@ export default {
     height: 100vh;
   }
 
-  /deep/ .owner {
-    /* add hardware accelaration */
-    /* transform: translateZ(0);
+  /* /deep/ .owner { */
+  /* add hardware accelaration */
+  /* transform: translateZ(0);
     backface-visibility: hidden;
     perspective: 1000px; */
-    /* will-change: transform; */
-  }
+  /* will-change: transform; */
+  /* } */
 }
 
 .has-transition {

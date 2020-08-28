@@ -73,7 +73,9 @@
             <Button class="button" @click="closeIntro">
               Find out more
             </Button>
-            <p class="like-link" @click="closeIntro(false)">Skip Tutorial</p>
+            <p class="like-link" @click="closeIntro(false)">
+              Or explore the map directly
+            </p>
           </div>
         </div>
       </div>
@@ -117,6 +119,27 @@ export default {
         this.$store.commit('SET_TUTORIALSTEP', null)
         setTimeout(() => {
           this.$store.commit('SET_MODE', ['isTutorial', true])
+        }, 500)
+      } else {
+        setTimeout(() => {
+          const TPs = [
+            'AMZN',
+            'AMOC',
+            'BFS',
+            'GIS',
+            'WAM',
+            'CRD',
+            'IMS',
+            'PERM',
+            'WAIS'
+          ]
+
+          // get random TP
+          function random(arr) {
+            return arr[Math.floor(Math.random() * arr.length)]
+          }
+
+          this.vuexPanTo(random(TPs))
         }, 500)
       }
     }
@@ -233,7 +256,10 @@ export default {
         /* flex-direction: column; */
 
         > div {
-          display: block;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          /* display: block; */
           text-align: center;
 
           .button {
