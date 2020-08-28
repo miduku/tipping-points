@@ -302,10 +302,10 @@ export default {
 
   /deep/ .owner {
     /* add hardware accelaration */
-    transform: translateZ(0);
+    /* transform: translateZ(0);
     backface-visibility: hidden;
-    perspective: 1000px;
-    will-change: transform;
+    perspective: 1000px; */
+    /* will-change: transform; */
   }
 }
 
