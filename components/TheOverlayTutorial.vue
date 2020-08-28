@@ -90,7 +90,9 @@
       </div>
 
       <div :class="{ 'is-visible': tutorialStep < lastStep }" class="skipper">
-        <p class="like-link" @click.prevent="skipTutorial">Skip Tutorial</p>
+        <p class="like-link" @click.prevent="skipTutorial">
+          Skip tour and start exploring
+        </p>
       </div>
     </section>
   </div>
@@ -204,6 +206,10 @@ export default {
 
     skipTutorial() {
       this.$store.commit('SET_MODE', ['isTutorial', false])
+
+      if (this.tutorialStep === this.lastStep) {
+        this.$store.commit('SET_NEW_ZOOM_LEVEL', 0.5)
+      }
     },
 
     showText(id) {
@@ -335,7 +341,7 @@ export default {
 
       &.is-visible {
         pointer-events: all;
-        opacity: 1;
+        opacity: 0.5;
         visibility: visible;
       }
 
