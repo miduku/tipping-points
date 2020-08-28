@@ -95,6 +95,7 @@
     >
       <div
         class="button-wrapper"
+        :class="{ 'is-hidden': panZoomZ < 0.5 }"
         :style="
           `
           bottom: ${
@@ -399,12 +400,20 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
+  transition: bottom 0.5s $easeOutQuint, opacity 0.3s $easeOutQuint,
+    transform 0.5s $easeOutQuint, opacity 0.5s $easeOutQuint;
+
+  &.is-hidden {
+    opacity: 0;
+
+    > button {
+      pointer-events: none !important;
+    }
+  }
 
   button {
     transform: translateY(-25%);
     opacity: 0;
-    transition: bottom 0.5s $easeOutQuint, opacity 0.3s $easeOutQuint,
-      transform 0.5s $easeOutQuint;
 
     .is-active & {
       transform: translateY(0);
