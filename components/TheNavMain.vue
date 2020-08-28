@@ -3,10 +3,10 @@
     class="nav nav-main"
     :style="
       (sidebarSourcesIsOpen ? 'z-index: 0' : '',
-      isUnsupportedDevice ? 'justify-content: flex-end' : '')
+      isMinimalNav ? 'justify-content: flex-end' : '')
     "
   >
-    <header v-if="!isUnsupportedDevice" class="title">
+    <header v-if="!isMinimalNav" class="title">
       <div @click="openIntro">
         <h2>Tipping Points</h2>
         <p>And how they affect us</p>
@@ -14,7 +14,7 @@
     </header>
 
     <nav
-      v-if="!isUnsupportedDevice"
+      v-if="!isMinimalNav"
       :class="linksImpactsButtonsIsActive"
       class="nav-main--impacts"
     >
@@ -40,7 +40,7 @@
         </li>
       </ul>
 
-      <ul v-if="!isUnsupportedDevice" class="nav-controls">
+      <ul v-if="!isMinimalNav" class="nav-controls">
         <li>
           <Button
             :icon="isMapEyeOpen ? 'eye-open' : 'eye-close'"
@@ -86,7 +86,7 @@ export default {
   mixins: [vuexPanTo, vuexSetSidebar],
 
   props: {
-    isUnsupportedDevice: {
+    isMinimalNav: {
       type: Boolean,
       default: false
     }

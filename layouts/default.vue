@@ -1,9 +1,9 @@
 <template>
-  <div class="root">
-    <div v-if="isUnsupportedDevice()">
-      <component :is="unsupportedDeviceText" />
+  <div ref="ROOT" v-resize:throttle.250="isClientTooNarrow" class="root">
+    <div v-if="isUnsupportedDevice() || errorScreenIsCLientTooNarrow">
+      <component :is="errorScreenText" />
 
-      <TheNavMain :is-unsupported-device="isUnsupportedDevice()" />
+      <TheNavMain :is-minimal-nav="true" />
     </div>
 
     <div v-else>
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+// import _throttle from 'lodash/throttle'
+
 import { mapState } from 'vuex'
 
 import TheOverlayIntro from '~/components/TheOverlayIntro.vue'
@@ -50,7 +52,8 @@ export default {
   data() {
     return {
       deviceType: String,
-      browser: String
+      browser: String,
+      errorScreenIsCLientTooNarrow: false
     }
   },
 
@@ -60,9 +63,12 @@ export default {
       modeIsTutorial: (state) => state.mode.isTutorial
     }),
 
-    unsupportedDeviceText() {
+    errorScreenText() {
       if (this.isUnsupportedDevice()) {
         return () => import(`~/components/_dynamic/TheUnsupportedDeviceText`)
+      }
+      if (this.errorScreenIsCLientTooNarrow) {
+        return () => import(`~/components/_dynamic/TheIsClientTooNarrowText`)
       }
 
       return null
@@ -71,24 +77,11 @@ export default {
 
   mounted() {
     this.$nextTick(function() {
-      this.detectDevice()
-      this.detectBrowser()
-
       this.isClientTooNarrow()
     })
   },
 
   methods: {
-    detectBrowser() {
-      const browser = this.$ua.browser()
-      this.browser = browser
-    },
-
-    detectDevice() {
-      const deviceType = this.$ua.deviceType()
-      this.deviceType = deviceType
-    },
-
     isUnsupportedDevice() {
       const detect =
         this.$ua.isFromSmartphone() ||
@@ -98,21 +91,11 @@ export default {
         this.$ua.isFromAndroidMobile() ||
         this.$ua.isFromIphone()
 
-      if (detect) {
-        return true
-      }
-
-      return false
+      return detect
     },
 
     isClientTooNarrow() {
-      const clientTooNarrow = this.$el.clientWidth <= 800
-      console.log(clientTooNarrow)
-      // if (clientWidth >= 800) {
-      //   return false
-      // }
-
-      // return false
+      this.errorScreenIsCLientTooNarrow = this.$el.clientWidth <= 800
     }
   }
 }

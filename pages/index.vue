@@ -223,7 +223,9 @@ export default {
     getviewSize: _throttle(function() {
       const ROOT_EL = this.$refs.CONTENTMAIN
 
-      this.viewSize = [ROOT_EL.clientWidth, ROOT_EL.clientHeight]
+      if (ROOT_EL) {
+        this.viewSize = [ROOT_EL.clientWidth, ROOT_EL.clientHeight]
+      }
     }, 250),
 
     onPanStart() {
