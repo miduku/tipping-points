@@ -4,6 +4,8 @@
       <header>
         <h1>Tipping Points</h1>
         <span class="sub-header">And how they affect us</span>
+        <!-- {{ $ua.browser() }} {{ $ua.browserVendor() }}
+        {{ $ua.browserVersion() }} -->
       </header>
 
       <div class="container">

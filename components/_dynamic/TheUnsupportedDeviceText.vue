@@ -2,8 +2,9 @@
   <div class="content">
     <h2>Your browser is not supported :(</h2>
     <p>
-      To experience this website you'll need to use a newer browser.
-      <br />We recommend you use one of the following:
+      To experience this website you'll need to use a newer
+      <strong>desktop browser</strong>. <br />We recommend you use one of the
+      following:
     </p>
 
     <ul class="browser-list">

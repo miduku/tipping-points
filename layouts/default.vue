@@ -1,6 +1,6 @@
 <template>
-  <div ref="ROOT" v-resize:throttle.250="isClientTooNarrow" class="root">
-    <div v-if="isUnsupportedDevice() || errorScreenIsCLientTooNarrow">
+  <div v-resize:throttle.250="isClientTooNarrow" class="root">
+    <div v-if="errorScreenIsUnsupportedDevice || errorScreenIsCLientTooNarrow">
       <component :is="errorScreenText" />
 
       <TheNavMain :is-minimal-nav="true" />
@@ -8,7 +8,6 @@
 
     <div v-else>
       <div class="root-content">
-        <!-- {{ deviceType }}, {{ browser }}, {{ isUnsupportedDevice() }} -->
         <nuxt />
       </div>
 
@@ -53,7 +52,8 @@ export default {
     return {
       deviceType: String,
       browser: String,
-      errorScreenIsCLientTooNarrow: false
+      errorScreenIsCLientTooNarrow: false,
+      errorScreenIsUnsupportedDevice: false
     }
   },
 
@@ -64,9 +64,10 @@ export default {
     }),
 
     errorScreenText() {
-      if (this.isUnsupportedDevice()) {
+      if (this.errorScreenIsUnsupportedDevice) {
         return () => import(`~/components/_dynamic/TheUnsupportedDeviceText`)
       }
+
       if (this.errorScreenIsCLientTooNarrow) {
         return () => import(`~/components/_dynamic/TheIsClientTooNarrowText`)
       }
@@ -77,21 +78,24 @@ export default {
 
   mounted() {
     this.$nextTick(function() {
+      this.checkIsUnsupportedDevice()
       this.isClientTooNarrow()
     })
   },
 
   methods: {
-    isUnsupportedDevice() {
+    checkIsUnsupportedDevice() {
       const detect =
         this.$ua.isFromSmartphone() ||
         this.$ua.isFromMobilephone() ||
         this.$ua.isFromTablet() ||
         this.$ua.isFromWindowsPhone() ||
         this.$ua.isFromAndroidMobile() ||
-        this.$ua.isFromIphone()
+        this.$ua.isFromIphone() ||
+        this.$ua.browser() === ('MSIE' || 'IE' || 'Safari')
 
-      return detect
+      console.log('isUnsupportedDevice', detect)
+      this.errorScreenIsUnsupportedDevice = detect
     },
 
     isClientTooNarrow() {
