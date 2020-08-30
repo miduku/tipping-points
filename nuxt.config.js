@@ -3,6 +3,7 @@ const baseURL =
   process.env.NODE_ENV === 'development' ? '/' : '/tipping-points/'
 
 export default {
+  target: 'static',
   mode: 'universal',
 
   router: {
