@@ -1,7 +1,7 @@
 <template lang="md">
   ## Coral Reef Die-Off
 
-  This is arguably the most sensitive of all nine tipping points mentioned and is in immediate danger on account of global warming.<SourceAnchorLink to-id="1" /> <span id="h-CRD-output-0" class="is-highlightable">Coral Reefs are very likely to collapse in the following decades if the average global temperature exceeds 1,5 °C.<SourceAnchorLink to-id="26" /></span> This would have fatal consequences for life on earth.
+  This is arguably the most sensitive of all nine tipping points mentioned and is in immediate danger on account of global warming.<SourceAnchorLink to-id="1" /> <span id="h-CRD-output-0" class="is-highlightable">Coral Reefs are very likely to collapse in the following decades if the average global temperature exceeds 1,5 °C.<SourceAnchorLink to-id="18" /></span> This would have fatal consequences for life on earth.
 
   Coral reefs are, although covering less than 0,1% of the sea ground, one of the most biological complex and valuable ecosystems worldwide.<SourceAnchorLink to-id="32" /> They harbour around a quarter of all marine diversity.<SourceAnchorLink to-id="33" /> Not only animal and plant species highly depend on them (as a source for shelter and food amongst other things)<SourceAnchorLink to-id="34" /> but even around half a billion humans.<SourceAnchorLink to-id="35" /> Reefs are of great economic importance, providing business like fishery or diving tourism, as well as protecting coastal regions from flooding and erosion.<SourceAnchorLink to-id="34" />
 

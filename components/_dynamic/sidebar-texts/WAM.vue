@@ -7,7 +7,7 @@
 
   <span id="h-WAM-input-0" class="is-highlightable">As ocean temperatures increase the temperature contrast in the summer between the hot land surface and cooler waters reduces, which causes the monsoon to shift southward.</span> <span id="h-WAM-output-0" class="is-highlightable">Consequently, this provokes more droughts.<SourceAnchorLink to-id="1" /></span> It has been suggested that anthropogenic factors like greenhouse gas emissions and sulfate aerosols are partly at fault.<SourceAnchorLink to-id="23" /> <span id="h-WAM-output-2" class="is-highlightable">Rising global temperatures are responsible for faster moisture evaporation of the land<SourceAnchorLink to-id="24" /> and therefore decreasing local rainfalls.</span> <span id="h-WAM-output-1" class="is-highlightable">Which again leads to less vegetation growth, lastly stimulating the desertification process.<SourceAnchorLink to-id="25" /></span>
 
-  <span id="h-WAM-output-3" class="is-highlightable">Global warming of 1,5°C entails more severe droughts and declining crop yields. But “[u]nder global warming of more than 2°C, the western Sahel might experience the strongest drying and experience serious food security issues.”<SourceAnchorLink to-id="26" /></span>
+  <span id="h-WAM-output-3" class="is-highlightable">Global warming of 1,5°C entails more severe droughts and declining crop yields. But “[u]nder global warming of more than 2°C, the western Sahel might experience the strongest drying and experience serious food security issues.”<SourceAnchorLink to-id="18" /></span>
 </template>
 
 <script>
