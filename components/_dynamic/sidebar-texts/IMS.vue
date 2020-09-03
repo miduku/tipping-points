@@ -1,7 +1,7 @@
 <template lang="md">
   ## Indian Monsoon Shift
 
-  The Indian Monsoon is the main source for annual rainfall in India, which makes farming possible and stimulates most of India’s economy. During the winter India experiences a dry wind that originates from the North. Though in summer the sun moves north of the equator, which heats up the landmass and causes a seasonal wind shift.<SourceAnchorLink to-id="1" /> Due to a difference in solar heating between land and ocean a pressure gradient develops and initiates a flow of moisture from the ocean that brings rainfall.<SourceAnchorLink to-id="26" />
+  The Indian Monsoon is the main source for annual rainfall in India, which makes farming possible and stimulates most of India’s economy. During the winter India experiences a dry wind that originates from the North. Though in summer the sun moves north of the equator, which heats up the landmass and causes a seasonal wind shift.<SourceAnchorLink to-id="2" /> Due to a difference in solar heating between land and ocean a pressure gradient develops and initiates a flow of moisture from the ocean that brings rainfall.<SourceAnchorLink to-id="26" />
 
   The warming climate however, changes the contrast between surface temperatures and causes monsoon alterations.<SourceAnchorLink to-id="27" /> As a warmer atmosphere can hold more moisture an increase in precipitation is presumed.<SourceAnchorLink to-id="28" /> <span id="h-IMS-input-0" class="is-highlightable">Yet air pollution in India is also considered to be a possible factor for declining rainfall.</span> Sulphur dioxide emissions, produced by industry and transport, discharge sulphates in the atmosphere that reflect solar radiation and cool down certain regions.
 

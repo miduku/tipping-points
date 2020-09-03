@@ -46,9 +46,9 @@
               tipping elements, as well as tipping points. Tipping elements are
               all directly or indirectly linked to each other. Passing one of
               their critical values may fuel others and lead to a
-              cascade.<SourceAnchorLink to-id="2" /> Exceeding a tipping point
+              cascade.<SourceAnchorLink to-id="1" /> Exceeding a tipping point
               could trigger a self-reinforcing process and cause irreversible
-              damage.<SourceAnchorLink to-id="1" />
+              damage.<SourceAnchorLink to-id="2" />
             </p>
           </div>
 
