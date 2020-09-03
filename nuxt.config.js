@@ -28,25 +28,25 @@ export default {
       }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
+      { rel: 'icon', type: 'image/x-icon', href: baseURL + 'favicon.png' },
       {
         rel: 'apple-touch-icon',
-        href: '/apple-touch-icon.png',
+        href: baseURL + 'apple-touch-icon.png',
         sizes: '180x180'
       },
       {
         rel: 'icon',
         type: 'image/png',
-        href: '/favicon-32x32.png',
+        href: baseURL + 'favicon-32x32.png',
         sizes: '32x32'
       },
       {
         rel: 'icon',
         type: 'image/png',
-        href: '/favicon-16x16.png',
+        href: baseURL + 'favicon-16x16.png',
         sizes: '16x16'
       },
-      { rel: 'manifest', href: '/site.webmanifest' },
+      { rel: 'manifest', href: baseURL + 'site.webmanifest' },
       { rel: 'stylesheet', href: 'https://use.typekit.net/dlb6pxi.css' }
     ],
     htmlAttrs: {
