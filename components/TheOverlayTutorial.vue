@@ -278,6 +278,7 @@ export default {
         justify-content: center;
         flex-direction: column;
         background: rgba(#fff, 0.9);
+        border: 1px solid rgba($light, 0.15);
         border-radius: 0.5rem;
         padding: 0.5rem;
         bottom: 0;
