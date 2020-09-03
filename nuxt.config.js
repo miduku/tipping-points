@@ -24,7 +24,8 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content:
+          'You may ask yourself: “What is a tipping point?” There are so-called tipping elements all around our planet and each one has a certain tipping point. These tipping points are thresholds that, once crossed, push a system into an entirely new state. Sometimes only mere changes are needed. In the past decades rising CO2 levels have been persistently warming up the climate and affecting tipping elements, as well as tipping points.'
       }
     ],
     link: [
