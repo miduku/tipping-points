@@ -4,8 +4,6 @@
       <header>
         <h1>Tipping Points</h1>
         <span class="sub-header">And how they affect us</span>
-        <!-- {{ $ua.browser() }} {{ $ua.browserVendor() }}
-        {{ $ua.browserVersion() }} -->
       </header>
 
       <div class="container">
@@ -77,6 +75,17 @@
             </Button>
             <p class="like-link" @click="closeIntro(false)">
               Or explore the map directly
+            </p>
+
+            <p style="opacity: 0.35;">
+              <nuxt-link to="/legal-privacy" target="_blank"
+                >Legal & Privacy</nuxt-link
+              >
+              &nbsp;
+              <a
+                href="mailto:miduku11@gmail.com?subject=TIPPING POINTS – Questions or suggestions"
+                >Questions or suggestions?</a
+              >
             </p>
           </div>
         </div>
