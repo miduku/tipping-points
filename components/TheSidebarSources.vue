@@ -163,11 +163,9 @@ export default {
     background: #fff;
 
     > div {
-      /* transform: translateX(-50%); */
       height: inherit;
       display: flex;
       flex-shrink: 0;
-      /* width: 200%; */
 
       section {
         width: 100%;
@@ -175,9 +173,6 @@ export default {
         overflow: auto;
         display: block;
         height: inherit;
-        /* opacity: 0; */
-        /* transform: translateX(1rem);
-        animation: appear 0.5s $easeOutQuint 0.25s forwards; */
 
         > :last-child {
           margin-bottom: 3.5rem;

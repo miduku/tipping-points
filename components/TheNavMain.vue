@@ -203,7 +203,6 @@ export default {
     left: 0;
     height: 100vh;
     width: 0;
-    /* z-index: 10; */
     padding: $margin;
 
     > * {
@@ -344,7 +343,6 @@ export default {
             &:focus,
             &:hover {
               color: rgba($dark-grey, 0.9);
-              /* background: rgba(white, 0.9); */
               border-color: rgba($dark-grey, 0.75);
             }
           }

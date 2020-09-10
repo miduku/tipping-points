@@ -157,7 +157,6 @@ export default {
   min-height: 100vh;
   height: 100%;
   background: #fff;
-  /* z-index: 9999; */
   overflow: auto;
   top: 0;
   left: 0;
@@ -216,7 +215,6 @@ export default {
           justify-content: center;
 
           > div {
-            /* max-width: 50%; */
             max-width: calc(400px + 2rem);
             padding: 0 1rem;
           }
@@ -246,22 +244,18 @@ export default {
     }
 
     .container {
-      /* background: pink; */
       width: inherit;
       max-width: 400px;
 
       .start-button {
         margin-top: 3.25rem;
-        /* width: 100%; */
         display: flex;
         justify-content: center;
-        /* flex-direction: column; */
 
         > div {
           display: flex;
           justify-content: center;
           flex-direction: column;
-          /* display: block; */
           text-align: center;
 
           .button {

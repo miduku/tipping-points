@@ -269,7 +269,6 @@ export default {
       width: 100%;
       margin-bottom: 2rem;
       font-weight: 900;
-      /* line-height: 1.5rem; */
 
       > section {
         position: absolute;
@@ -306,8 +305,6 @@ export default {
 
     .buttons {
       .button {
-        /* border: none;
-        background: transparent; */
         box-shadow: unset;
         opacity: 0;
         visibility: hidden;

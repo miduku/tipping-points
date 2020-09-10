@@ -143,8 +143,6 @@ export default {
 <style lang="scss" scoped>
 .node-child {
   &.is-input {
-    /* transform: rotate(225deg); */
-
     .title-wrapper {
       .title {
         transform-origin: center;
@@ -159,7 +157,6 @@ export default {
   }
 
   .node-child-node {
-    /* .circle, */
     .pill {
       stroke: rgba($node-color, 0.75);
       stroke-width: 1;
@@ -182,14 +179,10 @@ export default {
       }
     }
 
-    /* .circle, */
     .pill {
       fill: rgba(#fff, 0.75);
     }
-    /* .circle-dot {
-      stroke: none;
-      fill: $dark-grey;
-    } */
+
     .pill-border {
       fill: transparent;
     }
@@ -206,7 +199,6 @@ export default {
       text-align: left;
       word-break: keep-all;
       width: 100%;
-      /* opacity: 0.5; */
       font-size: 0.625rem;
       letter-spacing: 0.04em;
       text-transform: uppercase;
@@ -215,8 +207,6 @@ export default {
 
       span {
         background: rgba(#fff, 0.5);
-        /* padding: 0 2px;
-        border-radius: 4px; */
       }
     }
   }

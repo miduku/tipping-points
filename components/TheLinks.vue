@@ -37,7 +37,6 @@ export default {
 #LINKS_OUTER {
   &.is-tutorial-visible {
     /deep/ .link-group-GIS-output-2 path {
-      /* stroke: $dark; */
       opacity: 1;
       stroke-width: 2px;
     }
