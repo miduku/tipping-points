@@ -34,9 +34,16 @@
     <nav class="nav-main--meta">
       <ul class="meta-bar">
         <li>
-          <nuxt-link to="/legal-privacy" target="_blank"
-            >Legal & Privacy</nuxt-link
+          <nuxt-link to="/legal-privacy" target="_blank">
+            Legal & Privacy
+          </nuxt-link>
+        </li>
+        <li>
+          <a
+            href="mailto:miduku11@gmail.com?subject=TIPPING POINTS – Questions or suggestions"
           >
+            Questions or suggestions?
+          </a>
         </li>
       </ul>
 
@@ -299,13 +306,18 @@ export default {
 
     ul.meta-bar {
       padding-left: 0.25rem;
+      display: flex;
 
-      a {
-        opacity: 0.5;
+      li {
+        margin-right: 1rem;
 
-        &:focus,
-        &:hover {
-          opacity: 1;
+        a {
+          opacity: 0.5;
+
+          &:focus,
+          &:hover {
+            opacity: 1;
+          }
         }
       }
     }
