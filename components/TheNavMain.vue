@@ -143,7 +143,6 @@ export default {
 
   mounted() {
     this.$nextTick(function() {
-      console.log('mounted TheNavMain')
       this.impacts = impactImpactsJson
       this.$store.commit('SET_MOUNTED', ['theNavMain', true])
     })

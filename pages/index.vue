@@ -151,7 +151,6 @@ export default {
 
   mounted() {
     this.$nextTick(function() {
-      console.log('mounted INDEX')
       this.getviewSize()
     })
   },
@@ -202,7 +201,6 @@ export default {
     },
 
     onTransform: _throttle(function() {
-      // console.log('onTransform')
       const pan = this.$refs.PANZOOM.$panZoomInstance
       const getTransform = pan.getTransform()
 

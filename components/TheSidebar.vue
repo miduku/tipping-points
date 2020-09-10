@@ -61,7 +61,6 @@ export default {
     sidebarIsOpen(value, oldValue) {
       if (value !== oldValue && value) {
         setTimeout(() => {
-          console.log('dragged from sidebar')
           this.vuexPanTo(
             this.contentInstanceName,
             this.someChildNodeIsActive ? 1.5 : 1

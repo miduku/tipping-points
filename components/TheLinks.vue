@@ -29,12 +29,6 @@ export default {
       tutorialStep: (state) => state.tutorialStep,
       modeIsTutorial: (state) => state.mode.isTutorial
     })
-  },
-
-  mounted() {
-    this.$nextTick(function() {
-      console.log('mounted TheLinks')
-    })
   }
 }
 </script>

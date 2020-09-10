@@ -17,13 +17,6 @@ export default {
       type: Array,
       required: true
     }
-  },
-
-  mounted() {
-    this.$nextTick(function() {
-      console.log('mounted TheNodes')
-      this.$store.commit('SET_MOUNTED', ['theNodes', true])
-    })
   }
 }
 </script>

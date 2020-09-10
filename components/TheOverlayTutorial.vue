@@ -128,7 +128,6 @@ export default {
 
   watch: {
     tutorialStep(value) {
-      console.log('tutorialStep', value)
       switch (value) {
         case 0:
           this.vuexPanTo('GIS')

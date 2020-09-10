@@ -57,13 +57,6 @@ export default {
     }
   },
 
-  mounted() {
-    // console.log(this.data)
-    this.$nextTick(function() {
-      // console.log('BaseNodeChildren pups')
-    })
-  },
-
   methods: {
     setNodeChildrenDegrees(idx, amount) {
       const n = amount === 1 ? 1 : amount - 1

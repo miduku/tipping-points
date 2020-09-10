@@ -94,7 +94,7 @@ export default {
         this.$ua.isFromIphone() ||
         this.$ua.browser() === ('MSIE' || 'IE' || 'Safari')
 
-      console.log('isUnsupportedDevice', detect)
+      // console.log('isUnsupportedDevice', detect)
       this.errorScreenIsUnsupportedDevice = detect
     },
 

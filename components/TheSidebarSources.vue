@@ -71,7 +71,7 @@ export default {
     },
 
     sidebarSourcesIsOpen(value) {
-      console.log(value, this.sidebarSourcesToId)
+      // console.log(value, this.sidebarSourcesToId)
       if (value && this.sidebarSourcesToId > 0) {
         this.$scrollTo(`#source-${this.sidebarSourcesToId}`, 1500, {
           easing: [0.23, 1, 0.32, 1],
