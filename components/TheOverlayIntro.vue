@@ -77,7 +77,7 @@
               Or explore the map directly
             </p>
 
-            <p style="opacity: 0.35;">
+            <p style="opacity: 0.45; font-size: 0.85rem;">
               <nuxt-link to="/legal-privacy" target="_blank"
                 >Legal & Privacy</nuxt-link
               >
