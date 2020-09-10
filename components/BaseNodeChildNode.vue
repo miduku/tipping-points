@@ -215,8 +215,8 @@ export default {
 
       span {
         background: rgba(#fff, 0.5);
-        padding: 0 2px;
-        border-radius: 4px;
+        /* padding: 0 2px;
+        border-radius: 4px; */
       }
     }
   }
