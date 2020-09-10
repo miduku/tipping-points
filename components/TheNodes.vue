@@ -17,6 +17,12 @@ export default {
       type: Array,
       required: true
     }
+  },
+
+  mounted() {
+    this.$nextTick(function() {
+      this.$store.commit('SET_MOUNTED', ['theNodes', true])
+    })
   }
 }
 </script>
