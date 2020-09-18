@@ -73,20 +73,36 @@
             <Button class="button" @click="closeIntro">
               Find out more
             </Button>
+
             <p class="like-link" @click="closeIntro(false)">
               Or explore the map directly
             </p>
 
-            <p style="opacity: 0.45; font-size: 0.85rem;">
-              <nuxt-link to="/legal-privacy" target="_blank"
-                >Legal & Privacy</nuxt-link
-              >
-              &nbsp;
-              <a
-                href="mailto:miduku11@gmail.com?subject=TIPPING POINTS – Questions or suggestions"
-                >Questions or suggestions?</a
-              >
-            </p>
+            <div class="start-button--bottom">
+              <p>
+                <nuxt-link to="/legal-privacy" target="_blank"
+                  >Legal & Privacy</nuxt-link
+                >
+                &nbsp;
+                <a
+                  href="mailto:miduku11@gmail.com?subject=TIPPING POINTS – Questions or suggestions"
+                  >Questions or suggestions?</a
+                >
+              </p>
+
+              <p>
+                This project has been realized by three students from the
+                <a href="https://www.fh-potsdam.de/" target="_blank"
+                  >University of Applied Sciences Potsdam</a
+                >
+                during the course <em>Klimagrafik</em> with Prof. Boris Müller.
+              </p>
+              <p>
+                Designs, research and programming by
+                <br /><em>Chiara Tilgen</em>, <em>Stefanie-Jane Apitz</em> and
+                <em>Dustin Kummer</em>.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -273,6 +289,21 @@ export default {
 
           p {
             opacity: 0.5;
+          }
+
+          .start-button--bottom {
+            margin-top: 2rem;
+            opacity: 0.65;
+            font-size: 0.85rem;
+            max-width: 360px;
+
+            > * {
+              line-height: 1.25rem;
+            }
+
+            p {
+              margin-bottom: 0.5rem;
+            }
           }
         }
       }
