@@ -190,7 +190,7 @@ export default {
           font-variant: small-caps;
           line-height: 1.5rem;
           display: block;
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.25rem;
         }
 
         span {
