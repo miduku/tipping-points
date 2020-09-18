@@ -291,12 +291,12 @@ export default {
           }
 
           p {
-            opacity: 0.5;
+            /* opacity: 0.5; */
           }
 
           .start-button--bottom {
             margin-top: 2rem;
-            opacity: 0.7;
+            opacity: 0.5;
             font-size: 0.85rem;
             max-width: 360px;
 
