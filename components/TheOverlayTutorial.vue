@@ -149,10 +149,14 @@ export default {
           break
 
         case 4:
-          this.vuexPanTo('GIS')
-          setTimeout(() => {
+          if (this.sidebarIsOpen) {
             this.vuexSetSidebar([false, 'GIS'])
-          }, 500)
+            setTimeout(() => {
+              this.vuexPanTo('GIS')
+            }, 500)
+          } else {
+            this.vuexPanTo('GIS')
+          }
           break
 
         case 5:
