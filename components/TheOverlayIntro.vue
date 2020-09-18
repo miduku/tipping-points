@@ -281,12 +281,13 @@ export default {
 
         > div {
           display: flex;
-          justify-content: center;
+          align-items: center;
           flex-direction: column;
           text-align: center;
 
           .button {
             margin-bottom: 0.5rem;
+            min-width: 200px;
           }
 
           p {
