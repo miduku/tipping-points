@@ -141,7 +141,6 @@ export default {
 
   methods: {
     closeIntro(startTutorial = true) {
-      console.log(this.modeWasInit)
       if (startTutorial) {
         this.$store.commit('SET_TUTORIALSTEP', null)
         setTimeout(() => {

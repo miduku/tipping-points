@@ -157,7 +157,6 @@ export default {
 
         case 5:
           this.vuexSetSidebar([true, 'GIS'])
-          // TODO Highlight a pill
           break
 
         case 6:
