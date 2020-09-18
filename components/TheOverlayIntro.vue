@@ -134,20 +134,20 @@ export default {
 
   computed: {
     ...mapState({
-      modeIsInit: (state) => state.mode.isInit
+      modeIsInit: (state) => state.mode.isInit,
+      modeWasInit: (state) => state.mode.wasInit
     })
   },
 
   methods: {
     closeIntro(startTutorial = true) {
-      this.$store.commit('SET_MODE', ['isInit', false])
-
+      console.log(this.modeWasInit)
       if (startTutorial) {
         this.$store.commit('SET_TUTORIALSTEP', null)
         setTimeout(() => {
           this.$store.commit('SET_MODE', ['isTutorial', true])
         }, 500)
-      } else {
+      } else if (!this.modeWasInit) {
         setTimeout(() => {
           const TPs = [
             'AMZN',
@@ -169,6 +169,9 @@ export default {
           this.vuexPanTo(random(TPs))
         }, 500)
       }
+
+      this.$store.commit('SET_MODE', ['isInit', false])
+      this.$store.commit('SET_MODE', ['wasInit', true])
     }
   }
 }
@@ -293,7 +296,7 @@ export default {
 
           .start-button--bottom {
             margin-top: 2rem;
-            opacity: 0.65;
+            opacity: 0.7;
             font-size: 0.85rem;
             max-width: 360px;
 
