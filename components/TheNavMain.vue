@@ -221,6 +221,23 @@ export default {
     position: relative;
     display: block;
 
+    &::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: -2rem;
+      height: 16rem;
+      width: 32rem;
+      background: radial-gradient(
+        ellipse at 0% 0%,
+        #fff 10%,
+        rgba(#fff, 0.8) 30%,
+        rgba(#fff, 0) 70%
+      );
+      pointer-events: none;
+      z-index: -1;
+    }
+
     > div {
       width: max-content;
       pointer-events: all;
@@ -266,11 +283,29 @@ export default {
   }
 
   .nav-main--impacts {
+    position: relative;
     align-items: center;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s $easeOutQuint;
     pointer-events: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      /* bottom: -2rem; */
+      height: 24rem;
+      width: 6rem;
+      background: radial-gradient(
+        ellipse at 0% 50%,
+        #fff 10%,
+        rgba(#fff, 0.8) 30%,
+        rgba(#fff, 0) 70%
+      );
+      pointer-events: none;
+      z-index: -1;
+    }
 
     ul {
       li {
@@ -286,6 +321,24 @@ export default {
     display: flex;
     flex-direction: column;
     pointer-events: none;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      bottom: -2rem;
+      height: 16rem;
+      width: 32rem;
+      background: radial-gradient(
+        ellipse at 0% 100%,
+        #fff 10%,
+        rgba(#fff, 0.8) 30%,
+        rgba(#fff, 0) 70%
+      );
+      pointer-events: none;
+      z-index: -1;
+    }
 
     ul {
       margin-top: $margin / 2;
