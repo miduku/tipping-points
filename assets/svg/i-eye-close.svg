@@ -1,10 +1,8 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M22.0874 11C22.0874 13.5714 19.0874 17 13.0874 17C7.0874 17 4.0874 13.5714 4.0874 11" stroke="black" stroke-width="2" stroke-linecap="round"/>
-<path d="M13.0874 17V20" stroke="black" stroke-width="2" stroke-linecap="round"/>
-<path d="M8.0874 19L9.0874 17" stroke="black" stroke-width="2" stroke-linecap="round"/>
-<path d="M2.0874 12L4.08744 11" stroke="black" stroke-width="2" stroke-linecap="round"/>
-<path d="M4.08771 15.9998L5.0874 15" stroke="black" stroke-width="2" stroke-linecap="round"/>
-<path d="M22.087 16L21.0872 14.9999" stroke="black" stroke-width="2" stroke-linecap="round"/>
-<path d="M17.0874 17L18.0874 19" stroke="black" stroke-width="2" stroke-linecap="round"/>
-<path d="M22.0874 11L24.0874 12" stroke="black" stroke-width="2" stroke-linecap="round"/>
+<path d="M21.4087 11C21.4087 13.5714 18.4087 17 12.4087 17C6.40869 17 3.40869 13.5714 3.40869 11" stroke="black" stroke-width="2" stroke-linecap="round"/>
+<path d="M12.4087 17V20" stroke="black" stroke-width="2" stroke-linecap="round"/>
+<path d="M6.40869 19L7.40822 17" stroke="black" stroke-width="2" stroke-linecap="round"/>
+<path d="M2.40883 16L4.40901 13.9999" stroke="black" stroke-width="2" stroke-linecap="round"/>
+<path d="M22.4084 16.0001L20.4093 14" stroke="black" stroke-width="2" stroke-linecap="round"/>
+<path d="M17.4087 17L18.4087 19" stroke="black" stroke-width="2" stroke-linecap="round"/>
 </svg>

@@ -34,9 +34,16 @@
     <nav class="nav-main--meta">
       <ul class="meta-bar">
         <li>
-          <nuxt-link to="/legal-privacy" target="_blank"
-            >Legal & Privacy</nuxt-link
+          <nuxt-link to="/legal-privacy" target="_blank">
+            Legal & Privacy
+          </nuxt-link>
+        </li>
+        <li>
+          <a
+            href="mailto:miduku11@gmail.com?subject=TIPPING POINTS – Questions or suggestions"
           >
+            Questions or suggestions?
+          </a>
         </li>
       </ul>
 
@@ -136,7 +143,6 @@ export default {
 
   mounted() {
     this.$nextTick(function() {
-      console.log('mounted TheNavMain')
       this.impacts = impactImpactsJson
       this.$store.commit('SET_MOUNTED', ['theNavMain', true])
     })
@@ -197,7 +203,6 @@ export default {
     left: 0;
     height: 100vh;
     width: 0;
-    /* z-index: 10; */
     padding: $margin;
 
     > * {
@@ -215,6 +220,23 @@ export default {
   .title {
     position: relative;
     display: block;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: -2rem;
+      height: 16rem;
+      width: 32rem;
+      background: radial-gradient(
+        ellipse at 0% 0%,
+        #fff 10%,
+        rgba(#fff, 0.8) 30%,
+        rgba(#fff, 0) 70%
+      );
+      pointer-events: none;
+      z-index: -1;
+    }
 
     > div {
       width: max-content;
@@ -261,11 +283,29 @@ export default {
   }
 
   .nav-main--impacts {
+    position: relative;
     align-items: center;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s $easeOutQuint;
     pointer-events: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      /* bottom: -2rem; */
+      height: 24rem;
+      width: 6rem;
+      background: radial-gradient(
+        ellipse at 0% 50%,
+        #fff 10%,
+        rgba(#fff, 0.8) 30%,
+        rgba(#fff, 0) 70%
+      );
+      pointer-events: none;
+      z-index: -1;
+    }
 
     ul {
       li {
@@ -281,6 +321,24 @@ export default {
     display: flex;
     flex-direction: column;
     pointer-events: none;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      bottom: -2rem;
+      height: 16rem;
+      width: 32rem;
+      background: radial-gradient(
+        ellipse at 0% 100%,
+        #fff 10%,
+        rgba(#fff, 0.8) 30%,
+        rgba(#fff, 0) 70%
+      );
+      pointer-events: none;
+      z-index: -1;
+    }
 
     ul {
       margin-top: $margin / 2;
@@ -299,13 +357,18 @@ export default {
 
     ul.meta-bar {
       padding-left: 0.25rem;
+      display: flex;
 
-      a {
-        opacity: 0.5;
+      li {
+        margin-right: 1rem;
 
-        &:focus,
-        &:hover {
-          opacity: 1;
+        a {
+          opacity: 0.5;
+
+          &:focus,
+          &:hover {
+            opacity: 1;
+          }
         }
       }
     }
@@ -333,7 +396,6 @@ export default {
             &:focus,
             &:hover {
               color: rgba($dark-grey, 0.9);
-              /* background: rgba(white, 0.9); */
               border-color: rgba($dark-grey, 0.75);
             }
           }

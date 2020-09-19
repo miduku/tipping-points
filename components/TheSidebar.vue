@@ -61,7 +61,6 @@ export default {
     sidebarIsOpen(value, oldValue) {
       if (value !== oldValue && value) {
         setTimeout(() => {
-          console.log('dragged from sidebar')
           this.vuexPanTo(
             this.contentInstanceName,
             this.someChildNodeIsActive ? 1.5 : 1
@@ -114,7 +113,6 @@ export default {
 .sidebar {
   background: white;
   transition: right 0.5s $easeOutQuint;
-  /* z-index: 10; */
 
   &.is-open {
     .sidebar-button-wrapper {
@@ -168,11 +166,9 @@ export default {
     background: #fff;
 
     > div {
-      /* transform: translateX(-50%); */
       height: inherit;
       display: flex;
       flex-shrink: 0;
-      /* width: 200%; */
 
       /deep/ section {
         width: 100%;
@@ -181,7 +177,6 @@ export default {
         display: block;
         height: inherit;
         opacity: 0;
-        /* transform: translateX(1rem); */
         animation: appear 0.5s $easeOutQuint 0.25s forwards;
 
         > :last-child {
@@ -195,7 +190,7 @@ export default {
           font-variant: small-caps;
           line-height: 1.5rem;
           display: block;
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.25rem;
         }
 
         span {

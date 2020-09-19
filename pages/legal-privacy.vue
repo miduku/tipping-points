@@ -49,16 +49,16 @@
 
     <h3>Adobe Fonts</h3>
     <p>
-      My website uses so-called Web fonts, which are provided through the Adobe
-      Fonts service of Adobe Systems Incorporated, 345 Park Avenue, San Jose,
-      95110-2704 California, USA (»Adobe Fonts«), for consistent presentation of
-      fonts.
+      This website uses so-called Web fonts, which are provided through the
+      Adobe Fonts service of Adobe Systems Incorporated, 345 Park Avenue, San
+      Jose, 95110-2704 California, USA (»Adobe Fonts«), for consistent
+      presentation of fonts.
     </p>
     <p>
       When you visit a page, your browser loads the required web fonts into its
       browser cache to display texts and fonts correctly. To do this, the
       browser you are using must connect to the Adobe Fonts servers. This gives
-      Adobe Fonts knowledge that your website has been accessed via your IP
+      Adobe Fonts knowledge that this website has been accessed via your IP
       address. If your browser does not support web fonts, a default font will
       be used by your computer.
     </p>

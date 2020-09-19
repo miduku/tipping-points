@@ -42,6 +42,7 @@ export const state = () => ({
 
   mode: {
     isInit: true,
+    wasInit: false,
     isTutorial: false
   },
 

@@ -276,12 +276,6 @@ export default {
     }
   },
 
-  mounted() {
-    this.$nextTick(function() {
-      console.log('mounted BaseNode')
-    })
-  },
-
   methods: {
     onMouseDown() {
       this.isMove = false

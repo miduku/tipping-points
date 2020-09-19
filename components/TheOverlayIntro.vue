@@ -4,8 +4,6 @@
       <header>
         <h1>Tipping Points</h1>
         <span class="sub-header">And how they affect us</span>
-        <!-- {{ $ua.browser() }} {{ $ua.browserVendor() }}
-        {{ $ua.browserVersion() }} -->
       </header>
 
       <div class="container">
@@ -75,9 +73,36 @@
             <Button class="button" @click="closeIntro">
               Find out more
             </Button>
+
             <p class="like-link" @click="closeIntro(false)">
               Or explore the map directly
             </p>
+
+            <div class="start-button--bottom">
+              <p>
+                <nuxt-link to="/legal-privacy" target="_blank"
+                  >Legal & Privacy</nuxt-link
+                >
+                &nbsp;
+                <a
+                  href="mailto:miduku11@gmail.com?subject=TIPPING POINTS – Questions or suggestions"
+                  >Questions or suggestions?</a
+                >
+              </p>
+
+              <p>
+                This project has been realized by three students from the
+                <a href="https://www.fh-potsdam.de/" target="_blank"
+                  >University of Applied Sciences Potsdam</a
+                >
+                during the course <em>Klimagrafik</em> with Prof. Boris Müller.
+              </p>
+              <p>
+                Designs, research and programming by
+                <br /><em>Chiara Tilgen</em>, <em>Stefanie-Jane Apitz</em> and
+                <em>Dustin Kummer</em>.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -109,20 +134,19 @@ export default {
 
   computed: {
     ...mapState({
-      modeIsInit: (state) => state.mode.isInit
+      modeIsInit: (state) => state.mode.isInit,
+      modeWasInit: (state) => state.mode.wasInit
     })
   },
 
   methods: {
     closeIntro(startTutorial = true) {
-      this.$store.commit('SET_MODE', ['isInit', false])
-
       if (startTutorial) {
         this.$store.commit('SET_TUTORIALSTEP', null)
         setTimeout(() => {
           this.$store.commit('SET_MODE', ['isTutorial', true])
         }, 500)
-      } else {
+      } else if (!this.modeWasInit) {
         setTimeout(() => {
           const TPs = [
             'AMZN',
@@ -144,6 +168,9 @@ export default {
           this.vuexPanTo(random(TPs))
         }, 500)
       }
+
+      this.$store.commit('SET_MODE', ['isInit', false])
+      this.$store.commit('SET_MODE', ['wasInit', true])
     }
   }
 }
@@ -157,7 +184,6 @@ export default {
   min-height: 100vh;
   height: 100%;
   background: #fff;
-  /* z-index: 9999; */
   overflow: auto;
   top: 0;
   left: 0;
@@ -216,7 +242,6 @@ export default {
           justify-content: center;
 
           > div {
-            /* max-width: 50%; */
             max-width: calc(400px + 2rem);
             padding: 0 1rem;
           }
@@ -246,30 +271,42 @@ export default {
     }
 
     .container {
-      /* background: pink; */
       width: inherit;
       max-width: 400px;
 
       .start-button {
         margin-top: 3.25rem;
-        /* width: 100%; */
         display: flex;
         justify-content: center;
-        /* flex-direction: column; */
 
         > div {
           display: flex;
-          justify-content: center;
+          align-items: center;
           flex-direction: column;
-          /* display: block; */
           text-align: center;
 
           .button {
             margin-bottom: 0.5rem;
+            min-width: 200px;
           }
 
           p {
+            /* opacity: 0.5; */
+          }
+
+          .start-button--bottom {
+            margin-top: 2rem;
             opacity: 0.5;
+            font-size: 0.85rem;
+            max-width: 360px;
+
+            > * {
+              line-height: 1.25rem;
+            }
+
+            p {
+              margin-bottom: 0.5rem;
+            }
           }
         }
       }

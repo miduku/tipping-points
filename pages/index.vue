@@ -151,7 +151,6 @@ export default {
 
   mounted() {
     this.$nextTick(function() {
-      console.log('mounted INDEX')
       this.getviewSize()
     })
   },
@@ -202,7 +201,6 @@ export default {
     },
 
     onTransform: _throttle(function() {
-      // console.log('onTransform')
       const pan = this.$refs.PANZOOM.$panZoomInstance
       const getTransform = pan.getTransform()
 
@@ -243,7 +241,6 @@ export default {
   position: relative;
   display: block;
   margin-right: 0;
-  /* opacity: 0; */
   animation: init 1s $easeOutQuint forwards;
   transition: margin-right 0.6s $easeOutQuint;
 
@@ -259,12 +256,7 @@ export default {
     }
   }
 
-  #content-main {
-    /* overflow: hidden; */
-  }
-
-  #sidebar-main/* ,
-  #sidebar-sources */ {
+  #sidebar-main {
     position: fixed;
     top: 0;
     right: 0;
@@ -301,14 +293,6 @@ export default {
     width: 100%;
     height: 100vh;
   }
-
-  /* /deep/ .owner { */
-  /* add hardware accelaration */
-  /* transform: translateZ(0);
-    backface-visibility: hidden;
-    perspective: 1000px; */
-  /* will-change: transform; */
-  /* } */
 }
 
 .has-transition {

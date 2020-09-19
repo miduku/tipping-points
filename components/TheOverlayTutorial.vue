@@ -128,7 +128,6 @@ export default {
 
   watch: {
     tutorialStep(value) {
-      console.log('tutorialStep', value)
       switch (value) {
         case 0:
           this.vuexPanTo('GIS')
@@ -150,15 +149,18 @@ export default {
           break
 
         case 4:
-          this.vuexPanTo('GIS')
-          setTimeout(() => {
+          if (this.sidebarIsOpen) {
             this.vuexSetSidebar([false, 'GIS'])
-          }, 500)
+            setTimeout(() => {
+              this.vuexPanTo('GIS')
+            }, 500)
+          } else {
+            this.vuexPanTo('GIS')
+          }
           break
 
         case 5:
           this.vuexSetSidebar([true, 'GIS'])
-          // TODO Highlight a pill
           break
 
         case 6:
@@ -270,7 +272,6 @@ export default {
       width: 100%;
       margin-bottom: 2rem;
       font-weight: 900;
-      /* line-height: 1.5rem; */
 
       > section {
         position: absolute;
@@ -307,8 +308,6 @@ export default {
 
     .buttons {
       .button {
-        /* border: none;
-        background: transparent; */
         box-shadow: unset;
         opacity: 0;
         visibility: hidden;

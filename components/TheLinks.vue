@@ -29,12 +29,6 @@ export default {
       tutorialStep: (state) => state.tutorialStep,
       modeIsTutorial: (state) => state.mode.isTutorial
     })
-  },
-
-  mounted() {
-    this.$nextTick(function() {
-      console.log('mounted TheLinks')
-    })
   }
 }
 </script>
@@ -43,7 +37,6 @@ export default {
 #LINKS_OUTER {
   &.is-tutorial-visible {
     /deep/ .link-group-GIS-output-2 path {
-      /* stroke: $dark; */
       opacity: 1;
       stroke-width: 2px;
     }
