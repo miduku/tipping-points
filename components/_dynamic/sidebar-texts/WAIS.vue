@@ -7,9 +7,9 @@
 
   This so-called Marine Ice Sheet Instability is a self-sustaining event where the grounding line (meaning the boundary line underneath the glacier where the grounded ice sheet becomes a floating ice shelf) recedes. This lifts more ice off the seafloor and turns it into floating ice shelves. <span id="h-WAIS-input-2" class="is-highlightable">The ice then flows faster, from its interior towards the coast and southern ocean, which causes more thinning and lastly more lifted ice.<SourceAnchorLink to-id="16" /></span> <span id="h-WAIS-input-0" class="is-highlightable">Usually the lost ice gets replaced by fresh snowfall but increasing temperatures cause less snowfall.</span> <span id="h-WAIS-output-1" class="is-highlightable">The ice loss process accelerates as the ice sheet loses more ice to the ocean than it gains in snow, resulting in rising sea levels.<SourceAnchorLink to-id="2" /></span>
 
-  ![West Antarctic Ice Sheet Loss](~assets/gif/WAIS.gif)
+  ![West Antarctic Ice Sheet Loss](~assets/gif/wais.gif)
 
-  In Antarctica the Amundsen sea sector glaciers contribute the most to global sea levels.<SourceAnchorLink to-id="2" /> And although ice loss will take centuries to complete<SourceAnchorLink to-id="17" />, it is suspected that the West Antarctic Ice Sheet currently is in the early stages of marine ice sheet instability<SourceAnchorLink to-id="18" />. It’s proven that between 1992 and 2017 the ice loss rate has tripled.<SourceAnchorLink to-id="19" />
+  In Antarctica the Amundsen sea sector glaciers contribute the most to global sea levels.<SourceAnchorLink to-id="2" /> And although ice loss will take centuries to complete<SourceAnchorLink to-id="17" />, it is suspected that the West Antarctic Ice Sheet currently is in the early stages of marine ice sheet instability.<SourceAnchorLink to-id="18" /> It’s proven that between 1992 and 2017 the ice loss rate has tripled.<SourceAnchorLink to-id="19" />
 </template>
 
 <script>

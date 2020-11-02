@@ -3,7 +3,7 @@
 
   A monsoon is defined by a reversal of winds and moves with the position of the sun. West Africa experiences dry winds coming from the inland from November to May. Whilst around June to September northward winds bring rainfall originating from the North Atlantic.<SourceAnchorLink to-id="2" /> This seasonal phenomenon has shown severe impact on the Sahel climate. Sahel is a semi-arid region between the northern Sahara desert and southern tropical forest, stretching from east to west on the African continent.<SourceAnchorLink to-id="20" />
 
-  ![West African Monsoon Shift](~assets/gif/WAM.gif)
+  ![West African Monsoon Shift](~assets/gif/wam.gif)
 
   While the 1950s and 60s stood out due to their wet conditions, the 1970s and 80s were defined by droughts and consequential famines.<SourceAnchorLink to-id="21" /> This demonstrated the exceptional sensitivity of the Monsoon, that is mostly contingent on sea surface temperatures. For example “warming over the tropics leads to drought over the Sahel, whereas warming over the North Atlantic promotes increased rainfall.”<SourceAnchorLink to-id="22" />
 
