@@ -77,17 +77,6 @@
         https://www.adobe.com/de/privacy/policies/adobe-fonts.html
       </a>
     </p>
-
-    <h3>Project & hosting</h3>
-    <p>
-      This project was made at the University of Applied Sciences Potsdam and is
-      being hosted on their Servers. These are the corresponding links to their
-      <a href="https://www.fh-potsdam.de/impressum/" target="_blank">legal</a> &
-      <a href="https://www.fh-potsdam.de/datenschutzhinweis/" target="_blank">
-        privacy pages
-      </a>
-      .
-    </p>
   </div>
 </template>
 
