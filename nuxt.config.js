@@ -1,6 +1,7 @@
 // const onlineURL = 'https://test.dustinkummer.com/tipping-points'
 const baseURL =
-  process.env.NODE_ENV === 'development' ? '/' : '/tipping-points/'
+  // process.env.NODE_ENV === 'development' ? '/' : '/tipping-points/'
+  process.env.NODE_ENV === 'development' ? '/' : '/'
 
 export default {
   target: 'static',
@@ -14,7 +15,8 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    // title: process.env.npm_package_name || '',
+    title: 'Tipping Points — And how they affet us',
     meta: [
       { charset: 'utf-8' },
       {
@@ -57,7 +59,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: '#cc372e' },
   /*
    ** Global CSS
    */
