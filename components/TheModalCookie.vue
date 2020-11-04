@@ -26,6 +26,8 @@
 <script>
 import { mapState } from 'vuex'
 
+import { bootstrap } from 'vue-gtag'
+
 import BaseButton from './BaseButton.vue'
 
 export default {
@@ -76,13 +78,13 @@ export default {
 
     handleClick(bool) {
       // this.$store.commit('cookies/SET_COOKIE_BANNER_ACTIVE', false)
-
-      console.log(this.getStorageIsCookiesAccepted())
-
-      localStorage.setItem(process.env.COOKIES.BANNER, false)
-
-      localStorage.setItem(process.env.COOKIES.ANALYTICS, bool)
-      location.reload()
+      if (process.browser) {
+        bootstrap().then((gtag) => {
+          localStorage.setItem(process.env.COOKIES.BANNER, false)
+          localStorage.setItem(process.env.COOKIES.ANALYTICS, bool)
+          location.reload()
+        })
+      }
     }
   }
 }

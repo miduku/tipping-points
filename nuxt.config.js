@@ -1,7 +1,7 @@
 // const onlineURL = 'https://test.dustinkummer.com/tipping-points'
 const baseURL =
   // process.env.NODE_ENV === 'development' ? '/' : '/tipping-points/'
-  process.env.NODE_ENV === 'development' ? '/' : process.env.BASE_URL
+  process.env.NODE_ENV === 'development' ? '/' : '/'
 
 export default {
   target: 'static',
@@ -12,7 +12,7 @@ export default {
   },
 
   env: {
-    GA_TRACKING_ID: 'UA-182095327-1',
+    GA_TRACKING_ID: 'G-E9R5J6L36P',
     COOKIES: {
       BANNER: 'TP-COOKIES-BANNER:active',
       ANALYTICS: 'TP-COOKIES:accepted'
@@ -76,7 +76,7 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    { src: '~/plugins/ga', mode: 'client' },
+    { src: '~/plugins/vue-gtag', mode: 'client' },
     { src: '~/plugins/vue-panzoom', mode: 'client' },
     { src: '~/plugins/vue-resize-directive', mode: 'client' }
   ],
