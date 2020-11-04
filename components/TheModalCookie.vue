@@ -102,6 +102,7 @@ export default {
   border: 1px solid rgba($dark-grey, 0.25);
   border-radius: $border-radius * 2;
   bottom: 0;
+  left: 0;
 
   .modal-cookie-setting {
     color: rgba($dark-grey, 0.66);
