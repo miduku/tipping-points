@@ -25,6 +25,8 @@
 
       <TheSidebarSources id="sidebar-sources" />
     </div>
+
+    <TheModalCookie />
   </div>
 </template>
 
@@ -38,9 +40,11 @@ import TheOverlayTutorial from '~/components/TheOverlayTutorial.vue'
 import TheNavMain from '~/components/TheNavMain.vue'
 import TheSidebar from '~/components/TheSidebar.vue'
 import TheSidebarSources from '~/components/TheSidebarSources.vue'
+import TheModalCookie from '~/components/TheModalCookie.vue'
 
 export default {
   components: {
+    TheModalCookie,
     TheOverlayIntro,
     TheOverlayTutorial,
     TheNavMain,
