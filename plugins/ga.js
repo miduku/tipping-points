@@ -49,14 +49,4 @@ export default ({ app }) => {
       console.log('Analytics is off')
     }
   })
-
-  // functions
-  function getCookie(key) {
-    let result
-    return (result = new RegExp(
-      '(?:^|; )' + encodeURIComponent(key) + '=([^;]*)'
-    ).exec(document.cookie))
-      ? result[1]
-      : null
-  }
 }
