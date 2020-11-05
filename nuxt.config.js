@@ -39,7 +39,7 @@ export default {
       }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: baseURL + 'favicon.png' },
+      { rel: 'icon', type: 'image/x-icon', href: baseURL + 'favicon.ico' },
       {
         rel: 'apple-touch-icon',
         href: baseURL + 'apple-touch-icon.png',
