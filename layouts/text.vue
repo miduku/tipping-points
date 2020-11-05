@@ -1,8 +1,19 @@
 <template>
   <div class="root">
     <nuxt />
+
+    <TheModalCookie v-if="$store.state.cookies.is_cookieBannerActive" />
   </div>
 </template>
+
+<script>
+import TheModalCookie from '~/components/TheModalCookie.vue'
+export default {
+  components: {
+    TheModalCookie
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .root {

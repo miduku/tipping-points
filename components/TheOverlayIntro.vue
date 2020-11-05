@@ -91,7 +91,7 @@
               </p>
 
               <p>
-                This project has been realized by three students from the
+                This project has been realized at the
                 <a href="https://www.fh-potsdam.de/" target="_blank"
                   >University of Applied Sciences Potsdam</a
                 >
@@ -298,7 +298,7 @@ export default {
             margin-top: 2rem;
             opacity: 0.5;
             font-size: 0.85rem;
-            max-width: 360px;
+            max-width: 400px;
 
             > * {
               line-height: 1.25rem;

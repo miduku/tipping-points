@@ -1,6 +1,7 @@
 // const onlineURL = 'https://test.dustinkummer.com/tipping-points'
 const baseURL =
-  process.env.NODE_ENV === 'development' ? '/' : '/tipping-points/'
+  // process.env.NODE_ENV === 'development' ? '/' : '/tipping-points/'
+  process.env.NODE_ENV === 'development' ? '/' : process.env.BASE_URL
 
 export default {
   target: 'static',
@@ -10,11 +11,20 @@ export default {
     base: baseURL
   },
 
+  env: {
+    GA_TRACKING_ID: 'UA-182095327-1',
+    COOKIES: {
+      BANNER: 'TP-COOKIES-BANNER:active',
+      ANALYTICS: 'TP-COOKIES:accepted'
+    }
+  },
+
   /*
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    // title: process.env.npm_package_name || '',
+    title: 'Tipping Points — And how they affet us',
     meta: [
       { charset: 'utf-8' },
       {
@@ -57,7 +67,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: '#cc372e' },
   /*
    ** Global CSS
    */
@@ -66,8 +76,9 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    { src: '~/plugins/vue-panzoom', ssr: false },
-    { src: '~/plugins/vue-resize-directive', ssr: false }
+    { src: '~/plugins/ga', mode: 'client' },
+    { src: '~/plugins/vue-panzoom', mode: 'client' },
+    { src: '~/plugins/vue-resize-directive', mode: 'client' }
   ],
   /*
    ** Nuxt.js dev-modules

@@ -195,7 +195,7 @@
 
     {
       "id": "WAIS",
-      "title": "Antarctic Ice Sheet Loss",
+      "title": "West Antarctic Ice Sheet Loss",
       "position": [1475, 2200],
       "links": [
         { "source": "WAIS-input-0", "target": "WAIS-output-1" },
