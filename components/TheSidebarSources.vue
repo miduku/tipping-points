@@ -71,7 +71,7 @@ export default {
     },
 
     sidebarSourcesIsOpen(value) {
-      console.log(value, this.sidebarSourcesToId)
+      // console.log(value, this.sidebarSourcesToId)
       if (value && this.sidebarSourcesToId > 0) {
         this.$scrollTo(`#source-${this.sidebarSourcesToId}`, 1500, {
           easing: [0.23, 1, 0.32, 1],
@@ -101,23 +101,16 @@ export default {
   }
 
   &.is-closed {
-    right: -50vw !important;
+    right: -100vw !important;
+
+    &::before {
+      transform: translateX(100%);
+    }
 
     .overlay {
       pointer-events: none;
       opacity: 0;
     }
-  }
-
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    opacity: 0.5;
-    transition: opacity 0.5s $easeOutQuint;
-    background: #fff;
   }
 
   &::before {
@@ -129,6 +122,8 @@ export default {
     right: 100%;
     pointer-events: none;
     z-index: 1;
+    transform: translateX(0);
+    transition: transform 0.5s $easeOutQuint;
     background: linear-gradient(
       -90deg,
       #ffffff 50%,
@@ -150,6 +145,17 @@ export default {
     );
   }
 
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.5;
+    transition: opacity 0.5s $easeOutQuint;
+    background: #fff;
+  }
+
   .sidebar-content-wrapper {
     height: 100vh;
     overflow: hidden;
@@ -157,11 +163,9 @@ export default {
     background: #fff;
 
     > div {
-      /* transform: translateX(-50%); */
       height: inherit;
       display: flex;
       flex-shrink: 0;
-      /* width: 200%; */
 
       section {
         width: 100%;
@@ -169,9 +173,6 @@ export default {
         overflow: auto;
         display: block;
         height: inherit;
-        /* opacity: 0; */
-        /* transform: translateX(1rem);
-        animation: appear 0.5s $easeOutQuint 0.25s forwards; */
 
         > :last-child {
           margin-bottom: 3.5rem;

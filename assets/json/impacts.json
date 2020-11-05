@@ -7,7 +7,7 @@
   {
     "id": "IMPACT-ALB",
     "title": "Albedo Impact",
-    "desc": "Measure of reflection of solar radiation on surfaces. Dark surfaces (ocean, forest, soil) have low albedo and absorb most of the light, whereas light surfaces (ice, snow) have a high albedo and reflect more (of it/light)."
+    "desc": "Measure of reflection of solar radiation on surfaces. Dark surfaces (ocean, forest, soil) have low albedo and absorb most of the light, whereas light surfaces (ice, snow) have a high albedo and reflect more of it."
   },
   {
     "id": "IMPACT-CO2",

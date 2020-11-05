@@ -1,20 +1,22 @@
 export const state = () => ({
-  panToNodeId: '',
   panToNode: {
     id: '',
-    timeStamp: ''
+    timeStamp: '',
+    zoomLevel: 1
   },
   panZoomCoords: [0, 0, 1],
   newZoomLevel: {
     level: 1,
     timeStamp: ''
   },
+
   isMapVisible: true,
   isPanning: false,
   isMounted: {
     theNavMain: false,
     theNodes: false
   },
+
   sidebar: {
     isOpen: false,
     contentInstanceName: ''
@@ -23,30 +25,55 @@ export const state = () => ({
     isOpen: false,
     toId: ''
   },
-  someNodeIsActive: false,
-  impactLinksGroups: {},
+
+  someNode: {
+    isActive: false
+  },
+  someChildNode: {
+    timeStamp: '',
+    isActive: false,
+    direction: '',
+    i: ''
+  },
+
+  links: {
+    impactGroups: {}
+  },
+
   mode: {
     isInit: true,
+    wasInit: false,
     isTutorial: false
-  }
+  },
+
+  tutorialStep: null
 })
 
 export const mutations = {
+  TO_NODE_ID(state, payloadArr) {
+    state.panToNode.id = payloadArr[0]
+    state.panToNode.zoomLevel = payloadArr[1] || 1
+    state.panToNode.timeStamp = Date.now()
+  },
+
+  GENERATE_LINKS_IMPACT_GROUPS(state, groups) {
+    state.links.impactGroups = groups
+  },
+
+  SET_PANZOOM_COORDS(state, coords) {
+    state.panZoomCoords = coords
+  },
+
   SET_MODE(state, payloadArr) {
     state.mode[payloadArr[0]] = payloadArr[1]
   },
 
-  TO_NODE_ID(state, nodeId) {
-    state.panToNode.id = nodeId
-    state.panToNode.timeStamp = Date.now()
+  SET_TUTORIALSTEP(state, payload) {
+    state.tutorialStep = payload
   },
 
-  GET_PANZOOM_COORDS(state, coords) {
-    state.panZoomCoords = coords
-  },
-
-  CREATE_IMPACT_LINKS_GROUPS(state, groups) {
-    state.impactLinksGroups = groups
+  SET_LINKS_IMPACT_GROUPS(state, setArr) {
+    state.links.impactGroups[setArr[0]] = setArr[1]
   },
 
   SET_MOUNTED(state, setArr) {
@@ -65,11 +92,12 @@ export const mutations = {
   },
 
   SET_SOME_NODE(state, payload) {
-    state.someNodeIsActive = payload
+    state.someNode = payload
   },
 
-  SET_IMPACT_LINKS_GROUPS(state, setArr) {
-    state.impactLinksGroups[setArr[0]] = setArr[1]
+  SET_SOME_CHILDNODE(state, payload) {
+    state.someChildNode = payload
+    state.someChildNode.timeStamp = Date.now()
   },
 
   SET_NEW_ZOOM_LEVEL(state, payload) {

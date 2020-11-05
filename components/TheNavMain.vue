@@ -1,13 +1,23 @@
 <template>
-  <div class="nav nav-main" :style="sidebarSourcesIsOpen ? 'z-index: 0' : ''">
-    <header class="title">
+  <div
+    class="nav nav-main"
+    :style="
+      (sidebarSourcesIsOpen ? 'z-index: 0' : '',
+      isMinimalNav ? 'justify-content: flex-end' : '')
+    "
+  >
+    <header v-if="!isMinimalNav" class="title">
       <div @click="openIntro">
         <h2>Tipping Points</h2>
         <p>And how they affect us</p>
       </div>
     </header>
 
-    <nav :class="linksImpactsButtonsIsActive" class="nav-main--impacts">
+    <nav
+      v-if="!isMinimalNav"
+      :class="linksImpactsButtonsIsActive"
+      class="nav-main--impacts"
+    >
       <ul>
         <li v-for="(impact, i) in impacts" :id="impact.id" :key="i">
           <ButtonHexagon
@@ -24,13 +34,20 @@
     <nav class="nav-main--meta">
       <ul class="meta-bar">
         <li>
-          <nuxt-link to="/legal-privacy" target="_blank"
-            >Legal & Privacy</nuxt-link
+          <nuxt-link to="/legal-privacy" target="_blank">
+            Legal & Privacy
+          </nuxt-link>
+        </li>
+        <li>
+          <a
+            href="mailto:miduku11@gmail.com?subject=TIPPING POINTS – Questions or suggestions"
           >
+            Questions or suggestions?
+          </a>
         </li>
       </ul>
 
-      <ul class="nav-controls">
+      <ul v-if="!isMinimalNav" class="nav-controls">
         <li>
           <Button
             :icon="isMapEyeOpen ? 'eye-open' : 'eye-close'"
@@ -75,6 +92,13 @@ export default {
 
   mixins: [vuexPanTo, vuexSetSidebar],
 
+  props: {
+    isMinimalNav: {
+      type: Boolean,
+      default: false
+    }
+  },
+
   asyncData({ params }) {
     return { impactImpactsJson }
   },
@@ -91,7 +115,7 @@ export default {
   computed: {
     ...mapState({
       panZoomCoords: (state) => state.panZoomCoords,
-      impactLinksGroups: (state) => state.impactLinksGroups,
+      linksImpactGroups: (state) => state.links.impactGroups,
       isMapVisible: (state) => state.isMapVisible,
       sidebarSourcesIsOpen: (state) => state.sidebarSources.isOpen
     })
@@ -102,16 +126,16 @@ export default {
       this.zoomLevel = Math.round(value[2] * 100) + '%'
     },
 
-    impactLinksGroups: {
+    linksImpactGroups: {
       handler(value) {
-        let groupId = ''
+        let linksImpactGroupId = ''
 
         for (const [id, bool] of Object.entries(value)) {
-          groupId += bool ? ' is-' + id : ''
+          linksImpactGroupId += bool ? ' is-' + id : ''
         }
 
-        // Get which impact links are visible
-        this.linksImpactsButtonsIsActive = groupId
+        // Set which impact links are visible
+        this.linksImpactsButtonsIsActive = linksImpactGroupId
       },
       deep: true
     }
@@ -119,7 +143,6 @@ export default {
 
   mounted() {
     this.$nextTick(function() {
-      console.log('mounted TheNavMain')
       this.impacts = impactImpactsJson
       this.$store.commit('SET_MOUNTED', ['theNavMain', true])
     })
@@ -139,11 +162,11 @@ export default {
     toggleImpactLinksGroup(id) {
       let bool = false
 
-      this.$store.state.impactLinksGroups[id] === true
+      this.$store.state.links.impactGroups[id] === true
         ? (bool = false)
         : (bool = true)
 
-      this.$store.commit('SET_IMPACT_LINKS_GROUPS', [id, bool])
+      this.$store.commit('SET_LINKS_IMPACT_GROUPS', [id, bool])
     },
 
     zoomIn() {
@@ -180,7 +203,6 @@ export default {
     left: 0;
     height: 100vh;
     width: 0;
-    z-index: 10;
     padding: $margin;
 
     > * {
@@ -198,6 +220,23 @@ export default {
   .title {
     position: relative;
     display: block;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: -2rem;
+      height: 16rem;
+      width: 32rem;
+      background: radial-gradient(
+        ellipse at 0% 0%,
+        #fff 10%,
+        rgba(#fff, 0.8) 30%,
+        rgba(#fff, 0) 70%
+      );
+      pointer-events: none;
+      z-index: -1;
+    }
 
     > div {
       width: max-content;
@@ -230,15 +269,76 @@ export default {
     }
   }
 
+  &.is-visible--impacts .nav-main--impacts {
+    opacity: 1;
+    visibility: visible;
+
+    ul {
+      li {
+        button {
+          pointer-events: all;
+        }
+      }
+    }
+  }
+
   .nav-main--impacts {
+    position: relative;
     align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s $easeOutQuint;
+    pointer-events: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      /* bottom: -2rem; */
+      height: 24rem;
+      width: 6rem;
+      background: radial-gradient(
+        ellipse at 0% 50%,
+        #fff 10%,
+        rgba(#fff, 0.8) 30%,
+        rgba(#fff, 0) 70%
+      );
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    ul {
+      li {
+        button {
+          pointer-events: none;
+        }
+      }
+    }
   }
 
   .nav-main--meta {
     justify-content: flex-end;
     display: flex;
     flex-direction: column;
-    /* width: 100vw; */
+    pointer-events: none;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      bottom: -2rem;
+      height: 16rem;
+      width: 32rem;
+      background: radial-gradient(
+        ellipse at 0% 100%,
+        #fff 10%,
+        rgba(#fff, 0.8) 30%,
+        rgba(#fff, 0) 70%
+      );
+      pointer-events: none;
+      z-index: -1;
+    }
 
     ul {
       margin-top: $margin / 2;
@@ -257,13 +357,18 @@ export default {
 
     ul.meta-bar {
       padding-left: 0.25rem;
+      display: flex;
 
-      a {
-        opacity: 0.5;
+      li {
+        margin-right: 1rem;
 
-        &:focus,
-        &:hover {
-          opacity: 1;
+        a {
+          opacity: 0.5;
+
+          &:focus,
+          &:hover {
+            opacity: 1;
+          }
         }
       }
     }
@@ -291,7 +396,6 @@ export default {
             &:focus,
             &:hover {
               color: rgba($dark-grey, 0.9);
-              /* background: rgba(white, 0.9); */
               border-color: rgba($dark-grey, 0.75);
             }
           }

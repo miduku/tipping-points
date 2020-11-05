@@ -1,7 +1,12 @@
 <template>
   <div
     id="content-main-wrapper"
-    :class="isSidebarOpen ? 'is-sidebar-open' : ''"
+    :class="[
+      sidebarIsOpen ? 'sidebar-is-open' : '',
+
+      someNodeIsActive ? 'some-node-is-active' : '',
+      linksImpactsClassesIsVisible
+    ]"
   >
     <div id="content-main" ref="CONTENTMAIN" v-resize="getviewSize">
       <TheLinksImpact
@@ -89,30 +94,51 @@ export default {
         transform: ''
       },
       isMap: true,
-      viewSize: Array
+      viewSize: Array,
+      linksImpactsClassesIsVisible: ''
     }
   },
 
   computed: {
     ...mapState({
+      isMounted: (state) => state.isMounted,
+
+      sidebarIsOpen: (state) => state.sidebar.isOpen,
+      isMapVisible: (state) => state.isMapVisible,
+      someNodeIsActive: (state) => state.someNode.isActive,
+      linksImpactGroups: (state) => state.links.impactGroups,
+
       panToNodeTimeStamp: (state) => state.panToNode.timeStamp,
       panToNodeId: (state) => state.panToNode.id,
-      isMounted: (state) => state.isMounted,
-      isSidebarOpen: (state) => state.sidebar.isOpen,
-      newZoomLevel: (state) => state.newZoomLevel.level,
+      panToNodeZoomLevel: (state) => state.panToNode.zoomLevel,
+
       newZoomLevelTimeStamp: (state) => state.newZoomLevel.timeStamp,
-      isMapVisible: (state) => state.isMapVisible
+      newZoomLevel: (state) => state.newZoomLevel.level
     })
   },
 
   watch: {
+    linksImpactGroups: {
+      handler(value) {
+        let linksImpactGroupId = ''
+
+        for (const [id, bool] of Object.entries(value)) {
+          linksImpactGroupId += bool ? ' is-' + id : ''
+        }
+
+        // Set which impact links are visible
+        this.linksImpactsClassesIsVisible = linksImpactGroupId
+      },
+      deep: true
+    },
+
     isMapVisible(value) {
       this.isMap = value
     },
 
     panToNodeTimeStamp(value, oldValue) {
       if (value !== oldValue) {
-        this.panTo(this.panToNodeId)
+        this.panTo(this.panToNodeId, this.panToNodeZoomLevel)
       }
     },
 
@@ -125,7 +151,6 @@ export default {
 
   mounted() {
     this.$nextTick(function() {
-      console.log('mounted INDEX')
       this.getviewSize()
     })
   },
@@ -135,54 +160,70 @@ export default {
       const OWNER = this.$refs.OWNER.$el
       const PANZOOM = this.$refs.PANZOOM.$panZoomInstance
 
-      const nodeElement = OWNER.querySelector('#' + nodeId)
-      const nodeElementCircle = nodeElement.querySelector('.node-circle')
+      if (nodeId === 'CENTER') {
+        // pan to center AND zoom out
+        OWNER.classList.add('has-transition')
+        PANZOOM.moveToCenterOfBounds(OWNER.getBoundingClientRect())
 
-      OWNER.classList.add('has-transition')
-      PANZOOM.moveToCenterOfElement(nodeElementCircle, 0, 0)
+        setTimeout(() => {
+          OWNER.classList.remove('has-transition')
+          this.setZoomLevelFromCenter(0.25, OWNER, PANZOOM)
+        }, 250)
+      } else {
+        const nodeElement = OWNER.querySelector('#' + nodeId)
+        const nodeElementCircle = nodeElement.querySelector('.node-circle')
 
-      setTimeout(() => {
-        OWNER.classList.remove('has-transition')
+        OWNER.classList.add('has-transition')
+        PANZOOM.moveToCenterOfElement(nodeElementCircle, 0, 0)
 
-        this.setZoomLevelFromCenter(toNewZoomLevel, OWNER, PANZOOM)
-      }, 250)
+        setTimeout(() => {
+          OWNER.classList.remove('has-transition')
+          this.setZoomLevelFromCenter(toNewZoomLevel, OWNER, PANZOOM)
+        }, 250)
+      }
     },
 
     setZoomLevelFromCenter(zoomLevel, owner, panzoom) {
       const OWNER = owner || this.$refs.OWNER.$el
       const PANZOOM = panzoom || this.$refs.PANZOOM.$panZoomInstance
-      const OWNER_PARENT_BOUNDS = OWNER.parentElement.getBoundingClientRect()
+      const OWNER_PARENT_BOUNDS = [...this.getCenterOfView(OWNER)]
 
       PANZOOM.smoothZoomAbs(
-        OWNER_PARENT_BOUNDS.width / 2,
-        OWNER_PARENT_BOUNDS.height / 2,
+        OWNER_PARENT_BOUNDS[0] / 2,
+        OWNER_PARENT_BOUNDS[1] / 2,
         zoomLevel
       )
     },
 
+    getCenterOfView(owner) {
+      const bounds = owner.parentElement.getBoundingClientRect()
+      return [bounds.width, bounds.height]
+    },
+
     onTransform: _throttle(function() {
-      // console.log('onTransform')
       const pan = this.$refs.PANZOOM.$panZoomInstance
       const getTransform = pan.getTransform()
 
-      this.$store.commit('GET_PANZOOM_COORDS', [
+      this.$store.commit('SET_PANZOOM_COORDS', [
         getTransform.x,
         getTransform.y,
         getTransform.scale
       ])
 
       // delete this on prod
-      this.panInstance.transform = `
-        x: ${getTransform.x},
-        y: ${getTransform.y},
-        scale: ${getTransform.scale}
-      `
-    }, 120),
+      // this.panInstance.transform = `
+      //   x: ${getTransform.x},
+      //   y: ${getTransform.y},
+      //   scale: ${getTransform.scale}
+      // `
+    }, 200),
 
     getviewSize: _throttle(function() {
       const ROOT_EL = this.$refs.CONTENTMAIN
 
-      this.viewSize = [ROOT_EL.clientWidth, ROOT_EL.clientHeight]
+      if (ROOT_EL) {
+        this.viewSize = [ROOT_EL.clientWidth, ROOT_EL.clientHeight]
+      }
     }, 250),
 
     onPanStart() {
@@ -200,11 +241,10 @@ export default {
   position: relative;
   display: block;
   margin-right: 0;
-  transition: margin-right 0.6s $easeOutQuint;
-  /* opacity: 0; */
   animation: init 1s $easeOutQuint forwards;
+  transition: margin-right 0.6s $easeOutQuint;
 
-  &.is-sidebar-open {
+  &.sidebar-is-open {
     margin-right: $sidebar-width-mobile;
 
     @include tablet {
@@ -216,12 +256,7 @@ export default {
     }
   }
 
-  #content-main {
-    /* overflow: hidden; */
-  }
-
-  #content-sidebar/* ,
-  #content-sidebarsources */ {
+  #sidebar-main {
     position: fixed;
     top: 0;
     right: 0;
@@ -244,6 +279,10 @@ export default {
   width: 100%;
   height: 100vh;
   opacity: 0;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform;
 
   &.is-ready {
     animation: init 1s $easeOutQuint forwards;
@@ -254,13 +293,6 @@ export default {
     width: 100%;
     height: 100vh;
   }
-  /*
-  /deep/ .owner {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-    will-change: transform;
-  } */
 }
 
 .has-transition {

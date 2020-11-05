@@ -21,6 +21,7 @@
         v-once
         :data="{
           i,
+          parentId: data.parentId,
           childData,
           direction,
           position: data.position,
@@ -54,13 +55,6 @@ export default {
       required: true,
       default: 'output'
     }
-  },
-
-  mounted() {
-    // console.log(this.data)
-    this.$nextTick(function() {
-      // console.log('BaseNodeChildren pups')
-    })
   },
 
   methods: {

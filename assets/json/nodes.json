@@ -3,7 +3,7 @@
   "nodes": [
     {
       "id": "AMZN",
-      "title": "Amazon rainforest dieback",
+      "title": "Amazon Rainforest Dieback",
       "position": [1200, 1400],
       "links": [
         { "source": "AMZN-input-0", "target": "AMZN-output-4" },
@@ -108,7 +108,7 @@
 
     {
       "id": "WAM",
-      "title": "African Monsoon Shift",
+      "title": "West African Monsoon Shift",
       "position": [2000, 1100],
       "links": [
         { "source": "WAM-input-0", "target": "WAM-output-0" },
@@ -132,7 +132,7 @@
 
     {
       "id": "CRD",
-      "title": "Coral reef die-off",
+      "title": "Coral Reef Die-Off",
       "position": [3550, 1500],
       "links": [
         { "source": "CRD-input-0", "target": "CRD-output-0" },
@@ -195,7 +195,7 @@
 
     {
       "id": "WAIS",
-      "title": "Atlantic Ice Sheet Disintegration",
+      "title": "West Antarctic Ice Sheet Loss",
       "position": [1475, 2200],
       "links": [
         { "source": "WAIS-input-0", "target": "WAIS-output-1" },

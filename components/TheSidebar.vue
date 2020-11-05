@@ -2,7 +2,11 @@
   <div class="sidebar" :class="sidebarIsOpen ? 'is-open' : 'is-closed'">
     <div class="sidebar-content-wrapper">
       <div>
-        <component :is="textInstance" class="sidebar-content" />
+        <component
+          :is="textInstance"
+          class="sidebar-content"
+          @isReady="isSidebarContentReady"
+        />
       </div>
     </div>
 
@@ -32,7 +36,13 @@ export default {
   computed: {
     ...mapState({
       sidebarIsOpen: (state) => state.sidebar.isOpen,
-      contentInstanceName: (state) => state.sidebar.contentInstanceName
+      contentInstanceName: (state) => state.sidebar.contentInstanceName,
+      // panToNodeZoomLevel: (state) => state.panToNode.zoomLevel,
+
+      someChildNodeTimeStamp: (state) => state.someChildNode.timeStamp,
+      someChildNodeIsActive: (state) => state.someChildNode.isActive,
+      someChildNodeI: (state) => state.someChildNode.i,
+      someChildNodeDirection: (state) => state.someChildNode.direction
     }),
 
     textInstance() {
@@ -51,9 +61,48 @@ export default {
     sidebarIsOpen(value, oldValue) {
       if (value !== oldValue && value) {
         setTimeout(() => {
-          console.log('dragged from sidebar')
-          this.vuexPanTo(this.contentInstanceName)
+          this.vuexPanTo(
+            this.contentInstanceName,
+            this.someChildNodeIsActive ? 1.5 : 1
+          )
+          this.isSidebarContentReady()
         }, 500)
+      }
+    },
+
+    someChildNodeTimeStamp(value, oldValue) {
+      if (value !== oldValue && this.sidebarIsOpen) {
+        this.isSidebarContentReady()
+      }
+    }
+  },
+
+  methods: {
+    isSidebarContentReady() {
+      if (this.someChildNodeIsActive && this.sidebarIsOpen) {
+        const SIDEBAR_CONTENT = this.$el.querySelector('.sidebar-content')
+        const SIDEBAR_CONTENT_HIGHLIGHT = SIDEBAR_CONTENT.querySelector(
+          `#h-${this.contentInstanceName}-${this.someChildNodeDirection}-${this.someChildNodeI}`
+        )
+        const SIDEBAR_CONTENT_HIGHLIGHTS_ALL = SIDEBAR_CONTENT.querySelectorAll(
+          `.is-highlightable`
+        )
+
+        if (SIDEBAR_CONTENT_HIGHLIGHTS_ALL) {
+          SIDEBAR_CONTENT_HIGHLIGHTS_ALL.forEach((element) => {
+            element.classList.remove('is-highlighted')
+          })
+        }
+
+        if (SIDEBAR_CONTENT_HIGHLIGHT) {
+          SIDEBAR_CONTENT_HIGHLIGHT.classList.add('is-highlighted')
+
+          this.$scrollTo(SIDEBAR_CONTENT_HIGHLIGHT, 1500, {
+            easing: [0.23, 1, 0.32, 1],
+            container: SIDEBAR_CONTENT,
+            offset: -24
+          })
+        }
       }
     }
   }
@@ -64,7 +113,6 @@ export default {
 .sidebar {
   background: white;
   transition: right 0.5s $easeOutQuint;
-  z-index: 10;
 
   &.is-open {
     .sidebar-button-wrapper {
@@ -73,7 +121,11 @@ export default {
   }
 
   &.is-closed {
-    right: -50vw !important;
+    right: -100vw !important;
+
+    &::before {
+      transform: translateX(100%);
+    }
   }
 
   &::before {
@@ -84,6 +136,8 @@ export default {
     background: blue;
     right: 100%;
     pointer-events: none;
+    transform: translateX(0);
+    transition: transform 0.5s $easeOutQuint;
     background: linear-gradient(
       -90deg,
       #ffffff 50%,
@@ -112,11 +166,9 @@ export default {
     background: #fff;
 
     > div {
-      /* transform: translateX(-50%); */
       height: inherit;
       display: flex;
       flex-shrink: 0;
-      /* width: 200%; */
 
       /deep/ section {
         width: 100%;
@@ -125,7 +177,6 @@ export default {
         display: block;
         height: inherit;
         opacity: 0;
-        /* transform: translateX(1rem); */
         animation: appear 0.5s $easeOutQuint 0.25s forwards;
 
         > :last-child {
@@ -135,9 +186,19 @@ export default {
 
       /deep/ .sidebar-content {
         &::before {
-          content: '— tipping point';
+          content: '— Tipping Point';
           font-variant: small-caps;
           line-height: 1.5rem;
+          display: block;
+          margin-bottom: 0.25rem;
+        }
+
+        span {
+          transition: background 0.5s $easeOutQuint 0.25s;
+
+          &.is-highlighted {
+            background: rgba($red, 0.2);
+          }
         }
       }
     }

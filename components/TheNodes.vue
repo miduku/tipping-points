@@ -1,6 +1,6 @@
 <template>
   <g id="nodes">
-    <Node v-for="(node, i) in data" v-once :key="i" :node-data="node" />
+    <Node v-for="(node, i) in data" v-once :key="i" :data="node" />
   </g>
 </template>
 
@@ -21,7 +21,6 @@ export default {
 
   mounted() {
     this.$nextTick(function() {
-      console.log('mounted TheNodes')
       this.$store.commit('SET_MOUNTED', ['theNodes', true])
     })
   }

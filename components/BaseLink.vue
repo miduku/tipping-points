@@ -3,12 +3,11 @@
     class="link"
     :class="[
       linkData.lock ? `link-lock-${linkData.lock}` : '',
-      `link-group-${linkData.group}`,
-      `link-node-${linkData.node}`
+      `link-group-${linkData.group || linkData.source}`,
+      `link-node-${linkData.node || linkData.target}`
     ]"
   >
     <path
-      :stroke-width="strokeWidth /* * differenceCoords[2]*/"
       stroke-linecap="round"
       fill="none"
       :d="
@@ -36,10 +35,10 @@ export default {
       required: true
     },
 
-    strokeWidth: {
-      type: Number,
-      default: 1.25
-    },
+    // strokeWidth: {
+    //   type: Number,
+    //   default: 1.25
+    // },
 
     differenceCoords: {
       type: Array,
@@ -177,6 +176,19 @@ export default {
 
 <style lang="scss" scoped>
 .link {
+  &.is-highlighted {
+    opacity: 0.75;
+    transition: opacity 0.5s $easeOutQuint;
+
+    path {
+      stroke: $red;
+      transition: stroke 0.5s $easeOutQuint;
+      marker-end: url(#link-arrow-red);
+      animation: impact-dash-animation 1s linear reverse infinite;
+      stroke-dasharray: 4 10;
+    }
+  }
+
   &.links {
     path {
       stroke: $dark-grey;
@@ -197,14 +209,16 @@ export default {
   }
 
   &.links-impact {
-    opacity: 0.075;
+    opacity: 0;
     transition: opacity 0.5s $easeOutQuint;
   }
 
   path {
-    transition: d $easeOutQuint;
+    transition: d 0.25s $easeOutQuint, opacity 0.5s $easeOutQuint,
+      stroke-width 0.5s $easeOutQuint;
     stroke: $dark-grey;
     marker-end: url(#link-arrow);
+    stroke-width: 1.25px;
   }
 }
 

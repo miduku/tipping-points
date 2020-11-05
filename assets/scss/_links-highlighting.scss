@@ -1,0 +1,36 @@
+#LINKS_IMPACTS {
+  $impacts: 'IMPACT-TEMP', 'IMPACT-ALB', 'IMPACT-CO2', 'IMPACT-SEA';
+  $nodes: 'AMZN', 'AMOC', 'BFS', 'GIS', 'WAM', 'CRD', 'IMS', 'PERM', 'WAIS';
+
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  position: fixed;
+  pointer-events: none;
+  animation: init 1s $easeOutQuint forwards;
+
+  @each $impact in $impacts {
+    .is-#{$impact} & {
+      .link-group-#{$impact} {
+        opacity: 1;
+      }
+    }
+
+    .is-#{$impact}.some-node-is-active & {
+      .link-group-#{$impact} {
+        opacity: 0.35;
+      }
+    }
+  }
+
+  .some-node-is-active & {
+    @each $node in $nodes {
+      &.active-node-#{$node} {
+        .link-node-#{$node} {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

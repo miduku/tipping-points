@@ -63,7 +63,10 @@ $impacts: (
     pointer-events: all;
     box-shadow: none;
 
-    &:focus,
+    &:focus {
+      outline: none;
+    }
+
     &:hover {
       outline: none;
 
@@ -94,20 +97,6 @@ $impacts: (
         > i.i-IMPACT-#{$IMP} {
           background: url(~assets/svg/i-#{$imp}-white.svg?inline);
         }
-        /**/
-        // .content {
-        //   opacity: 1;
-        //   transform: translateX(0);
-
-        //   .title {
-        //     transform: translateY(-1.1rem);
-        //   }
-        //   .desc {
-        //     opacity: 1;
-        //     transform: translateY(0.1);
-        //   }
-        // }
-        /**/
 
         svg path {
           fill: $red;
@@ -240,6 +229,10 @@ $impacts: (
     &.i-book {
       background: url(~assets/svg/i-book.svg?inline);
     }
+
+    &.i-arrow-down {
+      background: url(~assets/svg/i-arrow-down.svg?inline);
+    }
   }
 
   &:active {
@@ -250,6 +243,13 @@ $impacts: (
       &.minus {
         background: url(~assets/svg/i-minus-white.svg?inline);
       }
+    }
+  }
+
+  &:focus,
+  &:hover {
+    > i {
+      fill: pink;
     }
   }
 }

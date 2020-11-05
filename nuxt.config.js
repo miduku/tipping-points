@@ -1,19 +1,30 @@
 // const onlineURL = 'https://test.dustinkummer.com/tipping-points'
 const baseURL =
-  process.env.NODE_ENV === 'development' ? '/' : '/tipping-points/'
+  // process.env.NODE_ENV === 'development' ? '/' : '/tipping-points/'
+  process.env.NODE_ENV === 'development' ? '/' : '/'
 
 export default {
+  target: 'static',
   mode: 'universal',
 
   router: {
     base: baseURL
   },
 
+  env: {
+    GA_TRACKING_ID: 'G-E9R5J6L36P',
+    COOKIES: {
+      BANNER: 'TP-COOKIES-BANNER:active',
+      ANALYTICS: 'TP-COOKIES:accepted'
+    }
+  },
+
   /*
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    // title: process.env.npm_package_name || '',
+    title: 'Tipping Points — And how they affet us',
     meta: [
       { charset: 'utf-8' },
       {
@@ -23,11 +34,30 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content:
+          'You may ask yourself: “What is a tipping point?” There are so-called tipping elements all around our planet and each one has a certain tipping point. These tipping points are thresholds that, once crossed, push a system into an entirely new state. Sometimes only mere changes are needed. In the past decades rising CO2 levels have been persistently warming up the climate and affecting tipping elements, as well as tipping points.'
       }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: baseURL + 'favicon.png' },
+      {
+        rel: 'apple-touch-icon',
+        href: baseURL + 'apple-touch-icon.png',
+        sizes: '180x180'
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        href: baseURL + 'favicon-32x32.png',
+        sizes: '32x32'
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        href: baseURL + 'favicon-16x16.png',
+        sizes: '16x16'
+      },
+      { rel: 'manifest', href: baseURL + 'site.webmanifest' },
       { rel: 'stylesheet', href: 'https://use.typekit.net/dlb6pxi.css' }
     ],
     htmlAttrs: {
@@ -37,7 +67,7 @@ export default {
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: '#cc372e' },
   /*
    ** Global CSS
    */
@@ -46,8 +76,9 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    { src: '~/plugins/vue-panzoom', ssr: false },
-    { src: '~/plugins/vue-resize-directive', ssr: false }
+    { src: '~/plugins/vue-gtag', mode: 'client' },
+    { src: '~/plugins/vue-panzoom', mode: 'client' },
+    { src: '~/plugins/vue-resize-directive', mode: 'client' }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -65,7 +96,8 @@ export default {
     'vue-scrollto/nuxt',
     // '@nuxtjs/axios',
     '@nuxtjs/markdownit',
-    'nuxt-svg-loader'
+    'nuxt-svg-loader',
+    'nuxt-user-agent'
   ],
   styleResources: {
     scss: [
@@ -79,11 +111,14 @@ export default {
   markdownit: {
     preset: 'default',
     linkify: true,
-    breaks: true
-    // use: [
-    //   'markdown-it-div',
-    //   'markdown-it-attrs'
-    // ],
+    breaks: true,
+    html: true,
+    typographer: true,
+    quotes: '“”‘’',
+    use: [
+      'markdown-it-div'
+      // 'markdown-it-attrs'
+    ]
   },
   /*
    ** Axios module configuration

@@ -3,6 +3,7 @@
     <a :href="`#source-${toId}`" @click.prevent="openSidebarSources">
       {{ toId }}
     </a>
+    &nbsp;
   </sup>
 </template>
 
@@ -26,6 +27,7 @@ export default {
 <style lang="scss" scoped>
 sup {
   line-height: 1;
+  opacity: 0.7;
 
   a {
     text-decoration: none;
