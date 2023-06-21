@@ -17,7 +17,7 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "lodash": "^4.17.19",
     "markdown-it-div": "^1.1.0",
-    "nuxt": "^2.0.0",
+    "nuxt": "^3.4.3",
     "nuxt-svg-loader": "^1.2.0",
     "nuxt-user-agent": "^1.2.2",
     "vue-gtag": "^1.10.0",
